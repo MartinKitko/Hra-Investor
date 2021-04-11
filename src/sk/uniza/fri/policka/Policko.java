@@ -1,6 +1,6 @@
 package sk.uniza.fri.policka;
 
-import sk.uniza.fri.HracClovek;
+import sk.uniza.fri.hraci.HracClovek;
 
 import java.util.Scanner;
 

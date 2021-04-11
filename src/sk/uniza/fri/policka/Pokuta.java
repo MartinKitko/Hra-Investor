@@ -1,6 +1,6 @@
 package sk.uniza.fri.policka;
 
-import sk.uniza.fri.HracClovek;
+import sk.uniza.fri.hraci.HracClovek;
 
 /**
  * 1. 4. 2021 - 17:09

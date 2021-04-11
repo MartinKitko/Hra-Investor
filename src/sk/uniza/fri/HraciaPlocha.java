@@ -1,5 +1,6 @@
 package sk.uniza.fri;
 
+import sk.uniza.fri.hraci.HracClovek;
 import sk.uniza.fri.policka.Policko;
 import sk.uniza.fri.policka.PolickoStart;
 import sk.uniza.fri.policka.Podnik;

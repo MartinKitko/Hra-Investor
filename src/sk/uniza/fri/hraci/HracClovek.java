@@ -1,4 +1,4 @@
-package sk.uniza.fri;
+package sk.uniza.fri.hraci;
 
 import sk.uniza.fri.policka.Policko;
 import sk.uniza.fri.policka.Preprava;
