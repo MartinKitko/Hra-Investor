@@ -14,7 +14,7 @@ import java.util.Random;
  *
  * @author Martin Kitko
  */
-public class HracClovek implements IHrac {
+public class HracPocitac implements IHrac {
     private String meno;
     private int aktPozicia;
     private int peniaze;
@@ -22,7 +22,7 @@ public class HracClovek implements IHrac {
     private boolean prehral;
     private ArrayList<Policko> vlastnenePolicka;
 
-    public HracClovek(String meno) {
+    public HracPocitac(String meno) {
         if (meno == null) {
             meno = "";
         }
@@ -125,5 +125,4 @@ public class HracClovek implements IHrac {
     public String toString() {
         return this.meno;
     }
-
 }
