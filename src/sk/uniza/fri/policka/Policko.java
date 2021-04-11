@@ -1,6 +1,6 @@
 package sk.uniza.fri.policka;
 
-import sk.uniza.fri.Hrac;
+import sk.uniza.fri.HracClovek;
 
 import java.util.Scanner;
 
@@ -24,7 +24,7 @@ public abstract class Policko {
         return this.nazov;
     }
 
-    public abstract void vykonaj(Hrac hrac);
+    public abstract void vykonaj(HracClovek hracClovek);
 
     public int zobrazMoznosti() {
         Scanner sc = new Scanner(System.in);

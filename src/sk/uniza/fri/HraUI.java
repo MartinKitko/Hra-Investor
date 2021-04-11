@@ -70,7 +70,6 @@ public class HraUI {
                     }
                 }
                 // TODO spravit aby sa hra skoncila po konciHry, toto nefunguje
-                // TODO taktiez spravit v ostatnych metodach aby sa nedalo zaplatit ked nema hrac dost penazi (relax napr)
                 case 2 -> hra.ulozHru();
                 case 0 -> {
                     System.out.print("Naozaj si zelas ukoncit hru? Pokracovat v hre - 1, ukoncit hru - 0: ");

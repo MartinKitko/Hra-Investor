@@ -70,8 +70,8 @@ public class HraciaPlocha {
         return this.zoznamPolicok[index];
     }
 
-    public void vykonaj(Hrac hrac) {
-        this.zoznamPolicok[hrac.getAktPozicia()].vykonaj(hrac);
+    public void vykonaj(HracClovek hracClovek) {
+        this.zoznamPolicok[hracClovek.getAktPozicia()].vykonaj(hracClovek);
     }
 
 }

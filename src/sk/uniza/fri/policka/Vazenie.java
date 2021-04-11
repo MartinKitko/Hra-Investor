@@ -1,6 +1,6 @@
 package sk.uniza.fri.policka;
 
-import sk.uniza.fri.Hrac;
+import sk.uniza.fri.HracClovek;
 
 /**
  * 1. 4. 2021 - 17:09
@@ -14,8 +14,8 @@ public class Vazenie extends Policko {
     }
 
     @Override
-    public void vykonaj(Hrac hrac) {
+    public void vykonaj(HracClovek hracClovek) {
         System.out.println("Stojis jedno kolo");
-        hrac.doVazenia(1);
+        hracClovek.doVazenia(1);
     }
 }

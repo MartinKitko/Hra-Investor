@@ -14,7 +14,7 @@ import java.util.Random;
  *
  * @author Martin Kitko
  */
-public class Hrac {
+public class HracClovek {
     private String meno;
     private int aktPozicia;
     private int peniaze;
@@ -22,7 +22,7 @@ public class Hrac {
     private boolean prehral;
     private ArrayList<Policko> vlastnenePolicka;
 
-    public Hrac(String meno) {
+    public HracClovek(String meno) {
         if (meno == null) {
             meno = "";
         }

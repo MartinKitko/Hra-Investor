@@ -1,6 +1,6 @@
 package sk.uniza.fri.policka;
 
-import sk.uniza.fri.Hrac;
+import sk.uniza.fri.HracClovek;
 
 /**
  * 1. 4. 2021 - 17:09
@@ -10,7 +10,7 @@ import sk.uniza.fri.Hrac;
 public class Agentura extends Policko {
     private static final int CENA = 30000;
     private static final int POPLATOK = 15000;
-    private Hrac majitel;
+    private HracClovek majitel;
 
 
     public Agentura(String nazov) {
@@ -18,14 +18,14 @@ public class Agentura extends Policko {
     }
 
     @Override
-    public void vykonaj(Hrac hrac) {
+    public void vykonaj(HracClovek hracClovek) {
         int volba;
         if (this.majitel == null) {
             do {
                 volba = this.zobrazMoznosti();
                 switch (volba) {
                     case 1:
-                        this.kupa(hrac);
+                        this.kupa(hracClovek);
                         break;
                     case 2:
                         System.out.println("Poplatok, pokial hrac vlastni:");
@@ -35,13 +35,13 @@ public class Agentura extends Policko {
                     default:
                 }
             } while (volba == 2);
-        } else if (this.majitel.equals(hrac)) {
+        } else if (this.majitel.equals(hracClovek)) {
             System.out.println("Vlastnis tuto agenturu");
         } else {
             System.out.println("Tuto agenturu vlastni " + this.majitel.getMeno());
             int poplatok = this.getPoplatok(this.majitel.getPocetVlastnenych(this));
             System.out.println("Zaplatil si mu " + poplatok);
-            hrac.odoberPeniaze(poplatok);
+            hracClovek.odoberPeniaze(poplatok);
             this.majitel.pridajPeniaze(poplatok);
         }
     }
@@ -54,11 +54,11 @@ public class Agentura extends Policko {
         }
     }
 
-    private void kupa(Hrac hrac) {
-        if (hrac.getPeniaze() >= CENA) {
-            hrac.odoberPeniaze(CENA);
-            hrac.pridajPolicko(this);
-            this.majitel = hrac;
+    private void kupa(HracClovek hracClovek) {
+        if (hracClovek.getPeniaze() >= CENA) {
+            hracClovek.odoberPeniaze(CENA);
+            hracClovek.pridajPolicko(this);
+            this.majitel = hracClovek;
             System.out.println("Agentura uspesne zakupena");
         } else {
             System.out.println("Na zakupenie tejto agentury nemas dostatok penazi");

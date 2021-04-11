@@ -9,15 +9,15 @@ import sk.uniza.fri.policka.Policko;
  */
 public class Hra {
     private HraciaPlocha hraciaPlocha;
-    private Hrac[] zoznamHracov;
+    private HracClovek[] zoznamHracov;
     private int pocetHracov;
     private int aktHrac;
 
     public Hra(int pocetHracov) {
         this.hraciaPlocha = new HraciaPlocha();
-        this.zoznamHracov = new Hrac[pocetHracov];
+        this.zoznamHracov = new HracClovek[pocetHracov];
         for (int i = 0; i < pocetHracov; i++) {
-            this.zoznamHracov[i] = new Hrac("Hrac " + (i + 1));
+            this.zoznamHracov[i] = new HracClovek("Hrac " + (i + 1));
         }
         this.pocetHracov = pocetHracov;
         this.aktHrac = 0;
@@ -25,14 +25,14 @@ public class Hra {
 
     public void tah() {
         if (!this.koniecHry()) {
-            Hrac hrac = this.zoznamHracov[this.aktHrac];
+            HracClovek hracClovek = this.zoznamHracov[this.aktHrac];
 
-            hrac.posun();
-            Policko aktPolicko = this.hraciaPlocha.getPolicko(hrac.getAktPozicia());
-            System.out.println(hrac.getMeno() + " skocil na policko " + aktPolicko);
-            System.out.println("Peniaze: " + hrac.getPeniaze());
+            hracClovek.posun();
+            Policko aktPolicko = this.hraciaPlocha.getPolicko(hracClovek.getAktPozicia());
+            System.out.println(hracClovek.getMeno() + " skocil na policko " + aktPolicko);
+            System.out.println("Peniaze: " + hracClovek.getPeniaze());
 
-            this.hraciaPlocha.vykonaj(hrac);
+            this.hraciaPlocha.vykonaj(hracClovek);
             this.dalsiHrac();
         }
     }
@@ -44,19 +44,19 @@ public class Hra {
             this.aktHrac = 0;
         }
 
-        Hrac dalsiHrac = this.zoznamHracov[this.aktHrac];
-        if (dalsiHrac.jeVoVazeni()) {
-            dalsiHrac.odsedelSiKolo();
+        HracClovek dalsiHracClovek = this.zoznamHracov[this.aktHrac];
+        if (dalsiHracClovek.jeVoVazeni()) {
+            dalsiHracClovek.odsedelSiKolo();
             this.dalsiHrac();
         }
 
-        if (dalsiHrac.prehral()) {
+        if (dalsiHracClovek.prehral()) {
             this.dalsiHrac();
         }
 
     }
 
-    public Hrac getAktHrac() {
+    public HracClovek getAktHrac() {
         return this.zoznamHracov[this.aktHrac];
     }
 
