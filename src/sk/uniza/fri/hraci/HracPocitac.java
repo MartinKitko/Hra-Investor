@@ -51,7 +51,11 @@ public class HracPocitac implements IHrac {
     }
 
     public int zobrazMoznosti() {
-        return 1;
+        if (this.peniaze > 100000) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     public void pridajPolicko(Policko policko) {

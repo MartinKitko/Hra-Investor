@@ -22,8 +22,10 @@ public class Relax extends Policko {
 
         // docasne pre pocitac
         if (hrac instanceof HracPocitac) {
-            System.out.println("Zaplatil si 20 000");
-            hrac.odoberPeniaze(20000);
+            //System.out.println("Zaplatil si 20 000");
+            //hrac.odoberPeniaze(20000);
+            System.out.println("Stojis jedno kolo");
+            hrac.doVazenia(1);
             return;
         }
 

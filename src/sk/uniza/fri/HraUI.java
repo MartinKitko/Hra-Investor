@@ -17,6 +17,7 @@ public class HraUI {
 
     public static void main(String[] args) {
         HraUI.experiment();
+
         /*HraUI.sc = new Scanner(System.in);
         System.out.println("Vitaj v hre Investor");
 
@@ -113,10 +114,12 @@ public class HraUI {
         HraUI.druheMenu();
     }
 
-    private static void experiment() {
-        int[] pocty = new int[1000];
-        for (int i = 0; i < 1000; i++) {
-            HraUI.hra = new Hra(2);
+    private static int experiment() {
+        int pocetHracov = 2;
+        int pocetHier = 1000;
+        int[] pocty = new int[pocetHier];
+        for (int i = 0; i < pocetHier; i++) {
+            HraUI.hra = new Hra(pocetHracov);
             HraUI.druheMenu();
 
             while (!hra.koniecHry()) {
@@ -127,11 +130,12 @@ public class HraUI {
         }
 
         int priemer = 0;
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < pocetHier; i++) {
             System.out.println(pocty[i] + " ");
             priemer += pocty[i];
         }
-        System.out.println("Priemerny pocet tahov je: " + priemer/1000);
+        System.out.println("Priemerny pocet kol je: " + priemer/pocetHier/pocetHracov);
+        return priemer/pocetHier/pocetHracov;
     }
 
     private static void nacitajHru() {

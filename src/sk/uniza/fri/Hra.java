@@ -22,16 +22,10 @@ public class Hra {
         this.zoznamHracov = new IHrac[pocetHracov];
 
 
-        /*for (int i = 0; i < pocetHracov; i++) {
-            this.zoznamHracov[i] = new HracClovek("Hrac " + (i + 1));
-        }*/
-        /*for (int i = 0; i < pocetHracov - 1; i++) {
-            this.zoznamHracov[i] = new HracClovek("Hrac " + (i + 1));
-        }*/
-        this.zoznamHracov[0] = new HracPocitac("Pocitac 1");
-        //this.zoznamHracov[0] = new HracClovek("Hrac 1");
-        this.zoznamHracov[1] = new HracPocitac("Pocitac 2");
-
+        for (int i = 0; i < pocetHracov; i++) {
+            //this.zoznamHracov[i] = new HracClovek("Hrac " + (i + 1));
+            this.zoznamHracov[i] = new HracPocitac("Pocitac " + (i + 1));
+        }
 
         this.pocetHracov = pocetHracov;
         this.pocetTahov = 0;
