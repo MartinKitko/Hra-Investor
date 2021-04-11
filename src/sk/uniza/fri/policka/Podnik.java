@@ -52,7 +52,7 @@ public class Podnik extends Policko {
                         System.out.println("1 pobocka  \t" + this.cena + "\t" + this.poplatokSPobockou);
                         System.out.println("2 pobocky  \t" + this.cena * 2 + "\t" + this.poplatokSPobockou * 2);
                         System.out.println("3 pobocky  \t" + this.cena * 3 + "\t" + this.poplatokSPobockou * 3);
-                        System.out.println("Koncern    \t" + this.cena * 5 + "\t" + (int)(this.cena * 2.5) + "\n");
+                        System.out.println("Koncern    \t" + this.cena * 5 + "\t" + this.getPoplatokSKoncernom() + "\n");
                         break;
                     default:
                 }
@@ -122,7 +122,7 @@ public class Podnik extends Policko {
 
     public int getPoplatok() {
         if (this.maKoncern) {
-            return (int)(this.cena * 2.5);
+            return this.getPoplatokSKoncernom();
         }
 
         if (this.pocetPobociek > 0) {
@@ -130,6 +130,14 @@ public class Podnik extends Policko {
         }
 
         return this.zakladnyPoplatok;
+    }
+
+    private int getPoplatokSKoncernom() {
+        int poplatok = (int)(this.cena * 2.5);
+        if (poplatok % 1000 == 500) {
+            return poplatok + 500;
+        }
+        return poplatok;
     }
 
     private void predaj(Hrac hrac) {
