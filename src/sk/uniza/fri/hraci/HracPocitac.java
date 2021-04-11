@@ -8,6 +8,7 @@ import sk.uniza.fri.policka.Podnik;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * 1. 4. 2021 - 17:09
@@ -47,6 +48,10 @@ public class HracPocitac implements IHrac {
             this.aktPozicia += hodKockou;
         }
         System.out.println("\nPosun z " + staraPozicia + " o " + hodKockou + " na " + this.aktPozicia);
+    }
+
+    public int zobrazMoznosti() {
+        return 1;
     }
 
     public void pridajPolicko(Policko policko) {

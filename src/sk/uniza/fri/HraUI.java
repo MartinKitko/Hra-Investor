@@ -1,5 +1,7 @@
 package sk.uniza.fri;
 
+import sk.uniza.fri.hraci.HracPocitac;
+
 import java.util.Scanner;
 
 /**
@@ -27,7 +29,7 @@ public class HraUI {
             }
         } while (volba < 0 || volba > 2);
 
-        while (volba != 0) {
+        while (volba != 0 && !hra.koniecHry()) {
             volba = HraUI.druheMenu();
         }
 
@@ -50,6 +52,13 @@ public class HraUI {
     }
 
     private static int druheMenu() {
+        if (HraUI.hra.getAktHrac() instanceof HracPocitac) {
+            if (!hra.koniecHry()) {
+                hra.tah();
+                return 1;
+            }
+        }
+
         System.out.println("\n" + HraUI.hra.getAktHrac() + " je na tahu");
         System.out.println("1 - Hod kockou");
         System.out.println("2 - Ulozit hru");

@@ -1,5 +1,6 @@
 package sk.uniza.fri.policka;
 
+import sk.uniza.fri.hraci.HracPocitac;
 import sk.uniza.fri.hraci.IHrac;
 
 import java.util.Scanner;
@@ -18,6 +19,14 @@ public class Relax extends Policko {
     @Override
     public void vykonaj(IHrac hrac) {
         Scanner sc = new Scanner(System.in);
+
+        // docasne pre pocitac
+        if (hrac instanceof HracPocitac) {
+            System.out.println("Zaplatil si 20 000");
+            hrac.odoberPeniaze(20000);
+            return;
+        }
+
         if (hrac.getPeniaze() > 20000) {
             System.out.println("Zaplat 20 000 alebo pockaj jedno kolo:");
             System.out.println("1 - zaplatim");

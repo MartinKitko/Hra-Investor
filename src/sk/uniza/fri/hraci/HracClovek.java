@@ -8,6 +8,7 @@ import sk.uniza.fri.policka.Podnik;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * 1. 4. 2021 - 17:09
@@ -47,6 +48,27 @@ public class HracClovek implements IHrac {
             this.aktPozicia += hodKockou;
         }
         System.out.println("\nPosun z " + staraPozicia + " o " + hodKockou + " na " + this.aktPozicia);
+    }
+
+    public int zobrazMoznosti() {
+        Scanner sc = new Scanner(System.in);
+        int volba = 0;
+        do {
+            if (volba != 0) {
+                System.out.println("Zle zadana volba");
+            }
+            System.out.println("1 - Kupit podnik");
+            System.out.println("2 - Dalsie informacie o podniku");
+            System.out.println("0 - Ziadna akcia");
+            System.out.print("Zadaj svoju volbu: ");
+            while (!sc.hasNextInt()) {
+                System.out.print("Je potrebne zadat cele cislo: ");
+                sc.next();
+            }
+            volba = sc.nextInt();
+        } while (volba < 0 || volba > 2);
+
+        return volba;
     }
 
     public void pridajPolicko(Policko policko) {

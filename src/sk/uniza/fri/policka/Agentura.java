@@ -22,7 +22,7 @@ public class Agentura extends Policko {
         int volba;
         if (this.majitel == null) {
             do {
-                volba = this.zobrazMoznosti();
+                volba = hrac.zobrazMoznosti();
                 switch (volba) {
                     case 1:
                         this.kupa(hrac);

@@ -1,6 +1,7 @@
 package sk.uniza.fri;
 
 import sk.uniza.fri.hraci.HracClovek;
+import sk.uniza.fri.hraci.HracPocitac;
 import sk.uniza.fri.hraci.IHrac;
 import sk.uniza.fri.policka.Policko;
 
@@ -13,15 +14,27 @@ public class Hra {
     private HraciaPlocha hraciaPlocha;
     private IHrac[] zoznamHracov;
     private int pocetHracov;
+    private int pocetTahov;
     private int aktHrac;
 
     public Hra(int pocetHracov) {
         this.hraciaPlocha = new HraciaPlocha();
         this.zoznamHracov = new IHrac[pocetHracov];
-        for (int i = 0; i < pocetHracov; i++) {
+
+
+        /*for (int i = 0; i < pocetHracov; i++) {
             this.zoznamHracov[i] = new HracClovek("Hrac " + (i + 1));
-        }
+        }*/
+        /*for (int i = 0; i < pocetHracov - 1; i++) {
+            this.zoznamHracov[i] = new HracClovek("Hrac " + (i + 1));
+        }*/
+        this.zoznamHracov[0] = new HracPocitac("Pocitac 1");
+        //this.zoznamHracov[0] = new HracClovek("Hrac 1");
+        this.zoznamHracov[1] = new HracPocitac("Pocitac 2");
+
+
         this.pocetHracov = pocetHracov;
+        this.pocetTahov = 0;
         this.aktHrac = 0;
     }
 
@@ -36,6 +49,7 @@ public class Hra {
 
             this.hraciaPlocha.vykonaj(hrac);
             this.dalsiHrac();
+            this.pocetTahov++;
         }
     }
 
@@ -79,6 +93,7 @@ public class Hra {
                 if (!this.zoznamHracov[i].prehral()) {
                     System.out.println("Koniec hry");
                     System.out.println(this.zoznamHracov[i] + " je vitaz!");
+                    System.out.println("Pocet tahov: " + this.pocetTahov);
                 }
             }
             return true;

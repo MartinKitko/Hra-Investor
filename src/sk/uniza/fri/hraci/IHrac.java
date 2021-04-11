@@ -10,6 +10,7 @@ import sk.uniza.fri.policka.Policko;
  */
 public interface IHrac {
     void posun();
+    int zobrazMoznosti();
     void pridajPolicko(Policko policko);
     int getPocetVlastnenych(Policko policko);
     int getPocetVlastnenychVOdvetvi(Odvetvie odvetvie);
