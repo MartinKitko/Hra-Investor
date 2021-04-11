@@ -1,6 +1,10 @@
 package sk.uniza.fri;
 
-import sk.uniza.fri.policka.*;
+import sk.uniza.fri.policka.Policko;
+import sk.uniza.fri.policka.Preprava;
+import sk.uniza.fri.policka.Agentura;
+import sk.uniza.fri.policka.Odvetvie;
+import sk.uniza.fri.policka.Podnik;
 
 import java.util.ArrayList;
 import java.util.Random;
