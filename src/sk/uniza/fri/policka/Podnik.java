@@ -12,24 +12,17 @@ import java.util.Scanner;
 public class Podnik extends Policko {
     private int cena;
     private int zakladnyPoplatok;
+    private int poplatokSPobockou;
     private int pocetPobociek;
     private boolean maKoncern;
     private Odvetvie odvetvie;
     private Hrac majitel;
 
-    public Podnik(String nazov, int cena, int zakladnyPoplatok, Odvetvie odvetvie) {
+    public Podnik(String nazov, int cena, int zakladnyPoplatok, int poplatokSPobockou, Odvetvie odvetvie) {
         super(nazov);
-
-        if (cena < 0) {
-            cena = 0;
-        }
-
-        if (zakladnyPoplatok < 0) {
-            zakladnyPoplatok = 0;
-        }
-
         this.cena = cena;
         this.zakladnyPoplatok = zakladnyPoplatok;
+        this.poplatokSPobockou = poplatokSPobockou;
         this.odvetvie = odvetvie;
         this.pocetPobociek = 0;
         this.maKoncern = false;
