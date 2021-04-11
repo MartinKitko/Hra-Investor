@@ -2,6 +2,7 @@ package sk.uniza.fri;
 
 import sk.uniza.fri.hraci.HracPocitac;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -15,7 +16,8 @@ public class HraUI {
     private static Hra hra;
 
     public static void main(String[] args) {
-        HraUI.sc = new Scanner(System.in);
+        HraUI.experiment();
+        /*HraUI.sc = new Scanner(System.in);
         System.out.println("Vitaj v hre Investor");
 
         int volba;
@@ -33,7 +35,7 @@ public class HraUI {
             volba = HraUI.druheMenu();
         }
 
-        System.out.println("Koniec hry");
+        System.out.println("Koniec hry");*/
     }
 
     private static int hlavneMenu() {
@@ -92,6 +94,7 @@ public class HraUI {
 
     private static void novaHra() {
         int pocet;
+
         do {
             System.out.print("Zadaj pocet hracov: ");
             while (!sc.hasNextInt()) {
@@ -108,6 +111,27 @@ public class HraUI {
 
         HraUI.hra = new Hra(pocet);
         HraUI.druheMenu();
+    }
+
+    private static void experiment() {
+        int[] pocty = new int[1000];
+        for (int i = 0; i < 1000; i++) {
+            HraUI.hra = new Hra(2);
+            HraUI.druheMenu();
+
+            while (!hra.koniecHry()) {
+                HraUI.druheMenu();
+            }
+
+            pocty[i] = hra.getPocetTahov();
+        }
+
+        int priemer = 0;
+        for (int i = 0; i < 1000; i++) {
+            System.out.println(pocty[i] + " ");
+            priemer += pocty[i];
+        }
+        System.out.println("Priemerny pocet tahov je: " + priemer/1000);
     }
 
     private static void nacitajHru() {

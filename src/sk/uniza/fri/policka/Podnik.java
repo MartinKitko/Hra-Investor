@@ -1,5 +1,6 @@
 package sk.uniza.fri.policka;
 
+import sk.uniza.fri.hraci.HracPocitac;
 import sk.uniza.fri.hraci.IHrac;
 
 import java.util.Scanner;
@@ -85,6 +86,23 @@ public class Podnik extends Policko {
     private void kupaPobocky() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Toto je tvoj podnik");
+
+        // docasne pre pocitac
+        if (this.majitel instanceof HracPocitac) {
+            if (this.pocetPobociek < 3) {
+                this.majitel.odoberPeniaze(this.cena);
+                this.pocetPobociek++;
+                System.out.println("Zakupena 1 pobocka");
+            } else {
+                if (!this.maKoncern) {
+                    this.majitel.odoberPeniaze(this.cena * 2);
+                    this.maKoncern = true;
+                    System.out.println("Koncern zakupeny");
+                }
+            }
+            return;
+        }
+
 
         int maxPocetPobociek;
         if (this.odvetvie == Odvetvie.ALKOHOL || this.odvetvie == Odvetvie.BANE) {

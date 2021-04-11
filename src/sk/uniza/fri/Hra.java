@@ -80,6 +80,10 @@ public class Hra {
         System.out.println("Zatial nie je mozne ulozit hru");
     }
 
+    public int getPocetTahov() {
+        return this.pocetTahov;
+    }
+
     public boolean koniecHry() {
         int pocetHrajucich = 0;
         for (int i = 0; i < this.pocetHracov; i++) {
