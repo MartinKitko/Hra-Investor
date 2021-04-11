@@ -1,6 +1,6 @@
 package sk.uniza.fri.policka;
 
-import sk.uniza.fri.hraci.HracClovek;
+import sk.uniza.fri.hraci.IHrac;
 
 /**
  * 1. 4. 2021 - 17:09
@@ -14,9 +14,9 @@ public class Policia extends Policko {
     }
 
     @Override
-    public void vykonaj(HracClovek hracClovek) {
+    public void vykonaj(IHrac hrac) {
         System.out.println("Bol si presunuty do vazenia, stojis 3 kola");
-        hracClovek.nastavPoziciu(12);
-        hracClovek.doVazenia(3);
+        hrac.nastavPoziciu(12);
+        hrac.doVazenia(3);
     }
 }

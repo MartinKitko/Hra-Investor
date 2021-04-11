@@ -1,6 +1,6 @@
 package sk.uniza.fri.policka;
 
-import sk.uniza.fri.hraci.HracClovek;
+import sk.uniza.fri.hraci.IHrac;
 
 /**
  * 1. 4. 2021 - 17:09
@@ -14,12 +14,12 @@ public class Pokuta extends Policko {
     }
 
     @Override
-    public void vykonaj(HracClovek hracClovek) {
-        if (hracClovek == null) {
+    public void vykonaj(IHrac hrac) {
+        if (hrac == null) {
             return;
         }
 
         System.out.println("Zaplatil si banke pokutu 20 000");
-        hracClovek.odoberPeniaze(20000);
+        hrac.odoberPeniaze(20000);
     }
 }

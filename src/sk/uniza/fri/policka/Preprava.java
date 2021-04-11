@@ -1,6 +1,6 @@
 package sk.uniza.fri.policka;
 
-import sk.uniza.fri.hraci.HracClovek;
+import sk.uniza.fri.hraci.IHrac;
 
 /**
  * 1. 4. 2021 - 17:09
@@ -10,7 +10,7 @@ import sk.uniza.fri.hraci.HracClovek;
 public class Preprava extends Policko {
     private static final int CENA = 40000;
     private static final int POPLATOK = 5000;
-    private HracClovek majitel;
+    private IHrac majitel;
 
 
     public Preprava(String nazov) {
@@ -18,14 +18,14 @@ public class Preprava extends Policko {
     }
 
     @Override
-    public void vykonaj(HracClovek hracClovek) {
+    public void vykonaj(IHrac hrac) {
         int volba;
         if (this.majitel == null) {
             do {
                 volba = this.zobrazMoznosti();
                 switch (volba) {
                     case 1:
-                        this.kupa(hracClovek);
+                        this.kupa(hrac);
                         break;
                     case 2:
                         System.out.println("Poplatok, pokial hrac vlastni:");
@@ -37,13 +37,13 @@ public class Preprava extends Policko {
                     default:
                 }
             } while (volba == 2);
-        } else if (this.majitel.equals(hracClovek)) {
+        } else if (this.majitel.equals(hrac)) {
             System.out.println("Vlastnis tuto prepravu");
         } else {
             System.out.println("Tuto prepravu vlastni " + this.majitel.getMeno());
             int poplatok = this.getPoplatok(this.majitel.getPocetVlastnenych(this));
             System.out.println("Zaplatil si mu " + poplatok);
-            hracClovek.odoberPeniaze(poplatok);
+            hrac.odoberPeniaze(poplatok);
             this.majitel.pridajPeniaze(poplatok);
         }
     }
@@ -57,11 +57,11 @@ public class Preprava extends Policko {
         };
     }
 
-    private void kupa(HracClovek hracClovek) {
-        if (hracClovek.getPeniaze() >= CENA) {
-            hracClovek.pridajPolicko(this);
-            hracClovek.odoberPeniaze(CENA);
-            this.majitel = hracClovek;
+    private void kupa(IHrac hrac) {
+        if (hrac.getPeniaze() >= CENA) {
+            hrac.pridajPolicko(this);
+            hrac.odoberPeniaze(CENA);
+            this.majitel = hrac;
             System.out.println("Preprava uspesne zakupena");
         } else {
             System.out.println("Na zakupenie tejto prepravy nemas dostatok penazi");

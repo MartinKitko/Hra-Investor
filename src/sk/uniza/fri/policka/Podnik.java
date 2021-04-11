@@ -1,6 +1,6 @@
 package sk.uniza.fri.policka;
 
-import sk.uniza.fri.hraci.HracClovek;
+import sk.uniza.fri.hraci.IHrac;
 
 import java.util.Scanner;
 
@@ -16,7 +16,7 @@ public class Podnik extends Policko {
     private int pocetPobociek;
     private boolean maKoncern;
     private Odvetvie odvetvie;
-    private HracClovek majitel;
+    private IHrac majitel;
 
     public Podnik(String nazov, int cena, int zakladnyPoplatok, int poplatokSPobockou, Odvetvie odvetvie) {
         super(nazov);
@@ -32,19 +32,19 @@ public class Podnik extends Policko {
         return this.odvetvie;
     }
 
-    public HracClovek getMajitel() {
+    public IHrac getMajitel() {
         return this.majitel;
     }
 
     @Override
-    public void vykonaj(HracClovek hracClovek) {
+    public void vykonaj(IHrac hrac) {
         int volba;
         if (this.majitel == null) {
             do {
                 volba = this.zobrazMoznosti();
                 switch (volba) {
                     case 1:
-                        this.kupa(hracClovek);
+                        this.kupa(hrac);
                         break;
                     case 2:
                         System.out.println("\t\t\tCENA:  POPLATOK:");
@@ -58,24 +58,24 @@ public class Podnik extends Policko {
                 }
             } while (volba == 2);
 
-        } else if (this.majitel.equals(hracClovek)) {
+        } else if (this.majitel.equals(hrac)) {
             // TODO moznost predaja podniku
             this.kupaPobocky();
         } else {
             System.out.println("Tento podnik vlastni " + this.majitel.getMeno());
             int poplatok = this.getPoplatok();
             System.out.println("Zaplatil si mu " + poplatok);
-            hracClovek.odoberPeniaze(poplatok);
+            hrac.odoberPeniaze(poplatok);
             this.majitel.pridajPeniaze(poplatok);
         }
 
     }
 
-    private void kupa(HracClovek hracClovek) {
-        if (hracClovek.getPeniaze() >= this.cena) {
-            hracClovek.odoberPeniaze(this.cena);
-            hracClovek.pridajPolicko(this);
-            this.majitel = hracClovek;
+    private void kupa(IHrac hrac) {
+        if (hrac.getPeniaze() >= this.cena) {
+            hrac.odoberPeniaze(this.cena);
+            hrac.pridajPolicko(this);
+            this.majitel = hrac;
             System.out.println("Podnik uspesne zakupeny");
         } else {
             System.out.println("Na zakupenie tohto podniku nemas dostatok penazi");
@@ -140,8 +140,8 @@ public class Podnik extends Policko {
         return poplatok;
     }
 
-    private void predaj(HracClovek hracClovek) {
-        hracClovek.pridajPeniaze(this.cena);
+    private void predaj(IHrac hrac) {
+        hrac.pridajPeniaze(this.cena);
         this.majitel = null;
     }
 
