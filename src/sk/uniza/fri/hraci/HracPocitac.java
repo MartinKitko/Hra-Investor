@@ -8,7 +8,6 @@ import sk.uniza.fri.policka.Podnik;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 
 /**
  * 1. 4. 2021 - 17:09
@@ -22,6 +21,8 @@ public class HracPocitac implements IHrac {
     private int zostavajuciPocetKolVoVazeni;
     private boolean prehral;
     private ArrayList<Policko> vlastnenePolicka;
+    /*private int[] pocetStal = new int[40];
+    private int pocetPosunov = 0;*/
 
     public HracPocitac(String meno) {
         if (meno == null) {
@@ -48,9 +49,18 @@ public class HracPocitac implements IHrac {
             this.aktPozicia += hodKockou;
         }
         System.out.println("\nPosun z " + staraPozicia + " o " + hodKockou + " na " + this.aktPozicia);
+
+        /*this.pocetPosunov++; //pri zisteni pravdepodobnosti kde skoci, do zobrazMoznosti dat natvrdo return 0
+        this.pocetStal[this.aktPozicia]++;
+        for (int i = 0; i < 40; i++) {
+            System.out.printf("%.3f ", (double)this.pocetStal[i] / this.pocetPosunov);
+        }*/
+
+
     }
 
     public int zobrazMoznosti() {
+        // TODO aby kupoval vzdy vsetko co nie je podnik
         if (this.peniaze > 100000) {
             return 1;
         } else {

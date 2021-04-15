@@ -2,7 +2,6 @@ package sk.uniza.fri;
 
 import sk.uniza.fri.hraci.HracPocitac;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -11,14 +10,14 @@ import java.util.Scanner;
  * Date: 1. 4. 2021
  * Time: 17:09
  */
-public class HraUI {
+public abstract class HraUI {
     private static Scanner sc;
     private static Hra hra;
 
     public static void main(String[] args) {
-        HraUI.experiment();
+        new GUI();
 
-        /*HraUI.sc = new Scanner(System.in);
+        HraUI.sc = new Scanner(System.in);
         System.out.println("Vitaj v hre Investor");
 
         int volba;
@@ -36,7 +35,9 @@ public class HraUI {
             volba = HraUI.druheMenu();
         }
 
-        System.out.println("Koniec hry");*/
+        System.out.println("Koniec hry");
+
+        //HraUI.experiment();
     }
 
     private static int hlavneMenu() {
