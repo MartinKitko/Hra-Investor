@@ -16,7 +16,6 @@ public class Relax extends Policko {
         super(nazov);
     }
 
-    @Override
     public void vykonaj(IHrac hrac) {
         Scanner sc = new Scanner(System.in);
 

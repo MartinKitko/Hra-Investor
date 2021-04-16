@@ -13,7 +13,6 @@ public class Vazenie extends Policko {
         super(nazov);
     }
 
-    @Override
     public void vykonaj(IHrac hrac) {
         System.out.println("Stojis jedno kolo");
         hrac.doVazenia(1);

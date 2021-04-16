@@ -17,7 +17,6 @@ public class Agentura extends Policko {
         super(nazov);
     }
 
-    @Override
     public void vykonaj(IHrac hrac) {
         int volba;
         if (this.majitel == null) {

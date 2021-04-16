@@ -13,7 +13,6 @@ public class Policia extends Policko {
         super(nazov);
     }
 
-    @Override
     public void vykonaj(IHrac hrac) {
         System.out.println("Bol si presunuty do vazenia, stojis 3 kola");
         hrac.nastavPoziciu(12);

@@ -23,7 +23,6 @@ public class Zisk extends Policko {
         }
     }
 
-    @Override
     public void vykonaj(IHrac hrac) {
         switch (this.aktKarta) {
             case 1:

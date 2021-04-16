@@ -13,7 +13,6 @@ public class Pokuta extends Policko {
         super(nazov);
     }
 
-    @Override
     public void vykonaj(IHrac hrac) {
         if (hrac == null) {
             return;

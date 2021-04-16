@@ -13,7 +13,6 @@ public class PolickoStart extends Policko {
         super(nazov);
     }
 
-    @Override
     public void vykonaj(IHrac hrac) {
         //hrac
     }

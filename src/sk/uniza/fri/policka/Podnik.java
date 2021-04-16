@@ -37,7 +37,6 @@ public class Podnik extends Policko {
         return this.majitel;
     }
 
-    @Override
     public void vykonaj(IHrac hrac) {
         int volba;
         if (this.majitel == null) {
