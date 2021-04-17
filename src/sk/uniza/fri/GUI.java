@@ -44,13 +44,25 @@ import java.awt.event.ActionListener;
 public class GUI extends JFrame implements ActionListener {
     private Hra hra;
     private JButton novaHra;
+    private JButton nacitajHru;
+    private JButton koniecHry;
     private JButton hodKockou;
+    private JPanel hornyPanel;
+    private JPanel bocnyPanel;
+    private JPanel gridPanel;
+    private JLabel labelHrac;
+    private JLabel labelPeniaze;
+    private JLabel labelStred;
+    private JTextField textHrac;
+    private JTextField textPeniaze;
+
 
     public GUI() {
         this.setTitle("Investor");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(false);
+        this.setResizable(true);
         this.setMinimumSize(new Dimension(900, 675));
+        this.setVisible(true);
 
 
         ImageIcon image = new ImageIcon("src/sk/uniza/fri/logo.png");
@@ -105,59 +117,62 @@ public class GUI extends JFrame implements ActionListener {
         this.add(this.hodKockou);*/
 
 
-        JButton button1 = new JButton("Button1");
-        JButton button2 = new JButton("Button2");
-        JButton button3 = new JButton("Button3");
-        JButton button4 = new JButton("Button4");
-        JButton button5 = new JButton("Button5");
-        JButton button6 = new JButton("Button6");
-        JButton button7 = new JButton("Button7");
+        this.novaHra = new JButton("Nova hra");
+        this.novaHra.addActionListener(this);
+        this.nacitajHru = new JButton("Nacitaj hru");
+        this.nacitajHru.addActionListener(this);
+        this.koniecHry = new JButton("Koniec hry");
+        this.koniecHry.addActionListener(this);
+        this.hodKockou = new JButton("Hod kockou");
+        this.hodKockou.addActionListener(this);
 
         Container hlavnyKontajner = this.getContentPane();
         hlavnyKontajner.setLayout(new BorderLayout());
         hlavnyKontajner.setBackground(Color.GREEN);
 
-        JLabel labelHrac = new JLabel("Hrac:", SwingConstants.LEFT);
-        labelHrac.setOpaque(true);
+        this.labelHrac = new JLabel("Hrac:", SwingConstants.LEFT);
+        this.labelHrac.setOpaque(true);
 
-        JTextField textHrac = new JTextField();
-        textHrac.setPreferredSize(new Dimension(50, 20));
+        this.textHrac = new JTextField();
+        this.textHrac.setPreferredSize(new Dimension(50, 20));
 
-        JLabel labelPeniaze = new JLabel("Peniaze:", SwingConstants.LEFT);
-        labelPeniaze.setOpaque(true);
+        this.labelPeniaze = new JLabel("Peniaze:", SwingConstants.LEFT);
+        this.labelPeniaze.setOpaque(true);
 
-        JTextField textPeniaze = new JTextField();
-        textPeniaze.setPreferredSize(new Dimension(50, 20));
+        this.textPeniaze = new JTextField();
+        this.textPeniaze.setPreferredSize(new Dimension(50, 20));
 
-        JPanel hornyPanel = new JPanel();
-        hornyPanel.setBackground(Color.ORANGE);
-        hornyPanel.setLayout(new FlowLayout(5));
-        hlavnyKontajner.add(hornyPanel, BorderLayout.NORTH);
-        hornyPanel.add(labelHrac);
-        hornyPanel.add(textHrac);
-        hornyPanel.add(labelPeniaze);
-        hornyPanel.add(textPeniaze);
+        this.hornyPanel = new JPanel();
+        this.hornyPanel.setBackground(Color.ORANGE);
+        this.hornyPanel.setLayout(new FlowLayout(5));
+        hlavnyKontajner.add(this.hornyPanel, BorderLayout.NORTH);
+        this.hornyPanel.add(this.labelHrac);
+        this.hornyPanel.add(this.textHrac);
+        this.hornyPanel.add(this.labelPeniaze);
+        this.hornyPanel.add(this.textPeniaze);
 
 
-        JPanel bocnyPanel = new JPanel();
-        bocnyPanel.setBackground(Color.CYAN);
-        bocnyPanel.setLayout(new FlowLayout(4, 4, 4));
+        this.bocnyPanel = new JPanel();
+        this.bocnyPanel.setBackground(Color.CYAN);
+        this.bocnyPanel.setLayout(new FlowLayout(4, 4, 4));
 
-        JPanel gridPanel = new JPanel();
-        gridPanel.setBackground(Color.RED);
-        gridPanel.setLayout(new GridLayout(3, 1, 5, 40));
+        this.gridPanel = new JPanel();
+        this.gridPanel.setBackground(Color.RED);
+        this.gridPanel.setLayout(new GridLayout(4, 1, 5, 40));
 
-        gridPanel.add(button4);
-        gridPanel.add(button5);
-        gridPanel.add(button6);
+        this.gridPanel.add(this.novaHra);
+        this.gridPanel.add(this.nacitajHru);
+        this.gridPanel.add(this.koniecHry);
+        this.gridPanel.add(this.hodKockou);
+        this.hodKockou.setVisible(false);
 
-        JLabel label = new JLabel("Center Box", SwingConstants.CENTER);
-        label.setOpaque(true);
-        label.setBorder(new LineBorder(Color.BLACK, 3));
+        this.labelStred = new JLabel("Center Box", SwingConstants.CENTER);
+        this.labelStred.setOpaque(true);
+        this.labelStred.setBorder(new LineBorder(Color.BLACK, 3));
 
-        bocnyPanel.add(gridPanel);
-        hlavnyKontajner.add(label);
-        hlavnyKontajner.add(bocnyPanel, BorderLayout.EAST);
+        this.bocnyPanel.add(this.gridPanel);
+        hlavnyKontajner.add(this.labelStred);
+        hlavnyKontajner.add(this.bocnyPanel, BorderLayout.EAST);
 
         /*JPanel spodnyPanel = new JPanel();
         spodnyPanel.setBackground(Color.MAGENTA);
@@ -165,7 +180,7 @@ public class GUI extends JFrame implements ActionListener {
         spodnyPanel.add(button7);
         hlavnyKontajner.add(spodnyPanel, BorderLayout.SOUTH);*/
 
-        this.setVisible(true);
+        this.validate();
 
     }
 
@@ -184,12 +199,15 @@ public class GUI extends JFrame implements ActionListener {
                 }
             } while (pocetHracov < 2 || pocetHracov > 6);
             this.novaHra.setVisible(false);
+            this.nacitajHru.setVisible(false);
+            this.koniecHry.setVisible(false);
 
             this.hra = new Hra(pocetHracov);
 
-            this.hodKockou.setEnabled(true);
+            this.hodKockou.setVisible(true);
         } else if (e.getSource() == this.hodKockou) {
             this.hra.tah();
         }
     }
+
 }
