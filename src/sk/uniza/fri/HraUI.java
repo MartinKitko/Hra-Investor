@@ -17,7 +17,7 @@ public abstract class HraUI {
     public static void main(String[] args) {
         new GUI();
 
-        HraUI.sc = new Scanner(System.in);
+        /*HraUI.sc = new Scanner(System.in);
         System.out.println("Vitaj v hre Investor");
 
         int volba;
@@ -35,7 +35,7 @@ public abstract class HraUI {
             volba = HraUI.druheMenu();
         }
 
-        System.out.println("Koniec hry");
+        System.out.println("Koniec hry");*/
 
         //HraUI.experiment();
     }
