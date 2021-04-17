@@ -55,6 +55,7 @@ public class GUI extends JFrame implements ActionListener {
     private JLabel labelStred;
     private JTextField textHrac;
     private JTextField textPeniaze;
+    private JTextField textovePole;
 
 
     public GUI() {
@@ -131,6 +132,7 @@ public class GUI extends JFrame implements ActionListener {
         hlavnyKontajner.setBackground(Color.GREEN);
 
         this.labelHrac = new JLabel("Hrac:", SwingConstants.LEFT);
+        //this.labelHrac.setBackground(Color.ORANGE);
         this.labelHrac.setOpaque(true);
 
         this.textHrac = new JTextField();
@@ -151,6 +153,8 @@ public class GUI extends JFrame implements ActionListener {
         this.hornyPanel.add(this.labelPeniaze);
         this.hornyPanel.add(this.textPeniaze);
 
+        this.textovePole = new JTextField();
+        this.textovePole.setPreferredSize(new Dimension(100, 100));
 
         this.bocnyPanel = new JPanel();
         this.bocnyPanel.setBackground(Color.CYAN);
@@ -158,8 +162,9 @@ public class GUI extends JFrame implements ActionListener {
 
         this.gridPanel = new JPanel();
         this.gridPanel.setBackground(Color.RED);
-        this.gridPanel.setLayout(new GridLayout(4, 1, 5, 40));
+        this.gridPanel.setLayout(new GridLayout(5, 1, 5, 4));
 
+        this.gridPanel.add(this.textovePole);
         this.gridPanel.add(this.novaHra);
         this.gridPanel.add(this.nacitajHru);
         this.gridPanel.add(this.koniecHry);
@@ -204,9 +209,14 @@ public class GUI extends JFrame implements ActionListener {
 
             this.hra = new Hra(pocetHracov);
 
+            this.textHrac.setText(this.hra.getAktHrac().getMeno());
+            this.textPeniaze.setText("" + this.hra.getAktHrac().getPeniaze());
+
             this.hodKockou.setVisible(true);
         } else if (e.getSource() == this.hodKockou) {
             this.hra.tah();
+            this.textHrac.setText(this.hra.getAktHrac().getMeno());
+            this.textPeniaze.setText("" + this.hra.getAktHrac().getPeniaze());
         }
     }
 
