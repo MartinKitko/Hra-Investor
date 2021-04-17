@@ -50,6 +50,7 @@ public class GUI extends JFrame implements ActionListener {
     private JPanel hornyPanel;
     private JPanel bocnyPanel;
     private JPanel gridPanel;
+    private JPanel gridPanel2;
     private JLabel labelHrac;
     private JLabel labelPeniaze;
     private JLabel labelStred;
@@ -131,6 +132,10 @@ public class GUI extends JFrame implements ActionListener {
         hlavnyKontajner.setLayout(new BorderLayout());
         hlavnyKontajner.setBackground(Color.GREEN);
 
+        Container druhyKontajner = this.getContentPane();
+        druhyKontajner.setLayout(new BorderLayout());
+        druhyKontajner.setBackground(Color.GREEN);
+
         this.labelHrac = new JLabel("Hrac:", SwingConstants.LEFT);
         //this.labelHrac.setBackground(Color.ORANGE);
         this.labelHrac.setOpaque(true);
@@ -164,16 +169,22 @@ public class GUI extends JFrame implements ActionListener {
         this.gridPanel.setBackground(Color.RED);
         this.gridPanel.setLayout(new GridLayout(5, 1, 5, 4));
 
-        this.gridPanel.add(this.textovePole);
         this.gridPanel.add(this.novaHra);
         this.gridPanel.add(this.nacitajHru);
         this.gridPanel.add(this.koniecHry);
-        this.gridPanel.add(this.hodKockou);
-        this.hodKockou.setVisible(false);
 
-        this.labelStred = new JLabel("Center Box", SwingConstants.CENTER);
+        this.gridPanel2 = new JPanel();
+        this.gridPanel2.setBackground(Color.RED);
+        this.gridPanel2.setLayout(new GridLayout(5, 1, 5, 4));
+
+        this.gridPanel2.add(this.textovePole);
+        this.gridPanel2.add(this.hodKockou);
+
+        this.labelStred = new JLabel("", SwingConstants.CENTER);
         this.labelStred.setOpaque(true);
         this.labelStred.setBorder(new LineBorder(Color.BLACK, 3));
+        ImageIcon image2 = new ImageIcon("src/sk/uniza/fri/hraciaPlocha.jpg");
+        this.labelStred.setIcon(image2);
 
         this.bocnyPanel.add(this.gridPanel);
         hlavnyKontajner.add(this.labelStred);
@@ -212,7 +223,8 @@ public class GUI extends JFrame implements ActionListener {
             this.textHrac.setText(this.hra.getAktHrac().getMeno());
             this.textPeniaze.setText("" + this.hra.getAktHrac().getPeniaze());
 
-            this.hodKockou.setVisible(true);
+            this.bocnyPanel.remove(this.gridPanel);
+            this.bocnyPanel.add(this.gridPanel2);
         } else if (e.getSource() == this.hodKockou) {
             this.hra.tah();
             this.textHrac.setText(this.hra.getAktHrac().getMeno());
