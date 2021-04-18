@@ -57,6 +57,11 @@ public class GUI extends JFrame implements ActionListener {
     private JTextField textHrac;
     private JTextField textPeniaze;
     private JTextField textovePole;
+    private JMenuBar menuBar;
+    private JMenu hraMenu;
+    private JMenuItem novaHraMenu;
+    private JMenuItem nacitajHruMenu;
+    private JMenuItem koniecMenu;
 
 
     public GUI() {
@@ -118,23 +123,38 @@ public class GUI extends JFrame implements ActionListener {
         this.hodKockou.setEnabled(false);
         this.add(this.hodKockou);*/
 
+        this.menuBar = new JMenuBar();
+        this.hraMenu = new JMenu("Hra");
+        this.novaHraMenu = new JMenuItem("Nova hra");
+        this.novaHraMenu.addActionListener(this);
+        this.nacitajHruMenu = new JMenuItem("Nacitaj hru");
+        this.nacitajHruMenu.addActionListener(this);
+        this.koniecMenu = new JMenuItem("Koniec");
+        this.koniecMenu.addActionListener(this);
+        this.hraMenu.add(this.novaHraMenu);
+        this.hraMenu.add(this.nacitajHruMenu);
+        this.hraMenu.add(this.koniecMenu);
 
-        this.novaHra = new JButton("Nova hra");
+        JMenu helpMenu = new JMenu("Help");
+        this.setJMenuBar(this.menuBar);
+        this.menuBar.add(this.hraMenu);
+        this.menuBar.add(helpMenu);
+
+
+
+        /*this.novaHra = new JButton("Nova hra");
         this.novaHra.addActionListener(this);
         this.nacitajHru = new JButton("Nacitaj hru");
         this.nacitajHru.addActionListener(this);
         this.koniecHry = new JButton("Koniec hry");
-        this.koniecHry.addActionListener(this);
+        this.koniecHry.addActionListener(this);*/
         this.hodKockou = new JButton("Hod kockou");
         this.hodKockou.addActionListener(this);
+        this.hodKockou.setEnabled(false);
 
         Container hlavnyKontajner = this.getContentPane();
         hlavnyKontajner.setLayout(new BorderLayout());
         hlavnyKontajner.setBackground(Color.GREEN);
-
-        Container druhyKontajner = this.getContentPane();
-        druhyKontajner.setLayout(new BorderLayout());
-        druhyKontajner.setBackground(Color.GREEN);
 
         this.labelHrac = new JLabel("Hrac:", SwingConstants.LEFT);
         //this.labelHrac.setBackground(Color.ORANGE);
@@ -142,12 +162,14 @@ public class GUI extends JFrame implements ActionListener {
 
         this.textHrac = new JTextField();
         this.textHrac.setPreferredSize(new Dimension(50, 20));
+        this.textHrac.setEditable(false);
 
         this.labelPeniaze = new JLabel("Peniaze:", SwingConstants.LEFT);
         this.labelPeniaze.setOpaque(true);
 
         this.textPeniaze = new JTextField();
         this.textPeniaze.setPreferredSize(new Dimension(50, 20));
+        this.textPeniaze.setEditable(false);
 
         this.hornyPanel = new JPanel();
         this.hornyPanel.setBackground(Color.ORANGE);
@@ -167,18 +189,10 @@ public class GUI extends JFrame implements ActionListener {
 
         this.gridPanel = new JPanel();
         this.gridPanel.setBackground(Color.RED);
-        this.gridPanel.setLayout(new GridLayout(5, 1, 5, 4));
+        this.gridPanel.setLayout(new GridLayout(2, 1, 5, 4));
 
-        this.gridPanel.add(this.novaHra);
-        this.gridPanel.add(this.nacitajHru);
-        this.gridPanel.add(this.koniecHry);
-
-        this.gridPanel2 = new JPanel();
-        this.gridPanel2.setBackground(Color.RED);
-        this.gridPanel2.setLayout(new GridLayout(5, 1, 5, 4));
-
-        this.gridPanel2.add(this.textovePole);
-        this.gridPanel2.add(this.hodKockou);
+        this.gridPanel.add(this.textovePole);
+        this.gridPanel.add(this.hodKockou);
 
         this.labelStred = new JLabel("", SwingConstants.CENTER);
         this.labelStred.setOpaque(true);
@@ -202,7 +216,7 @@ public class GUI extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == this.novaHra) {
+        if (e.getSource() == this.novaHraMenu) {
             System.out.println("Nova hra");
 
             int pocetHracov;
@@ -214,17 +228,20 @@ public class GUI extends JFrame implements ActionListener {
                     System.out.println("Hru nemoze hrat viac ako 6 hracov");
                 }
             } while (pocetHracov < 2 || pocetHracov > 6);
-            this.novaHra.setVisible(false);
-            this.nacitajHru.setVisible(false);
-            this.koniecHry.setVisible(false);
+            //this.novaHra.setVisible(false);
+            //this.nacitajHru.setVisible(false);
+            //this.koniecHry.setVisible(false);
 
             this.hra = new Hra(pocetHracov);
+            this.hodKockou.setEnabled(true);
 
             this.textHrac.setText(this.hra.getAktHrac().getMeno());
             this.textPeniaze.setText("" + this.hra.getAktHrac().getPeniaze());
-
-            this.bocnyPanel.remove(this.gridPanel);
-            this.bocnyPanel.add(this.gridPanel2);
+        } else if (e.getSource() == this.nacitajHruMenu) {
+            System.out.println("Nacitaj hru zatial nie je mozne");
+        } else if (e.getSource() == this.koniecMenu) {
+            System.out.println("Koniec hry");
+            System.exit(0);
         } else if (e.getSource() == this.hodKockou) {
             this.hra.tah();
             this.textHrac.setText(this.hra.getAktHrac().getMeno());
