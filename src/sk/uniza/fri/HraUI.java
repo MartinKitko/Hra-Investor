@@ -15,7 +15,7 @@ public abstract class HraUI {
     private static Hra hra;
 
     public static void main(String[] args) {
-        new GUI();
+        GUI.getInstancia();
 
         /*HraUI.sc = new Scanner(System.in);
         System.out.println("Vitaj v hre Investor");

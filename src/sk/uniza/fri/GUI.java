@@ -42,6 +42,7 @@ import java.awt.event.ActionListener;
  * @author Martin Kitko
  */
 public class GUI extends JFrame implements ActionListener {
+    private static GUI instancia;
     private Hra hra;
     private JButton novaHra;
     private JButton nacitajHru;
@@ -64,7 +65,7 @@ public class GUI extends JFrame implements ActionListener {
     private JMenuItem koniecMenu;
 
 
-    public GUI() {
+    private GUI() {
         this.setTitle("Investor");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(true);
@@ -212,6 +213,13 @@ public class GUI extends JFrame implements ActionListener {
 
         this.validate();
 
+    }
+
+    public static GUI getInstancia() {
+        if (GUI.instancia == null) {
+            GUI.instancia = new GUI();
+        }
+        return GUI.instancia;
     }
 
     @Override
