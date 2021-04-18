@@ -44,20 +44,17 @@ import java.awt.event.ActionListener;
 public class GUI extends JFrame implements ActionListener {
     private static GUI instancia;
     private Hra hra;
-    private JButton novaHra;
-    private JButton nacitajHru;
-    private JButton koniecHry;
     private JButton hodKockou;
+    private JButton kupitPodnik;
     private JPanel hornyPanel;
     private JPanel bocnyPanel;
     private JPanel gridPanel;
-    private JPanel gridPanel2;
     private JLabel labelHrac;
     private JLabel labelPeniaze;
     private JLabel labelStred;
     private JTextField textHrac;
     private JTextField textPeniaze;
-    private JTextField textovePole;
+    private JTextArea textovePole;
     private JMenuBar menuBar;
     private JMenu hraMenu;
     private JMenuItem novaHraMenu;
@@ -94,13 +91,7 @@ public class GUI extends JFrame implements ActionListener {
 
         /*JPanel panel = new JPanel();
         panel.setBounds(200, 100, 150, 60);
-
         this.add(panel);*/
-
-
-        /*JPanel panel2 = new JPanel();
-        panel2.setBounds(200, 10, 100, 40);
-        this.add(panel2);*/
 
         /*this.novaHra = new JButton("Nová hra");
         this.novaHra.setBounds(620, 200, 150, 60);
@@ -142,16 +133,15 @@ public class GUI extends JFrame implements ActionListener {
         this.menuBar.add(helpMenu);
 
 
-
-        /*this.novaHra = new JButton("Nova hra");
-        this.novaHra.addActionListener(this);
-        this.nacitajHru = new JButton("Nacitaj hru");
-        this.nacitajHru.addActionListener(this);
-        this.koniecHry = new JButton("Koniec hry");
-        this.koniecHry.addActionListener(this);*/
         this.hodKockou = new JButton("Hod kockou");
         this.hodKockou.addActionListener(this);
+        this.hodKockou.setFocusable(false);
         this.hodKockou.setEnabled(false);
+
+        this.kupitPodnik = new JButton("Kupit podnik");
+        this.kupitPodnik.addActionListener(this);
+        this.kupitPodnik.setFocusable(false);
+        this.kupitPodnik.setEnabled(false);
 
         Container hlavnyKontajner = this.getContentPane();
         hlavnyKontajner.setLayout(new BorderLayout());
@@ -181,8 +171,10 @@ public class GUI extends JFrame implements ActionListener {
         this.hornyPanel.add(this.labelPeniaze);
         this.hornyPanel.add(this.textPeniaze);
 
-        this.textovePole = new JTextField();
-        this.textovePole.setPreferredSize(new Dimension(100, 100));
+        this.textovePole = new JTextArea();
+        //this.textovePole.setPreferredSize(new Dimension(100, 100));
+        this.textovePole.setRows(10);
+        this.textovePole.setColumns(15);
 
         this.bocnyPanel = new JPanel();
         this.bocnyPanel.setBackground(Color.CYAN);
@@ -190,10 +182,12 @@ public class GUI extends JFrame implements ActionListener {
 
         this.gridPanel = new JPanel();
         this.gridPanel.setBackground(Color.RED);
-        this.gridPanel.setLayout(new GridLayout(2, 1, 5, 4));
+        this.gridPanel.setLayout(new FlowLayout(FlowLayout.TRAILING));
 
-        this.gridPanel.add(this.textovePole);
-        this.gridPanel.add(this.hodKockou);
+        //this.gridPanel.add(this.textovePole);
+        //this.gridPanel.add(this.hodKockou);
+        this.bocnyPanel.add(this.textovePole);
+        this.bocnyPanel.add(this.hodKockou);
 
         this.labelStred = new JLabel("", SwingConstants.CENTER);
         this.labelStred.setOpaque(true);
@@ -201,7 +195,7 @@ public class GUI extends JFrame implements ActionListener {
         ImageIcon image2 = new ImageIcon("src/sk/uniza/fri/hraciaPlocha.jpg");
         this.labelStred.setIcon(image2);
 
-        this.bocnyPanel.add(this.gridPanel);
+        //this.bocnyPanel.add(this.gridPanel);
         hlavnyKontajner.add(this.labelStred);
         hlavnyKontajner.add(this.bocnyPanel, BorderLayout.EAST);
 
@@ -248,6 +242,7 @@ public class GUI extends JFrame implements ActionListener {
         } else if (e.getSource() == this.nacitajHruMenu) {
             System.out.println("Nacitaj hru zatial nie je mozne");
         } else if (e.getSource() == this.koniecMenu) {
+            // TODO naozaj?
             System.out.println("Koniec hry");
             System.exit(0);
         } else if (e.getSource() == this.hodKockou) {
@@ -255,6 +250,11 @@ public class GUI extends JFrame implements ActionListener {
             this.textHrac.setText(this.hra.getAktHrac().getMeno());
             this.textPeniaze.setText("" + this.hra.getAktHrac().getPeniaze());
         }
+    }
+
+    public void zobraz(String text) {
+        this.textovePole.append(text + "\n");
+        this.repaint();
     }
 
 }

@@ -1,5 +1,6 @@
 package sk.uniza.fri.policka;
 
+import sk.uniza.fri.GUI;
 import sk.uniza.fri.hraci.IHrac;
 
 import java.util.Scanner;
@@ -11,6 +12,7 @@ import java.util.Scanner;
  */
 public abstract class Policko {
     private String nazov;
+    private GUI gui;
 
     public Policko(String nazov) {
         if (nazov == null) {
@@ -18,34 +20,18 @@ public abstract class Policko {
         }
 
         this.nazov = nazov;
+        this.gui = GUI.getInstancia();
     }
 
     public String getNazov() {
         return this.nazov;
     }
 
-    public abstract void vykonaj(IHrac hrac);
-
-    public int zobrazMoznosti() {
-        Scanner sc = new Scanner(System.in);
-        int volba = 0;
-        do {
-            if (volba != 0) {
-                System.out.println("Zle zadana volba");
-            }
-            System.out.println("1 - Kupit podnik");
-            System.out.println("2 - Dalsie informacie o podniku");
-            System.out.println("0 - Ziadna akcia");
-            System.out.print("Zadaj svoju volbu: ");
-            while (!sc.hasNextInt()) {
-                System.out.print("Je potrebne zadat cele cislo: ");
-                sc.next();
-            }
-            volba = sc.nextInt();
-        } while (volba < 0 || volba > 2);
-
-        return volba;
+    public void zobrazGUI(String text) {
+        this.gui.zobraz(text);
     }
+
+    public abstract void vykonaj(IHrac hrac);
 
     @Override
     public String toString() {
