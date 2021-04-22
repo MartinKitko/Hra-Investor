@@ -1,5 +1,6 @@
 package sk.uniza.fri.hraci;
 
+import com.google.gson.annotations.Expose;
 import sk.uniza.fri.policka.Policko;
 import sk.uniza.fri.policka.Preprava;
 import sk.uniza.fri.policka.Agentura;

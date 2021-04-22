@@ -1,8 +1,10 @@
 package sk.uniza.fri.policka;
 
+import com.gilecode.yagson.com.google.gson.annotations.Expose;
 import sk.uniza.fri.GUI;
 import sk.uniza.fri.hraci.IHrac;
 
+import java.beans.Transient;
 import java.util.Scanner;
 
 /**
@@ -12,7 +14,7 @@ import java.util.Scanner;
  */
 public abstract class Policko {
     private String nazov;
-    private GUI gui;
+    private transient GUI gui;
 
     public Policko(String nazov) {
         if (nazov == null) {

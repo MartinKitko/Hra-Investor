@@ -1,9 +1,16 @@
 package sk.uniza.fri;
 
+import com.gilecode.yagson.YaGson;
+import com.gilecode.yagson.YaGsonBuilder;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
 import sk.uniza.fri.hraci.HracClovek;
 import sk.uniza.fri.hraci.HracPocitac;
 import sk.uniza.fri.hraci.IHrac;
 import sk.uniza.fri.policka.Policko;
+
+import java.lang.reflect.Modifier;
 
 /**
  * 1. 4. 2021 - 17:09
@@ -22,8 +29,8 @@ public class Hra {
         this.zoznamHracov = new IHrac[pocetHracov];
 
         for (int i = 0; i < pocetHracov; i++) {
-            this.zoznamHracov[i] = new HracClovek("Hrac " + (i + 1));
-            //this.zoznamHracov[i] = new HracPocitac("Pocitac " + (i + 1));
+            //this.zoznamHracov[i] = new HracClovek("Hrac " + (i + 1));
+            this.zoznamHracov[i] = new HracPocitac("Pocitac " + (i + 1));
         }
 
         this.pocetHracov = pocetHracov;
@@ -93,6 +100,11 @@ public class Hra {
                     System.out.println("Pocet tahov: " + this.pocetTahov);
                 }
             }
+            //Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+            //Gson gson = new Gson();
+            //String json = gson.toJson(this);
+            YaGson mapper = new YaGsonBuilder().excludeFieldsWithModifiers(Modifier.TRANSIENT).create();
+            String json = mapper.toJson(this, Hra.class);
             return true;
         }
         return false;

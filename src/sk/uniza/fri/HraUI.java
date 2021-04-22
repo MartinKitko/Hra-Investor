@@ -15,7 +15,7 @@ public abstract class HraUI {
     private static Hra hra;
 
     public static void main(String[] args) {
-        GUI.getInstancia();
+        //GUI.getInstancia();
 
         /*HraUI.sc = new Scanner(System.in);
         System.out.println("Vitaj v hre Investor");
@@ -37,7 +37,7 @@ public abstract class HraUI {
 
         System.out.println("Koniec hry");*/
 
-        //HraUI.experiment();
+        HraUI.experiment();
     }
 
     private static int hlavneMenu() {
@@ -117,7 +117,7 @@ public abstract class HraUI {
 
     private static int experiment() {
         int pocetHracov = 2;
-        int pocetHier = 1000;
+        int pocetHier = 1;
         int[] pocty = new int[pocetHier];
         for (int i = 0; i < pocetHier; i++) {
             HraUI.hra = new Hra(pocetHracov);
