@@ -21,7 +21,6 @@ public class Hra {
         this.hraciaPlocha = new HraciaPlocha();
         this.zoznamHracov = new IHrac[pocetHracov];
 
-
         for (int i = 0; i < pocetHracov; i++) {
             this.zoznamHracov[i] = new HracClovek("Hrac " + (i + 1));
             //this.zoznamHracov[i] = new HracPocitac("Pocitac " + (i + 1));
