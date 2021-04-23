@@ -1,7 +1,13 @@
 package sk.uniza.fri;
 
+import com.gilecode.yagson.YaGson;
+import com.gilecode.yagson.YaGsonBuilder;
 import sk.uniza.fri.hraci.HracPocitac;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.lang.reflect.Modifier;
 import java.util.Scanner;
 
 /**
@@ -16,8 +22,9 @@ public abstract class HraUI {
 
     public static void main(String[] args) {
         //GUI.getInstancia();
+        //HraUI.experiment();
 
-        /*HraUI.sc = new Scanner(System.in);
+        HraUI.sc = new Scanner(System.in);
         System.out.println("Vitaj v hre Investor");
 
         int volba;
@@ -35,9 +42,8 @@ public abstract class HraUI {
             volba = HraUI.druheMenu();
         }
 
-        System.out.println("Koniec hry");*/
-
-        HraUI.experiment();
+        System.out.println("Koniec hry");
+        System.exit(0);
     }
 
     private static int hlavneMenu() {
@@ -82,8 +88,7 @@ public abstract class HraUI {
                         hra.tah();
                     }
                 }
-                // TODO spravit aby sa hra skoncila po konciHry, toto nefunguje
-                case 2 -> hra.ulozHru();
+                case 2 -> HraUI.ulozHru();
                 case 0 -> {
                     System.out.print("Naozaj si zelas ukoncit hru? Pokracovat v hre - 1, ukoncit hru - 0: ");
                     volba = sc.nextInt();
@@ -117,7 +122,7 @@ public abstract class HraUI {
 
     private static int experiment() {
         int pocetHracov = 2;
-        int pocetHier = 1;
+        int pocetHier = 1000;
         int[] pocty = new int[pocetHier];
         for (int i = 0; i < pocetHier; i++) {
             HraUI.hra = new Hra(pocetHracov);
@@ -140,7 +145,41 @@ public abstract class HraUI {
     }
 
     private static void nacitajHru() {
-        System.out.println("Hru zatial nie je mozne nacitat");
+        String nacitanySubor = "";
+        try (Scanner citac = new Scanner(nacitajSubor())) {
+            nacitanySubor = citac.nextLine();
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+            nacitajHru();
+        } finally {
+            if (!nacitanySubor.equals("")) {
+                YaGson mapper = new YaGson();
+                HraUI.hra = mapper.fromJson(nacitanySubor, Hra.class);
+            }
+        }
+    }
+
+    private static void ulozHru() {
+        PrintWriter zapisovac = null;
+        YaGson mapper = new YaGsonBuilder().excludeFieldsWithModifiers(Modifier.TRANSIENT).create();
+        String json = mapper.toJson(HraUI.hra, Hra.class);
+        try {
+            zapisovac = new PrintWriter(nacitajSubor());
+            zapisovac.println(json);
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            if (zapisovac != null) {
+                zapisovac.close();
+            }
+        }
+        System.out.println("Hra bola uspesne ulozena");
+    }
+
+    private static File nacitajSubor() {
+        System.out.print("Zadaj nazov suboru bez pripony: ");
+        String nazovSuboru = sc.next();
+        return new File(nazovSuboru + ".txt");
     }
 
 }

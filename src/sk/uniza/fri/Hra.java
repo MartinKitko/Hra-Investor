@@ -10,7 +10,11 @@ import sk.uniza.fri.hraci.HracPocitac;
 import sk.uniza.fri.hraci.IHrac;
 import sk.uniza.fri.policka.Policko;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.lang.reflect.Modifier;
+import java.util.Scanner;
 
 /**
  * 1. 4. 2021 - 17:09
@@ -29,8 +33,8 @@ public class Hra {
         this.zoznamHracov = new IHrac[pocetHracov];
 
         for (int i = 0; i < pocetHracov; i++) {
-            //this.zoznamHracov[i] = new HracClovek("Hrac " + (i + 1));
-            this.zoznamHracov[i] = new HracPocitac("Pocitac " + (i + 1));
+            this.zoznamHracov[i] = new HracClovek("Hrac " + (i + 1));
+            //this.zoznamHracov[i] = new HracPocitac("Pocitac " + (i + 1));
         }
 
         this.pocetHracov = pocetHracov;
@@ -76,10 +80,6 @@ public class Hra {
         return this.zoznamHracov[this.aktHrac];
     }
 
-    public void ulozHru() {
-        System.out.println("Zatial nie je mozne ulozit hru");
-    }
-
     public int getPocetTahov() {
         return this.pocetTahov;
     }
@@ -103,8 +103,6 @@ public class Hra {
             //Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
             //Gson gson = new Gson();
             //String json = gson.toJson(this);
-            YaGson mapper = new YaGsonBuilder().excludeFieldsWithModifiers(Modifier.TRANSIENT).create();
-            String json = mapper.toJson(this, Hra.class);
             return true;
         }
         return false;
