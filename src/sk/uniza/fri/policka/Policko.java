@@ -33,6 +33,10 @@ public abstract class Policko {
         this.gui.zobraz(text);
     }
 
+    public int zobrazMoznosti(String sprava, String nazovOkna) {
+        return this.gui.zobrazMoznosti(sprava, nazovOkna);
+    }
+
     public abstract void vykonaj(IHrac hrac);
 
     @Override

@@ -21,9 +21,10 @@ public class Agentura extends Policko {
         int volba;
         if (this.majitel == null) {
             do {
-                volba = hrac.zobrazMoznosti();
+                //volba = hrac.zobrazMoznosti();
+                volba = this.zobrazMoznosti("Chces zakupit tuto agenturu za " + CENA + "?", "Kupa agentury");
                 switch (volba) {
-                    case 1:
+                    case 0:
                         this.kupa(hrac);
                         break;
                     case 2:

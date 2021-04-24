@@ -1,20 +1,9 @@
 package sk.uniza.fri;
 
-import com.gilecode.yagson.YaGson;
-import com.gilecode.yagson.YaGsonBuilder;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.Expose;
 import sk.uniza.fri.hraci.HracClovek;
 import sk.uniza.fri.hraci.HracPocitac;
 import sk.uniza.fri.hraci.IHrac;
 import sk.uniza.fri.policka.Policko;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.lang.reflect.Modifier;
-import java.util.Scanner;
 
 /**
  * 1. 4. 2021 - 17:09
@@ -97,7 +86,7 @@ public class Hra {
                 if (!this.zoznamHracov[i].prehral()) {
                     System.out.println("Koniec hry");
                     System.out.println(this.zoznamHracov[i] + " je vitaz!");
-                    System.out.println("Pocet tahov: " + this.pocetTahov);
+                    System.out.println("Pocet tahov: " + this.pocetTahov / this.pocetHracov);
                 }
             }
             //Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();

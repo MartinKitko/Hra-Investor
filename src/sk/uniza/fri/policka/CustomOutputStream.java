@@ -7,7 +7,7 @@ import java.io.OutputStream;
 /**
  * 1. 4. 2021 - 17:09
  *
- * @author Martin Kitko
+ * @author
  */
 public class CustomOutputStream extends OutputStream {
     private JTextArea textovePole;

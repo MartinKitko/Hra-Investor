@@ -29,12 +29,13 @@ public class Relax extends Policko {
         }
 
         if (hrac.getPeniaze() > 20000) {
-            System.out.println("Zaplat 20 000 alebo pockaj jedno kolo:");
+            /*System.out.println("Zaplat 20 000 alebo pockaj jedno kolo:");
             System.out.println("1 - zaplatim");
             System.out.println("2 - pockam");
             System.out.print("Zadaj svoju volbu: ");
-            int volba = sc.nextInt();
-            if (volba == 1) {
+            int volba = sc.nextInt();*/
+            int volba = this.zobrazMoznosti("Chces zaplatit 20 000 aby si nemusel stat jedno kolo?", "Relax");
+            if (volba == 0) {
                 System.out.println("Zaplatil si 20 000");
                 hrac.odoberPeniaze(20000);
             } else {

@@ -27,11 +27,7 @@ import sk.uniza.fri.policka.CustomOutputStream;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
-import java.awt.Color;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.Container;
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.PrintStream;
@@ -47,6 +43,8 @@ public class GUI extends JFrame implements ActionListener {
     private Hra hra;
     private JButton hodKockou;
     private JButton kupitPodnik;
+    private JButton zobrazInfo;
+    private JButton ziadnaAkcia;
     private JPanel hornyPanel;
     private JPanel bocnyPanel;
     private JPanel gridPanel;
@@ -67,54 +65,13 @@ public class GUI extends JFrame implements ActionListener {
         this.setTitle("Investor");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(true);
-        this.setMinimumSize(new Dimension(900, 675));
+        this.setMinimumSize(new Dimension(1000, 650));
         this.setVisible(true);
 
 
         ImageIcon image = new ImageIcon("src/sk/uniza/fri/logo.png");
         this.setIconImage(image.getImage());
         //this.getContentPane().setBackground(new Color(248, 255, 247));
-
-        /*JLabel label = new JLabel();
-        //label.setText("Vitaj v hre Investor");
-        this.add(label);
-
-        ImageIcon image2 = new ImageIcon("src/sk/uniza/fri/hraciaPlocha.jpg");
-        //Border border = BorderFactory.createLineBorder(Color.black, 2);
-        label.setIcon(image2);
-        //label.setHorizontalTextPosition(JLabel.CENTER);
-        //label.setVerticalTextPosition(JLabel.TOP);
-        //label.setForeground(new Color(0, 0, 0)); // farba textu
-        //label.setFont(new Font("Arial", Font.PLAIN, 20));
-        //label.setBorder(border);
-        label.setVerticalAlignment(JLabel.CENTER);
-        label.setHorizontalAlignment(JLabel.LEFT);
-
-        /*JPanel panel = new JPanel();
-        panel.setBounds(200, 100, 150, 60);
-        this.add(panel);*/
-
-        /*this.novaHra = new JButton("Nová hra");
-        this.novaHra.setBounds(620, 200, 150, 60);
-        this.novaHra.addActionListener(this);
-        //this.novaHra.setText("Nová hra");
-        this.novaHra.setFont(new Font("Arial", Font.BOLD, 15));
-        this.novaHra.setFocusable(false);
-        this.novaHra.setBackground(Color.lightGray);
-        this.novaHra.setBorder(BorderFactory.createEtchedBorder());
-        //this.button.setEnabled(false);
-        //this.button.addActionListener(e -> System.out.println("klik"));
-        this.add(this.novaHra);
-
-        this.hodKockou = new JButton("Hod kockou");
-        this.hodKockou.setBounds(620, 300, 150, 60);
-        this.hodKockou.addActionListener(this);
-        this.hodKockou.setFont(new Font("Arial", Font.BOLD, 15));
-        this.hodKockou.setFocusable(false);
-        this.hodKockou.setBackground(Color.lightGray);
-        this.hodKockou.setBorder(BorderFactory.createEtchedBorder());
-        this.hodKockou.setEnabled(false);
-        this.add(this.hodKockou);*/
 
         this.menuBar = new JMenuBar();
         this.hraMenu = new JMenu("Hra");
@@ -144,13 +101,58 @@ public class GUI extends JFrame implements ActionListener {
         this.kupitPodnik.setFocusable(false);
         this.kupitPodnik.setEnabled(false);
 
-        Container menuKontajner = this.getContentPane();
-        menuKontajner.setLayout(new BorderLayout());
-        menuKontajner.setBackground(Color.gray);
+        this.zobrazInfo = new JButton("Zobraz info");
+        this.zobrazInfo.addActionListener(this);
+        this.zobrazInfo.setFocusable(false);
+        this.zobrazInfo.setEnabled(false);
+
+        this.ziadnaAkcia = new JButton("Ziadna akcia");
+        this.ziadnaAkcia.addActionListener(this);
+        this.ziadnaAkcia.setFocusable(false);
+        this.ziadnaAkcia.setEnabled(false);
+
 
         Container hlavnyKontajner = this.getContentPane();
         hlavnyKontajner.setLayout(new BorderLayout());
         hlavnyKontajner.setBackground(Color.GREEN);
+
+
+        /*JLayeredPane layeredPane2 = new JLayeredPane();
+        //layeredPane2.setBounds(0, 0, 500, 500);
+        this.add(layeredPane2);
+        JLabel label1 = new JLabel();
+        label1.setOpaque(true);
+        label1.setBackground(Color.RED);
+        label1.setBounds(50, 50, 200, 200);
+
+        JLabel label2 = new JLabel();
+        label2.setOpaque(true);
+        label2.setBackground(Color.GREEN);
+        label2.setBounds(100, 100, 200, 200);
+
+        JLabel label3 = new JLabel();
+        label3.setOpaque(true);
+        label3.setBackground(Color.BLUE);
+        label3.setBounds(150, 150, 200, 200);
+
+        //layeredPane.add(label1, JLayeredPane.DEFAULT_LAYER);
+        layeredPane2.add(label1, Integer.valueOf(0));
+        layeredPane2.add(label2, Integer.valueOf(2));
+        layeredPane2.add(label3, Integer.valueOf(1));
+        //layeredPane2.setLayer(label1, Integer.valueOf(3));*/
+
+
+        /*JPanel hraPanel = new JPanel();
+        hraPanel.setBackground(Color.YELLOW);
+        hraPanel.setOpaque(true);
+        //hlavnyKontajner.add(hraPanel);
+
+
+        JPanel menuPanel = new JPanel();
+        menuPanel.setBackground(Color.ORANGE);
+        //hlavnyKontajner.add(menuPanel);
+        //layeredPane.add(menuPanel, Integer.valueOf(1));*/
+
 
         this.labelHrac = new JLabel("Hrac:", SwingConstants.LEFT);
         //this.labelHrac.setBackground(Color.ORANGE);
@@ -169,21 +171,22 @@ public class GUI extends JFrame implements ActionListener {
 
         this.hornyPanel = new JPanel();
         this.hornyPanel.setBackground(Color.ORANGE);
-        this.hornyPanel.setLayout(new FlowLayout(5));
+        this.hornyPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         hlavnyKontajner.add(this.hornyPanel, BorderLayout.NORTH);
+        //hraPanel.add(this.hornyPanel, BorderLayout.NORTH);
+        //menuPanel.add(this.hornyPanel, BorderLayout.NORTH);
         this.hornyPanel.add(this.labelHrac);
         this.hornyPanel.add(this.textHrac);
         this.hornyPanel.add(this.labelPeniaze);
         this.hornyPanel.add(this.textPeniaze);
 
         this.textovePole = new JTextArea();
-        //this.textovePole.setPreferredSize(new Dimension(100, 100));
-        this.textovePole.setRows(10);
-        this.textovePole.setColumns(15);
+        this.textovePole.setColumns(20);
+        this.textovePole.setLineWrap(true);
+        this.textovePole.setWrapStyleWord(true);
 
         /*JScrollPane scroll = new JScrollPane(this.textovePole);
         getContentPane().add(scroll);*/
-
 
         // presunutie vypisovania z terminalu do textoveho pola
         PrintStream printStream = new PrintStream(new CustomOutputStream(this.textovePole));
@@ -192,34 +195,51 @@ public class GUI extends JFrame implements ActionListener {
 
         this.bocnyPanel = new JPanel();
         this.bocnyPanel.setBackground(Color.CYAN);
-        this.bocnyPanel.setLayout(new FlowLayout(4, 4, 4));
-        this.bocnyPanel.add(new JScrollPane(this.textovePole));
+        this.bocnyPanel.setLayout(new GridLayout(2, 1, 4, 4));
+
+        JScrollPane scroll = new JScrollPane(this.textovePole);
+        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         this.gridPanel = new JPanel();
         this.gridPanel.setBackground(Color.RED);
-        this.gridPanel.setLayout(new FlowLayout(FlowLayout.TRAILING));
-
-        this.gridPanel.add(this.textovePole);
+        //this.gridPanel.setLayout(new GridLayout(2, 1, 4, 4));
+        this.gridPanel.setLayout(new GridLayout(4, 1, 4, 4));
+        //this.gridPanel.add(this.textovePole);
         this.gridPanel.add(this.hodKockou);
-        //this.bocnyPanel.add(this.textovePole);
-        //this.bocnyPanel.add(this.hodKockou);
+        this.gridPanel.add(this.kupitPodnik);
+        this.gridPanel.add(this.zobrazInfo);
+        this.gridPanel.add(this.ziadnaAkcia);
+        this.bocnyPanel.add(scroll);
+        this.bocnyPanel.add(this.gridPanel);
+
+        /*JLayeredPane bocnyLayeredPane = new JLayeredPane();
+        bocnyLayeredPane.setLayout(new FlowLayout(4, 4, 4));
+        this.add(bocnyLayeredPane);
+        //bocnyLayeredPane.add(this.bocnyPanel, Integer.valueOf(0));
+        //bocnyLayeredPane.add(bocnyPanel2, Integer.valueOf(1));
+        bocnyLayeredPane.add(panel1, Integer.valueOf(0));
+        bocnyLayeredPane.add(panel2, Integer.valueOf(1));*/
 
         this.labelStred = new JLabel("", SwingConstants.CENTER);
         this.labelStred.setOpaque(true);
-        this.labelStred.setBorder(new LineBorder(Color.BLACK, 3));
+        //this.labelStred.setBorder(new LineBorder(Color.BLACK, 3));
         ImageIcon image2 = new ImageIcon("src/sk/uniza/fri/hraciaPlocha.jpg");
         this.labelStred.setIcon(image2);
 
         this.bocnyPanel.add(this.gridPanel);
+        //hraPanel.add(this.labelStred);
+        //menuPanel.add(this.labelStred);
+        //menuPanel.add(this.bocnyPanel, BorderLayout.EAST);
         hlavnyKontajner.add(this.labelStred);
         hlavnyKontajner.add(this.bocnyPanel, BorderLayout.EAST);
-        hlavnyKontajner.setVisible(false);
+        //hraPanel.add(this.bocnyPanel, BorderLayout.EAST);
+        //hlavnyKontajner.setVisible(false);
+        //hraPanel.setVisible(false);
+        //menuPanel.setVisible(true);
 
-        /*JPanel spodnyPanel = new JPanel();
-        spodnyPanel.setBackground(Color.MAGENTA);
-        spodnyPanel.setLayout(new FlowLayout(3));
-        spodnyPanel.add(button7);
-        hlavnyKontajner.add(spodnyPanel, BorderLayout.SOUTH);*/
+        //hraPanel.setOpaque(true);
+        //hraPanel.setVisible(true);
+        //layeredPane.add(hraPanel, Integer.valueOf(0));
 
         this.validate();
 
@@ -273,4 +293,53 @@ public class GUI extends JFrame implements ActionListener {
         this.repaint();
     }
 
+    public int zobrazMoznosti(String sprava, String nazov) {
+        JOptionPane jOptionPane = new JOptionPane();
+        //return JOptionPane.showConfirmDialog(null, sprava, nazov, JOptionPane.YES_NO_OPTION);
+        Object[] moznosti = {"Ano", "Nie"};
+        return JOptionPane.showOptionDialog(null, sprava, nazov, JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null, moznosti, moznosti[1]);
+    }
+
 }
+
+        /*JLabel label = new JLabel();
+        //label.setText("Vitaj v hre Investor");
+        this.add(label);
+
+        ImageIcon image2 = new ImageIcon("src/sk/uniza/fri/hraciaPlocha.jpg");
+        //Border border = BorderFactory.createLineBorder(Color.black, 2);
+        label.setIcon(image2);
+        //label.setHorizontalTextPosition(JLabel.CENTER);
+        //label.setVerticalTextPosition(JLabel.TOP);
+        //label.setForeground(new Color(0, 0, 0)); // farba textu
+        //label.setFont(new Font("Arial", Font.PLAIN, 20));
+        //label.setBorder(border);
+        label.setVerticalAlignment(JLabel.CENTER);
+        label.setHorizontalAlignment(JLabel.LEFT);*/
+
+/*JPanel panel = new JPanel();
+        panel.setBounds(200, 100, 150, 60);
+        this.add(panel);*/
+
+        /*this.novaHra = new JButton("Nová hra");
+        this.novaHra.setBounds(620, 200, 150, 60);
+        this.novaHra.addActionListener(this);
+        //this.novaHra.setText("Nová hra");
+        this.novaHra.setFont(new Font("Arial", Font.BOLD, 15));
+        this.novaHra.setFocusable(false);
+        this.novaHra.setBackground(Color.lightGray);
+        this.novaHra.setBorder(BorderFactory.createEtchedBorder());
+        //this.button.setEnabled(false);
+        //this.button.addActionListener(e -> System.out.println("klik"));
+        this.add(this.novaHra);
+
+        this.hodKockou = new JButton("Hod kockou");
+        this.hodKockou.setBounds(620, 300, 150, 60);
+        this.hodKockou.addActionListener(this);
+        this.hodKockou.setFont(new Font("Arial", Font.BOLD, 15));
+        this.hodKockou.setFocusable(false);
+        this.hodKockou.setBackground(Color.lightGray);
+        this.hodKockou.setBorder(BorderFactory.createEtchedBorder());
+        this.hodKockou.setEnabled(false);
+        this.add(this.hodKockou);*/

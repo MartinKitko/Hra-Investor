@@ -41,9 +41,10 @@ public class Podnik extends Policko {
         int volba;
         if (this.majitel == null) {
             do {
-                volba = hrac.zobrazMoznosti();
+                //volba = hrac.zobrazMoznosti();
+                volba = this.zobrazMoznosti("Chces zakupit tento podnik za " + this.cena + "?", "Kupa podniku");
                 switch (volba) {
-                    case 1:
+                    case 0:
                         this.kupa(hrac);
                         break;
                     case 2:
@@ -118,9 +119,15 @@ public class Podnik extends Policko {
 
         if (this.majitel.getPocetVlastnenychVOdvetvi(this.odvetvie) == maxPocetPobociek) {
             if (this.pocetPobociek < 3) {
-                System.out.print("Chces si zakupit dalsiu pobocku za " + this.cena + "? Ano - 1, nie - 0: ");
+                /*System.out.print("Chces si zakupit dalsiu pobocku za " + this.cena + "? Ano - 1, nie - 0: ");
                 int volba = sc.nextInt();
                 if (volba == 1) {
+                    this.majitel.odoberPeniaze(this.cena);
+                    this.pocetPobociek++;
+                    System.out.println("Zakupena 1 pobocka");
+                }*/
+                int volba = this.zobrazMoznosti("Chces zakupit dalsiu pobocku za " + this.cena + "?", "Kupa pobocky");
+                if (volba == 0) {
                     this.majitel.odoberPeniaze(this.cena);
                     this.pocetPobociek++;
                     System.out.println("Zakupena 1 pobocka");
@@ -129,9 +136,15 @@ public class Podnik extends Policko {
                 if (this.maKoncern) {
                     System.out.println("Vlastnis jeho koncern a vsetky pobocky");
                 } else {
-                    System.out.print("Zakupit koncern za " + this.cena * 2 + " ? Ano - 1, nie - 0: ");
+                    /*System.out.print("Zakupit koncern za " + this.cena * 2 + " ? Ano - 1, nie - 0: ");
                     int volba = sc.nextInt();
                     if (volba == 1) {
+                        this.majitel.odoberPeniaze(this.cena * 2);
+                        this.maKoncern = true;
+                        System.out.println("Koncern uspesne zakupeny");
+                    }*/
+                    int volba = this.zobrazMoznosti("Chces zakupit koncern za " + this.cena * 2 + "?", "Kupa koncernu");
+                    if (volba == 0) {
                         this.majitel.odoberPeniaze(this.cena * 2);
                         this.maKoncern = true;
                         System.out.println("Koncern uspesne zakupeny");
