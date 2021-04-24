@@ -23,17 +23,18 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;*/
 
+import sk.uniza.fri.policka.CustomOutputStream;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.PrintStream;
 
 
 /**
@@ -143,6 +144,10 @@ public class GUI extends JFrame implements ActionListener {
         this.kupitPodnik.setFocusable(false);
         this.kupitPodnik.setEnabled(false);
 
+        Container menuKontajner = this.getContentPane();
+        menuKontajner.setLayout(new BorderLayout());
+        menuKontajner.setBackground(Color.gray);
+
         Container hlavnyKontajner = this.getContentPane();
         hlavnyKontajner.setLayout(new BorderLayout());
         hlavnyKontajner.setBackground(Color.GREEN);
@@ -176,18 +181,28 @@ public class GUI extends JFrame implements ActionListener {
         this.textovePole.setRows(10);
         this.textovePole.setColumns(15);
 
+        /*JScrollPane scroll = new JScrollPane(this.textovePole);
+        getContentPane().add(scroll);*/
+
+
+        // presunutie vypisovania z terminalu do textoveho pola
+        PrintStream printStream = new PrintStream(new CustomOutputStream(this.textovePole));
+        System.setOut(printStream);
+        System.setErr(printStream);
+
         this.bocnyPanel = new JPanel();
         this.bocnyPanel.setBackground(Color.CYAN);
         this.bocnyPanel.setLayout(new FlowLayout(4, 4, 4));
+        this.bocnyPanel.add(new JScrollPane(this.textovePole));
 
         this.gridPanel = new JPanel();
         this.gridPanel.setBackground(Color.RED);
         this.gridPanel.setLayout(new FlowLayout(FlowLayout.TRAILING));
 
-        //this.gridPanel.add(this.textovePole);
-        //this.gridPanel.add(this.hodKockou);
-        this.bocnyPanel.add(this.textovePole);
-        this.bocnyPanel.add(this.hodKockou);
+        this.gridPanel.add(this.textovePole);
+        this.gridPanel.add(this.hodKockou);
+        //this.bocnyPanel.add(this.textovePole);
+        //this.bocnyPanel.add(this.hodKockou);
 
         this.labelStred = new JLabel("", SwingConstants.CENTER);
         this.labelStred.setOpaque(true);
@@ -195,9 +210,10 @@ public class GUI extends JFrame implements ActionListener {
         ImageIcon image2 = new ImageIcon("src/sk/uniza/fri/hraciaPlocha.jpg");
         this.labelStred.setIcon(image2);
 
-        //this.bocnyPanel.add(this.gridPanel);
+        this.bocnyPanel.add(this.gridPanel);
         hlavnyKontajner.add(this.labelStred);
         hlavnyKontajner.add(this.bocnyPanel, BorderLayout.EAST);
+        hlavnyKontajner.setVisible(false);
 
         /*JPanel spodnyPanel = new JPanel();
         spodnyPanel.setBackground(Color.MAGENTA);
@@ -240,7 +256,7 @@ public class GUI extends JFrame implements ActionListener {
             this.textHrac.setText(this.hra.getAktHrac().getMeno());
             this.textPeniaze.setText("" + this.hra.getAktHrac().getPeniaze());
         } else if (e.getSource() == this.nacitajHruMenu) {
-            System.out.println("Nacitaj hru zatial nie je mozne");
+            System.out.println("Nacitat hru zatial nie je mozne");
         } else if (e.getSource() == this.koniecMenu) {
             // TODO naozaj?
             System.out.println("Koniec hry");

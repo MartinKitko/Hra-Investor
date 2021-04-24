@@ -21,10 +21,10 @@ public abstract class HraUI {
     private static Hra hra;
 
     public static void main(String[] args) {
-        //GUI.getInstancia();
+        GUI.getInstancia();
         //HraUI.experiment();
 
-        HraUI.sc = new Scanner(System.in);
+        /*HraUI.sc = new Scanner(System.in);
         System.out.println("Vitaj v hre Investor");
 
         int volba;
@@ -43,7 +43,7 @@ public abstract class HraUI {
         }
 
         System.out.println("Koniec hry");
-        System.exit(0);
+        System.exit(0);*/
     }
 
     private static int hlavneMenu() {
@@ -157,6 +157,7 @@ public abstract class HraUI {
                 HraUI.hra = mapper.fromJson(nacitanySubor, Hra.class);
             }
         }
+        System.out.println("Hra bola uspesne nacitana!");
     }
 
     private static void ulozHru() {
@@ -173,7 +174,7 @@ public abstract class HraUI {
                 zapisovac.close();
             }
         }
-        System.out.println("Hra bola uspesne ulozena");
+        System.out.println("Hra bola uspesne ulozena!");
     }
 
     private static File nacitajSubor() {

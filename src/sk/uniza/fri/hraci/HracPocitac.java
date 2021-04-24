@@ -55,8 +55,7 @@ public class HracPocitac implements IHrac {
         for (int i = 0; i < 40; i++) {
             System.out.printf("%.3f ", (double)this.pocetStal[i] / this.pocetPosunov);
         }*/
-
-
+        
     }
 
     public int zobrazMoznosti() {
