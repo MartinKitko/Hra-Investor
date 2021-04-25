@@ -23,6 +23,8 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;*/
 
+import com.gilecode.yagson.YaGson;
+import com.gilecode.yagson.YaGsonBuilder;
 import sk.uniza.fri.policka.CustomOutputStream;
 
 import javax.swing.*;
@@ -30,7 +32,12 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.PrintStream;
+import java.io.PrintWriter;
+import java.lang.reflect.Modifier;
+import java.util.Scanner;
 
 
 /**
@@ -58,6 +65,7 @@ public class GUI extends JFrame implements ActionListener {
     private JMenu hraMenu;
     private JMenuItem novaHraMenu;
     private JMenuItem nacitajHruMenu;
+    private JMenuItem ulozHruMenu;
     private JMenuItem koniecMenu;
 
 
@@ -79,10 +87,14 @@ public class GUI extends JFrame implements ActionListener {
         this.novaHraMenu.addActionListener(this);
         this.nacitajHruMenu = new JMenuItem("Nacitaj hru");
         this.nacitajHruMenu.addActionListener(this);
+        this.ulozHruMenu = new JMenuItem("Uloz hru");
+        this.ulozHruMenu.addActionListener(this);
         this.koniecMenu = new JMenuItem("Koniec");
         this.koniecMenu.addActionListener(this);
         this.hraMenu.add(this.novaHraMenu);
         this.hraMenu.add(this.nacitajHruMenu);
+        this.hraMenu.add(this.ulozHruMenu);
+        this.ulozHruMenu.setVisible(false);
         this.hraMenu.add(this.koniecMenu);
 
         JMenu helpMenu = new JMenu("Help");
@@ -101,6 +113,7 @@ public class GUI extends JFrame implements ActionListener {
         this.kupitPodnik.setFocusable(false);
         this.kupitPodnik.setEnabled(false);
 
+        // TODO tlacitko na zobrazenie vlastnenych policok
         this.zobrazInfo = new JButton("Zobraz info");
         this.zobrazInfo.addActionListener(this);
         this.zobrazInfo.setFocusable(false);
@@ -222,8 +235,10 @@ public class GUI extends JFrame implements ActionListener {
 
         this.labelStred = new JLabel("", SwingConstants.CENTER);
         this.labelStred.setOpaque(true);
-        //this.labelStred.setBorder(new LineBorder(Color.BLACK, 3));
         ImageIcon image2 = new ImageIcon("src/sk/uniza/fri/hraciaPlocha.jpg");
+        /*Image imageScaled = image2.getImage();
+        Image scaledImage = imageScaled.getScaledInstance(this.labelStred.getWidth(), this.labelStred.getHeight(), Image.SCALE_SMOOTH);
+        this.labelStred.setIcon(new ImageIcon(scaledImage));*/
         this.labelStred.setIcon(image2);
 
         this.bocnyPanel.add(this.gridPanel);
@@ -272,15 +287,20 @@ public class GUI extends JFrame implements ActionListener {
 
             this.hra = new Hra(pocetHracov);
             this.hodKockou.setEnabled(true);
+            this.ulozHruMenu.setVisible(true);
 
             this.textHrac.setText(this.hra.getAktHrac().getMeno());
             this.textPeniaze.setText("" + this.hra.getAktHrac().getPeniaze());
         } else if (e.getSource() == this.nacitajHruMenu) {
-            System.out.println("Nacitat hru zatial nie je mozne");
+            this.nacitajHru();
+        } else if (e.getSource() == this.ulozHruMenu) {
+            this.ulozHru();
         } else if (e.getSource() == this.koniecMenu) {
-            // TODO naozaj?
-            System.out.println("Koniec hry");
-            System.exit(0);
+            int volba = this.zobrazMoznosti("Naozaj chces ukoncit hru?", "Koniec hry");
+            if (volba == 0) {
+                System.out.println("Koniec hry");
+                System.exit(0);
+            }
         } else if (e.getSource() == this.hodKockou) {
             this.hra.tah();
             this.textHrac.setText(this.hra.getAktHrac().getMeno());
@@ -294,11 +314,59 @@ public class GUI extends JFrame implements ActionListener {
     }
 
     public int zobrazMoznosti(String sprava, String nazov) {
-        JOptionPane jOptionPane = new JOptionPane();
         //return JOptionPane.showConfirmDialog(null, sprava, nazov, JOptionPane.YES_NO_OPTION);
         Object[] moznosti = {"Ano", "Nie"};
         return JOptionPane.showOptionDialog(null, sprava, nazov, JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE, null, moznosti, moznosti[1]);
+    }
+
+    private void nacitajHru() {
+        String nacitanySuborString = "";
+        File nacitanySubor = this.nacitajSubor();
+        if (nacitanySubor == null) {
+            return;
+        }
+        try (Scanner citac = new Scanner(nacitanySubor)) {
+            nacitanySuborString = citac.nextLine();
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+            this.nacitajHru();
+        } finally {
+            if (!nacitanySuborString.equals("")) {
+                YaGson mapper = new YaGson();
+                this.hra = mapper.fromJson(nacitanySuborString, Hra.class);
+            }
+        }
+        System.out.println("Hra bola uspesne nacitana!");
+    }
+
+    private void ulozHru() {
+        PrintWriter zapisovac = null;
+        YaGson mapper = new YaGsonBuilder().excludeFieldsWithModifiers(Modifier.TRANSIENT).create();
+        String json = mapper.toJson(this.hra, Hra.class);
+        try {
+            zapisovac = new PrintWriter(this.nacitajSubor());
+            zapisovac.println(json);
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            if (zapisovac != null) {
+                zapisovac.close();
+            }
+        }
+        System.out.println("Hra bola uspesne ulozena!");
+    }
+
+    private File nacitajSubor() {
+        String nazovSuboru;
+        do {
+            nazovSuboru = JOptionPane.showInputDialog(null, "Zadaj nazov suboru bez pripony",
+                    "Nazov suboru", JOptionPane.QUESTION_MESSAGE);
+            if (nazovSuboru == null) {
+                return null;
+            }
+        } while (nazovSuboru.equals(""));
+        return new File(nazovSuboru + ".txt");
     }
 
 }
