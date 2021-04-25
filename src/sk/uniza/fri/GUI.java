@@ -28,7 +28,6 @@ import com.gilecode.yagson.YaGsonBuilder;
 import sk.uniza.fri.policka.CustomOutputStream;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -76,7 +75,6 @@ public class GUI extends JFrame implements ActionListener {
         this.setMinimumSize(new Dimension(1000, 650));
         this.setVisible(true);
 
-
         ImageIcon image = new ImageIcon("src/sk/uniza/fri/logo.png");
         this.setIconImage(image.getImage());
         //this.getContentPane().setBackground(new Color(248, 255, 247));
@@ -102,7 +100,6 @@ public class GUI extends JFrame implements ActionListener {
         this.menuBar.add(this.hraMenu);
         this.menuBar.add(helpMenu);
 
-
         this.hodKockou = new JButton("Hod kockou");
         this.hodKockou.addActionListener(this);
         this.hodKockou.setFocusable(false);
@@ -124,11 +121,9 @@ public class GUI extends JFrame implements ActionListener {
         this.ziadnaAkcia.setFocusable(false);
         this.ziadnaAkcia.setEnabled(false);
 
-
         Container hlavnyKontajner = this.getContentPane();
         hlavnyKontajner.setLayout(new BorderLayout());
         hlavnyKontajner.setBackground(Color.GREEN);
-
 
         /*JLayeredPane layeredPane2 = new JLayeredPane();
         //layeredPane2.setBounds(0, 0, 500, 500);
@@ -154,21 +149,7 @@ public class GUI extends JFrame implements ActionListener {
         layeredPane2.add(label3, Integer.valueOf(1));
         //layeredPane2.setLayer(label1, Integer.valueOf(3));*/
 
-
-        /*JPanel hraPanel = new JPanel();
-        hraPanel.setBackground(Color.YELLOW);
-        hraPanel.setOpaque(true);
-        //hlavnyKontajner.add(hraPanel);
-
-
-        JPanel menuPanel = new JPanel();
-        menuPanel.setBackground(Color.ORANGE);
-        //hlavnyKontajner.add(menuPanel);
-        //layeredPane.add(menuPanel, Integer.valueOf(1));*/
-
-
         this.labelHrac = new JLabel("Hrac:", SwingConstants.LEFT);
-        //this.labelHrac.setBackground(Color.ORANGE);
         this.labelHrac.setOpaque(true);
 
         this.textHrac = new JTextField();
@@ -186,8 +167,6 @@ public class GUI extends JFrame implements ActionListener {
         this.hornyPanel.setBackground(Color.ORANGE);
         this.hornyPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
         hlavnyKontajner.add(this.hornyPanel, BorderLayout.NORTH);
-        //hraPanel.add(this.hornyPanel, BorderLayout.NORTH);
-        //menuPanel.add(this.hornyPanel, BorderLayout.NORTH);
         this.hornyPanel.add(this.labelHrac);
         this.hornyPanel.add(this.textHrac);
         this.hornyPanel.add(this.labelPeniaze);
@@ -197,9 +176,6 @@ public class GUI extends JFrame implements ActionListener {
         this.textovePole.setColumns(20);
         this.textovePole.setLineWrap(true);
         this.textovePole.setWrapStyleWord(true);
-
-        /*JScrollPane scroll = new JScrollPane(this.textovePole);
-        getContentPane().add(scroll);*/
 
         // presunutie vypisovania z terminalu do textoveho pola
         PrintStream printStream = new PrintStream(new CustomOutputStream(this.textovePole));
@@ -217,7 +193,6 @@ public class GUI extends JFrame implements ActionListener {
         this.gridPanel.setBackground(Color.RED);
         //this.gridPanel.setLayout(new GridLayout(2, 1, 4, 4));
         this.gridPanel.setLayout(new GridLayout(4, 1, 4, 4));
-        //this.gridPanel.add(this.textovePole);
         this.gridPanel.add(this.hodKockou);
         this.gridPanel.add(this.kupitPodnik);
         this.gridPanel.add(this.zobrazInfo);
@@ -242,18 +217,9 @@ public class GUI extends JFrame implements ActionListener {
         this.labelStred.setIcon(image2);
 
         this.bocnyPanel.add(this.gridPanel);
-        //hraPanel.add(this.labelStred);
-        //menuPanel.add(this.labelStred);
-        //menuPanel.add(this.bocnyPanel, BorderLayout.EAST);
         hlavnyKontajner.add(this.labelStred);
         hlavnyKontajner.add(this.bocnyPanel, BorderLayout.EAST);
-        //hraPanel.add(this.bocnyPanel, BorderLayout.EAST);
-        //hlavnyKontajner.setVisible(false);
-        //hraPanel.setVisible(false);
-        //menuPanel.setVisible(true);
 
-        //hraPanel.setOpaque(true);
-        //hraPanel.setVisible(true);
         //layeredPane.add(hraPanel, Integer.valueOf(0));
 
         this.validate();
@@ -345,8 +311,12 @@ public class GUI extends JFrame implements ActionListener {
         PrintWriter zapisovac = null;
         YaGson mapper = new YaGsonBuilder().excludeFieldsWithModifiers(Modifier.TRANSIENT).create();
         String json = mapper.toJson(this.hra, Hra.class);
+        File nacitanySubor = this.nacitajSubor();
+        if (nacitanySubor == null) {
+            return;
+        }
         try {
-            zapisovac = new PrintWriter(this.nacitajSubor());
+            zapisovac = new PrintWriter(nacitanySubor);
             zapisovac.println(json);
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
@@ -380,43 +350,21 @@ public class GUI extends JFrame implements ActionListener {
 
 }
 
-        /*JLabel label = new JLabel();
-        //label.setText("Vitaj v hre Investor");
-        this.add(label);
+    /*ImageIcon image2 = new ImageIcon("src/sk/uniza/fri/hraciaPlocha.jpg");
+    //Border border = BorderFactory.createLineBorder(Color.black, 2);
+    label.setIcon(image2);
+    //label.setHorizontalTextPosition(JLabel.CENTER);
+    //label.setVerticalTextPosition(JLabel.TOP);
+    //label.setForeground(new Color(0, 0, 0)); // farba textu
+    //label.setFont(new Font("Arial", Font.PLAIN, 20));
+    //label.setBorder(border);
+    label.setVerticalAlignment(JLabel.CENTER);
+    label.setHorizontalAlignment(JLabel.LEFT);
 
-        ImageIcon image2 = new ImageIcon("src/sk/uniza/fri/hraciaPlocha.jpg");
-        //Border border = BorderFactory.createLineBorder(Color.black, 2);
-        label.setIcon(image2);
-        //label.setHorizontalTextPosition(JLabel.CENTER);
-        //label.setVerticalTextPosition(JLabel.TOP);
-        //label.setForeground(new Color(0, 0, 0)); // farba textu
-        //label.setFont(new Font("Arial", Font.PLAIN, 20));
-        //label.setBorder(border);
-        label.setVerticalAlignment(JLabel.CENTER);
-        label.setHorizontalAlignment(JLabel.LEFT);*/
+    this.novaHra.setFont(new Font("Arial", Font.BOLD, 15));
+    this.novaHra.setBackground(Color.lightGray);
+    this.novaHra.setBorder(BorderFactory.createEtchedBorder());
+    this.button.addActionListener(e -> System.out.println("klik"));
 
-/*JPanel panel = new JPanel();
-        panel.setBounds(200, 100, 150, 60);
-        this.add(panel);*/
-
-        /*this.novaHra = new JButton("Nová hra");
-        this.novaHra.setBounds(620, 200, 150, 60);
-        this.novaHra.addActionListener(this);
-        //this.novaHra.setText("Nová hra");
-        this.novaHra.setFont(new Font("Arial", Font.BOLD, 15));
-        this.novaHra.setFocusable(false);
-        this.novaHra.setBackground(Color.lightGray);
-        this.novaHra.setBorder(BorderFactory.createEtchedBorder());
-        //this.button.setEnabled(false);
-        //this.button.addActionListener(e -> System.out.println("klik"));
-        this.add(this.novaHra);
-
-        this.hodKockou = new JButton("Hod kockou");
-        this.hodKockou.setBounds(620, 300, 150, 60);
-        this.hodKockou.addActionListener(this);
-        this.hodKockou.setFont(new Font("Arial", Font.BOLD, 15));
-        this.hodKockou.setFocusable(false);
-        this.hodKockou.setBackground(Color.lightGray);
-        this.hodKockou.setBorder(BorderFactory.createEtchedBorder());
-        this.hodKockou.setEnabled(false);
-        this.add(this.hodKockou);*/
+    this.hodKockou.setFont(new Font("Arial", Font.BOLD, 15));
+    this.hodKockou.setBackground(Color.lightGray);*/
