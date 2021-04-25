@@ -296,11 +296,7 @@ public class GUI extends JFrame implements ActionListener {
         } else if (e.getSource() == this.ulozHruMenu) {
             this.ulozHru();
         } else if (e.getSource() == this.koniecMenu) {
-            int volba = this.zobrazMoznosti("Naozaj chces ukoncit hru?", "Koniec hry");
-            if (volba == 0) {
-                System.out.println("Koniec hry");
-                System.exit(0);
-            }
+            this.koniecHry();
         } else if (e.getSource() == this.hodKockou) {
             this.hra.tah();
             this.textHrac.setText(this.hra.getAktHrac().getMeno());
@@ -367,6 +363,14 @@ public class GUI extends JFrame implements ActionListener {
             }
         } while (nazovSuboru.equals(""));
         return new File(nazovSuboru + ".txt");
+    }
+
+    private void koniecHry() {
+        int volba = this.zobrazMoznosti("Naozaj chces ukoncit hru?", "Koniec hry");
+        if (volba == 0) {
+            System.out.println("Koniec hry");
+            System.exit(0);
+        }
     }
 
 }
