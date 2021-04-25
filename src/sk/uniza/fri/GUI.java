@@ -270,27 +270,7 @@ public class GUI extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.novaHraMenu) {
-            System.out.println("Nova hra");
-
-            int pocetHracov;
-            do {
-                pocetHracov = Integer.parseInt(JOptionPane.showInputDialog("Zadaj pocet hracov: "));
-                if (pocetHracov < 2) {
-                    System.out.println("Pre spustenie hry su potrebni aspon dvaja hraci");
-                } else if (pocetHracov > 6) {
-                    System.out.println("Hru nemoze hrat viac ako 6 hracov");
-                }
-            } while (pocetHracov < 2 || pocetHracov > 6);
-            //this.novaHra.setVisible(false);
-            //this.nacitajHru.setVisible(false);
-            //this.koniecHry.setVisible(false);
-
-            this.hra = new Hra(pocetHracov);
-            this.hodKockou.setEnabled(true);
-            this.ulozHruMenu.setVisible(true);
-
-            this.textHrac.setText(this.hra.getAktHrac().getMeno());
-            this.textPeniaze.setText("" + this.hra.getAktHrac().getPeniaze());
+            this.vytvorNovuHru();
         } else if (e.getSource() == this.nacitajHruMenu) {
             this.nacitajHru();
         } else if (e.getSource() == this.ulozHruMenu) {
@@ -298,10 +278,35 @@ public class GUI extends JFrame implements ActionListener {
         } else if (e.getSource() == this.koniecMenu) {
             this.koniecHry();
         } else if (e.getSource() == this.hodKockou) {
-            this.hra.tah();
-            this.textHrac.setText(this.hra.getAktHrac().getMeno());
-            this.textPeniaze.setText("" + this.hra.getAktHrac().getPeniaze());
+            this.vykonajHodKockou();
         }
+    }
+
+    private void vytvorNovuHru() {
+        System.out.println("Nova hra");
+
+        int pocetHracov;
+        do {
+            pocetHracov = Integer.parseInt(JOptionPane.showInputDialog("Zadaj pocet hracov: "));
+            if (pocetHracov < 2) {
+                System.out.println("Pre spustenie hry su potrebni aspon dvaja hraci");
+            } else if (pocetHracov > 6) {
+                System.out.println("Hru nemoze hrat viac ako 6 hracov");
+            }
+        } while (pocetHracov < 2 || pocetHracov > 6);
+
+        this.hra = new Hra(pocetHracov);
+        this.hodKockou.setEnabled(true);
+        this.ulozHruMenu.setVisible(true);
+
+        this.textHrac.setText(this.hra.getAktHrac().getMeno());
+        this.textPeniaze.setText("" + this.hra.getAktHrac().getPeniaze());
+    }
+
+    private void vykonajHodKockou() {
+        this.hra.tah();
+        this.textHrac.setText(this.hra.getAktHrac().getMeno());
+        this.textPeniaze.setText("" + this.hra.getAktHrac().getPeniaze());
     }
 
     public void zobraz(String text) {
