@@ -1,7 +1,6 @@
 package sk.uniza.fri.policka;
 
-import javax.swing.*;
-import java.io.IOException;
+import javax.swing.JTextArea;
 import java.io.OutputStream;
 
 /**
@@ -17,9 +16,8 @@ public class CustomOutputStream extends OutputStream {
     }
 
     @Override
-    public void write(int b) throws IOException {
+    public void write(int b) {
         this.textovePole.append(String.valueOf((char)b));
         this.textovePole.setCaretPosition(this.textovePole.getDocument().getLength());
-        this.textovePole.update(this.textovePole.getGraphics());
     }
 }

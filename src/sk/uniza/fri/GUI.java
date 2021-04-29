@@ -1,34 +1,29 @@
 package sk.uniza.fri;
 
-/*import javax.swing.BorderFactory;
-import javax.swing.border.Border;
-
-import javax.swing.BorderFactory;
-import javax.swing.JFrame;
-import javax.swing.SwingConstants;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.border.LineBorder;
-import javax.swing.ImageIcon;
-import javax.swing.border.Border;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;*/
-
 import com.gilecode.yagson.YaGson;
 import com.gilecode.yagson.YaGsonBuilder;
 import sk.uniza.fri.policka.CustomOutputStream;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -37,7 +32,6 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.lang.reflect.Modifier;
 import java.util.Scanner;
-
 
 /**
  * 1. 4. 2021 - 17:09
@@ -304,6 +298,7 @@ public class GUI extends JFrame implements ActionListener {
                 this.hra = mapper.fromJson(nacitanySuborString, Hra.class);
             }
         }
+        this.hodKockou.setEnabled(true);
         System.out.println("Hra bola uspesne nacitana!");
     }
 

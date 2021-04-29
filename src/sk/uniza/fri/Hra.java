@@ -53,13 +53,13 @@ public class Hra {
             this.aktHrac = 0;
         }
 
-        IHrac dalsiHracClovek = this.zoznamHracov[this.aktHrac];
-        if (dalsiHracClovek.jeVoVazeni()) {
-            dalsiHracClovek.odsedelSiKolo();
+        IHrac nasledujuciHrac = this.zoznamHracov[this.aktHrac];
+        if (nasledujuciHrac.jeVoVazeni()) {
+            nasledujuciHrac.odsedelSiKolo();
             this.dalsiHrac();
         }
 
-        if (dalsiHracClovek.prehral()) {
+        if (nasledujuciHrac.prehral()) {
             this.dalsiHrac();
         }
 
@@ -89,9 +89,6 @@ public class Hra {
                     System.out.println("Pocet tahov: " + this.pocetTahov / this.pocetHracov);
                 }
             }
-            //Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
-            //Gson gson = new Gson();
-            //String json = gson.toJson(this);
             return true;
         }
         return false;

@@ -1,6 +1,5 @@
 package sk.uniza.fri.policka;
 
-import com.gilecode.yagson.com.google.gson.annotations.Expose;
 import sk.uniza.fri.GUI;
 import sk.uniza.fri.hraci.IHrac;
 
@@ -14,7 +13,7 @@ import java.util.Scanner;
  */
 public abstract class Policko {
     private String nazov;
-    private transient GUI gui;
+    //private GUI gui;
 
     public Policko(String nazov) {
         if (nazov == null) {
@@ -22,7 +21,7 @@ public abstract class Policko {
         }
 
         this.nazov = nazov;
-        this.gui = GUI.getInstancia();
+        //this.gui = GUI.getInstancia();
     }
 
     public String getNazov() {
@@ -30,11 +29,11 @@ public abstract class Policko {
     }
 
     public void zobrazGUI(String text) {
-        this.gui.zobraz(text);
+        GUI.getInstancia().zobraz(text);
     }
 
     public int zobrazMoznosti(String sprava, String nazovOkna) {
-        return this.gui.zobrazMoznosti(sprava, nazovOkna);
+        return GUI.getInstancia().zobrazMoznosti(sprava, nazovOkna);
     }
 
     public abstract void vykonaj(IHrac hrac);
