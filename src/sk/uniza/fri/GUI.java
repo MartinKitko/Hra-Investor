@@ -2,7 +2,6 @@ package sk.uniza.fri;
 
 import com.gilecode.yagson.YaGson;
 import com.gilecode.yagson.YaGsonBuilder;
-import sk.uniza.fri.policka.CustomOutputStream;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -245,13 +244,21 @@ public class GUI extends JFrame implements ActionListener {
     private void vytvorNovuHru() {
         System.out.println("Nova hra");
 
-        int pocetHracov;
+        int pocetHracov = 0;
         do {
-            pocetHracov = Integer.parseInt(JOptionPane.showInputDialog("Zadaj pocet hracov: "));
-            if (pocetHracov < 2) {
-                System.out.println("Pre spustenie hry su potrebni aspon dvaja hraci");
-            } else if (pocetHracov > 6) {
-                System.out.println("Hru nemoze hrat viac ako 6 hracov");
+            String pocetHracovString = JOptionPane.showInputDialog("Zadaj pocet hracov: ");
+            if (pocetHracovString == null) {
+                return;
+            }
+            try {
+                pocetHracov = Integer.parseInt(pocetHracovString);
+                if (pocetHracov < 2) {
+                    System.out.println("Pre spustenie hry su potrebni aspon dvaja hraci");
+                } else if (pocetHracov > 6) {
+                    System.out.println("Hru nemoze hrat viac ako 6 hracov");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Je potrebne zadat cislo");
             }
         } while (pocetHracov < 2 || pocetHracov > 6);
 
