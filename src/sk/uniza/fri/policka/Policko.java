@@ -3,8 +3,6 @@ package sk.uniza.fri.policka;
 import sk.uniza.fri.GUI;
 import sk.uniza.fri.hraci.IHrac;
 
-import java.beans.Transient;
-
 /**
  * 1. 4. 2021 - 17:09
  *
@@ -25,10 +23,6 @@ public abstract class Policko {
 
     public String getNazov() {
         return this.nazov;
-    }
-
-    public void zobrazGUI(String text) {
-        GUI.getInstancia().zobraz(text);
     }
 
     public int zobrazMoznosti(String sprava, String nazovOkna) {

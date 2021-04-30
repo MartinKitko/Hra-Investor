@@ -276,14 +276,9 @@ public class GUI extends JFrame implements ActionListener {
         this.textPeniaze.setText("" + this.hra.getAktHrac().getPeniaze());
     }
 
-    public void zobraz(String text) {
-        this.textovePole.append(text + "\n");
-        this.repaint();
-    }
-
     public int zobrazMoznosti(String sprava, String nazov) {
         //return JOptionPane.showConfirmDialog(null, sprava, nazov, JOptionPane.YES_NO_OPTION);
-        Object[] moznosti = {"Ano", "Nie"};
+        Object[] moznosti = {"Ano", "Nie", "Zobraz info"};
         return JOptionPane.showOptionDialog(null, sprava, nazov, JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE, null, moznosti, moznosti[1]);
     }

@@ -42,12 +42,6 @@ public class Podnik extends Policko {
                         this.kupa(hrac);
                         break;
                     case 2:
-                        this.zobrazGUI("\tCENA:    POPLATOK:");
-                        this.zobrazGUI("Bez pobocky\t" + this.cena + "\t" + this.zakladnyPoplatok);
-                        this.zobrazGUI("1 pobocka  \t" + this.cena + "\t" + this.poplatokSPobockou);
-                        this.zobrazGUI("2 pobocky  \t" + this.cena * 2 + "\t" + this.poplatokSPobockou * 2);
-                        this.zobrazGUI("3 pobocky  \t" + this.cena * 3 + "\t" + this.poplatokSPobockou * 3);
-                        this.zobrazGUI("Koncern    \t" + this.cena * 5 + "\t" + this.getPoplatokSKoncernom() + "\n");
                         System.out.println("\t\t\tCENA:  POPLATOK:");
                         System.out.println("Bez pobocky " + this.cena + "\t" + this.zakladnyPoplatok);
                         System.out.println("1 pobocka  \t" + this.cena + "\t" + this.poplatokSPobockou);

@@ -3,8 +3,6 @@ package sk.uniza.fri.policka;
 import sk.uniza.fri.hraci.HracPocitac;
 import sk.uniza.fri.hraci.IHrac;
 
-import java.util.Scanner;
-
 /**
  * 1. 4. 2021 - 17:09
  *
@@ -17,8 +15,6 @@ public class Relax extends Policko {
     }
 
     public void vykonaj(IHrac hrac) {
-        Scanner sc = new Scanner(System.in);
-
         // docasne pre pocitac
         if (hrac instanceof HracPocitac) {
             //System.out.println("Zaplatil si 20 000");
