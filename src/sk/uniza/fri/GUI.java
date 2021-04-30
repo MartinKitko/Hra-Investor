@@ -68,7 +68,7 @@ public class GUI extends JFrame implements ActionListener {
         this.setMinimumSize(new Dimension(1000, 650));
         this.setVisible(true);
 
-        ImageIcon image = new ImageIcon("src/sk/uniza/fri/logo.png");
+        ImageIcon image = new ImageIcon("obrazky/logo.png");
         this.setIconImage(image.getImage());
         //this.getContentPane().setBackground(new Color(248, 255, 247));
 
@@ -116,7 +116,6 @@ public class GUI extends JFrame implements ActionListener {
 
         Container hlavnyKontajner = this.getContentPane();
         hlavnyKontajner.setLayout(new BorderLayout());
-        hlavnyKontajner.setBackground(Color.GREEN);
 
         /*JLayeredPane layeredPane2 = new JLayeredPane();
         //layeredPane2.setBounds(0, 0, 500, 500);
@@ -171,7 +170,7 @@ public class GUI extends JFrame implements ActionListener {
         this.textovePole.setWrapStyleWord(true);
 
         // presunutie vypisovania z terminalu do textoveho pola
-        PrintStream printStream = new PrintStream(new CustomOutputStream(this.textovePole));
+        PrintStream printStream = new PrintStream(new VlastnyOutputStream(this.textovePole));
         System.setOut(printStream);
         System.setErr(printStream);
 
@@ -203,7 +202,7 @@ public class GUI extends JFrame implements ActionListener {
 
         this.labelStred = new JLabel("", SwingConstants.CENTER);
         this.labelStred.setOpaque(true);
-        ImageIcon image2 = new ImageIcon("src/sk/uniza/fri/hraciaPlocha.jpg");
+        ImageIcon image2 = new ImageIcon("obrazky/hraciaPlocha.jpg");
         /*Image imageScaled = image2.getImage();
         Image scaledImage = imageScaled.getScaledInstance(this.labelStred.getWidth(), this.labelStred.getHeight(), Image.SCALE_SMOOTH);
         this.labelStred.setIcon(new ImageIcon(scaledImage));*/
@@ -242,9 +241,8 @@ public class GUI extends JFrame implements ActionListener {
     }
 
     private void vytvorNovuHru() {
-        System.out.println("Nova hra");
-
         int pocetHracov = 0;
+
         do {
             String pocetHracovString = JOptionPane.showInputDialog("Zadaj pocet hracov: ");
             if (pocetHracovString == null) {
@@ -261,6 +259,8 @@ public class GUI extends JFrame implements ActionListener {
                 System.out.println("Je potrebne zadat cislo");
             }
         } while (pocetHracov < 2 || pocetHracov > 6);
+
+        System.out.println("Nova hra");
 
         this.hra = new Hra(pocetHracov);
         this.hodKockou.setEnabled(true);
@@ -339,7 +339,7 @@ public class GUI extends JFrame implements ActionListener {
                 return null;
             }
         } while (nazovSuboru.equals(""));
-        return new File(nazovSuboru + ".txt");
+        return new File("ulozeneHry/" + nazovSuboru + ".txt");
     }
 
     private void koniecHry() {
@@ -352,7 +352,7 @@ public class GUI extends JFrame implements ActionListener {
 
 }
 
-    /*ImageIcon image2 = new ImageIcon("src/sk/uniza/fri/hraciaPlocha.jpg");
+    /*ImageIcon image2 = new ImageIcon("obrazky/hraciaPlocha.jpg");
     //Border border = BorderFactory.createLineBorder(Color.black, 2);
     label.setIcon(image2);
     //label.setHorizontalTextPosition(JLabel.CENTER);

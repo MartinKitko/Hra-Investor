@@ -3,17 +3,15 @@ package sk.uniza.fri.policka;
 import sk.uniza.fri.hraci.HracPocitac;
 import sk.uniza.fri.hraci.IHrac;
 
-import java.util.Scanner;
-
 /**
  * 1. 4. 2021 - 17:09
  *
  * @author Martin Kitko
  */
 public class Podnik extends Policko {
-    private transient int cena;
-    private transient int zakladnyPoplatok;
-    private transient int poplatokSPobockou;
+    private int cena;
+    private int zakladnyPoplatok;
+    private int poplatokSPobockou;
     private int pocetPobociek;
     private boolean maKoncern;
     private Odvetvie odvetvie;
@@ -31,10 +29,6 @@ public class Podnik extends Policko {
 
     public Odvetvie getOdvetvie() {
         return this.odvetvie;
-    }
-
-    public IHrac getMajitel() {
-        return this.majitel;
     }
 
     public void vykonaj(IHrac hrac) {
@@ -90,7 +84,6 @@ public class Podnik extends Policko {
     }
 
     private void kupaPobocky() {
-        Scanner sc = new Scanner(System.in);
         System.out.println("Toto je tvoj podnik");
 
         // docasne pre pocitac
@@ -156,7 +149,7 @@ public class Podnik extends Policko {
         }
     }
 
-    public int getPoplatok() {
+    private int getPoplatok() {
         if (this.maKoncern) {
             return this.getPoplatokSKoncernom();
         }

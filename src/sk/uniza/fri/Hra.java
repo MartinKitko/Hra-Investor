@@ -86,7 +86,7 @@ public class Hra {
                 if (!this.zoznamHracov[i].prehral()) {
                     System.out.println("Koniec hry");
                     System.out.println(this.zoznamHracov[i] + " je vitaz!");
-                    System.out.println("Pocet tahov: " + this.pocetTahov / this.pocetHracov);
+                    System.out.println("Pocet kol: " + this.pocetTahov / this.pocetHracov);
                 }
             }
             return true;

@@ -73,7 +73,7 @@ public class HraciaPlocha {
     }
 
     public void vykonaj(IHrac hrac) {
-        this.zoznamPolicok[hrac.getAktPozicia()].vykonaj(hrac);
+        this.zoznamPolicok[hrac.getAktPozicia()].vykonaj(hrac); //polymorfizmus
     }
 
 }

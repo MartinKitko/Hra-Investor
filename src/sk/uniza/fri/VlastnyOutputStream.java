@@ -1,4 +1,4 @@
-package sk.uniza.fri.policka;
+package sk.uniza.fri;
 
 import javax.swing.JTextArea;
 import java.io.OutputStream;
@@ -8,10 +8,10 @@ import java.io.OutputStream;
  *
  * @author
  */
-public class CustomOutputStream extends OutputStream {
+public class VlastnyOutputStream extends OutputStream {
     private JTextArea textovePole;
 
-    public CustomOutputStream(JTextArea textArea) {
+    public VlastnyOutputStream(JTextArea textArea) {
         this.textovePole = textArea;
     }
 

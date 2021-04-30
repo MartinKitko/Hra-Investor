@@ -4,7 +4,6 @@ import sk.uniza.fri.GUI;
 import sk.uniza.fri.hraci.IHrac;
 
 import java.beans.Transient;
-import java.util.Scanner;
 
 /**
  * 1. 4. 2021 - 17:09
