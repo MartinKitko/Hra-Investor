@@ -1,6 +1,5 @@
 package sk.uniza.fri.policka;
 
-import sk.uniza.fri.GUI;
 import sk.uniza.fri.Hrac;
 
 /**
@@ -10,7 +9,6 @@ import sk.uniza.fri.Hrac;
  */
 public abstract class Policko {
     private String nazov;
-    //private GUI gui;
 
     public Policko(String nazov) {
         if (nazov == null) {
@@ -18,15 +16,10 @@ public abstract class Policko {
         }
 
         this.nazov = nazov;
-        //this.gui = GUI.getInstancia();
     }
 
     public String getNazov() {
         return this.nazov;
-    }
-
-    public int zobrazMoznosti(String sprava, String nazovOkna, boolean zobrazInfo) {
-        return GUI.getInstancia().zobrazMoznosti(sprava, nazovOkna, zobrazInfo);
     }
 
     public abstract void vykonaj(Hrac hrac);

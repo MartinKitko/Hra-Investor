@@ -31,25 +31,27 @@ public class Hra {
         this.aktHrac = 0;
 
         if (pocetHracov == pocetPocitacov) {
-            while (!this.koniecHry()) {
-                this.tah();
-            }
+            this.odohrajHru();
+        }
+    }
+
+    public void odohrajHru() {
+        while (!this.koniecHry()) {
+            this.tah();
         }
     }
 
     public void tah() {
-        if (!this.koniecHry()) {
-            Hrac hrac = this.zoznamHracov[this.aktHrac];
+        Hrac hrac = this.zoznamHracov[this.aktHrac];
 
-            hrac.posun();
-            Policko aktPolicko = this.hraciaPlocha.getPolicko(hrac.getAktPozicia());
-            System.out.println(hrac.getMeno() + " skocil na policko " + aktPolicko);
-            System.out.println("Peniaze: " + hrac.getPeniaze());
+        hrac.posun();
+        Policko aktPolicko = this.hraciaPlocha.getPolicko(hrac.getAktPozicia());
+        System.out.println(hrac.getMeno() + " skocil na policko " + aktPolicko);
+        System.out.println("Peniaze: " + hrac.getPeniaze());
 
-            this.hraciaPlocha.vykonaj(hrac);
-            this.dalsiHrac();
-            this.pocetTahov++;
-        }
+        this.hraciaPlocha.vykonaj(hrac);
+        this.dalsiHrac();
+        this.pocetTahov++;
     }
 
     public void dalsiHrac() {
@@ -68,12 +70,6 @@ public class Hra {
         if (nasledujuciHrac.prehral()) {
             this.dalsiHrac();
         }
-
-        /*if (this.zoznamHracov[this.aktHrac].getTypHraca() == TypHraca.POCITAC) {
-            //GUI.getInstancia().klikniHodKockou();
-            this.tah();
-        }*/
-
     }
 
     public Hrac getAktHrac() {

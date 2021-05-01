@@ -42,9 +42,6 @@ public class GUI extends JFrame implements ActionListener {
     private static GUI instancia;
     private Hra hra;
     private JButton hodKockou;
-    private JButton kupitPodnik;
-    private JButton zobrazInfo;
-    private JButton ziadnaAkcia;
     private JPanel hornyPanel;
     private JPanel bocnyPanel;
     private JPanel gridPanel;
@@ -61,7 +58,6 @@ public class GUI extends JFrame implements ActionListener {
     private JMenuItem ulozHruMenu;
     private JMenuItem koniecMenu;
 
-
     private GUI() {
         this.setTitle("Investor");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -71,7 +67,6 @@ public class GUI extends JFrame implements ActionListener {
 
         ImageIcon image = new ImageIcon("obrazky/logo.png");
         this.setIconImage(image.getImage());
-        //this.getContentPane().setBackground(new Color(248, 255, 247));
 
         this.menuBar = new JMenuBar();
         this.hraMenu = new JMenu("Hra");
@@ -99,59 +94,19 @@ public class GUI extends JFrame implements ActionListener {
         this.hodKockou.setFocusable(false);
         this.hodKockou.setEnabled(false);
 
-        this.kupitPodnik = new JButton("Kupit podnik");
-        this.kupitPodnik.addActionListener(this);
-        this.kupitPodnik.setFocusable(false);
-        this.kupitPodnik.setEnabled(false);
-
         // TODO tlacitko na zobrazenie vlastnenych policok
-        this.zobrazInfo = new JButton("Zobraz info");
-        this.zobrazInfo.addActionListener(this);
-        this.zobrazInfo.setFocusable(false);
-        this.zobrazInfo.setEnabled(false);
-
-        this.ziadnaAkcia = new JButton("Ziadna akcia");
-        this.ziadnaAkcia.addActionListener(this);
-        this.ziadnaAkcia.setFocusable(false);
-        this.ziadnaAkcia.setEnabled(false);
 
         Container hlavnyKontajner = this.getContentPane();
         hlavnyKontajner.setLayout(new BorderLayout());
 
-        /*JLayeredPane layeredPane2 = new JLayeredPane();
-        //layeredPane2.setBounds(0, 0, 500, 500);
-        this.add(layeredPane2);
-        JLabel label1 = new JLabel();
-        label1.setOpaque(true);
-        label1.setBackground(Color.RED);
-        label1.setBounds(50, 50, 200, 200);
-
-        JLabel label2 = new JLabel();
-        label2.setOpaque(true);
-        label2.setBackground(Color.GREEN);
-        label2.setBounds(100, 100, 200, 200);
-
-        JLabel label3 = new JLabel();
-        label3.setOpaque(true);
-        label3.setBackground(Color.BLUE);
-        label3.setBounds(150, 150, 200, 200);
-
-        //layeredPane.add(label1, JLayeredPane.DEFAULT_LAYER);
-        layeredPane2.add(label1, Integer.valueOf(0));
-        layeredPane2.add(label2, Integer.valueOf(2));
-        layeredPane2.add(label3, Integer.valueOf(1));
-        //layeredPane2.setLayer(label1, Integer.valueOf(3));*/
-
         this.labelHrac = new JLabel("Hrac: ", SwingConstants.LEFT);
         this.labelHrac.setOpaque(true);
-
         this.textHrac = new JTextField();
         this.textHrac.setPreferredSize(new Dimension(100, 20));
         this.textHrac.setEditable(false);
 
         this.labelPeniaze = new JLabel("Peniaze:", SwingConstants.LEFT);
         this.labelPeniaze.setOpaque(true);
-
         this.textPeniaze = new JTextField();
         this.textPeniaze.setPreferredSize(new Dimension(100, 20));
         this.textPeniaze.setEditable(false);
@@ -175,14 +130,7 @@ public class GUI extends JFrame implements ActionListener {
         this.textovePole.setLineWrap(true);
         this.textovePole.setWrapStyleWord(true);
 
-        // presunutie vypisovania z terminalu do textoveho pola
-        PrintStream printStream = new PrintStream(new VlastnyOutputStream(this.textovePole));
-        System.setOut(printStream);
-        System.setErr(printStream);
-
         this.bocnyPanel = new JPanel();
-        //this.bocnyPanel.setBackground(Color.CYAN);
-        //this.bocnyPanel.setLayout(new GridLayout(2, 1, 4, 4));
         this.bocnyPanel.setLayout(new BoxLayout(this.bocnyPanel, BoxLayout.PAGE_AXIS));
         this.bocnyPanel.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
         this.bocnyPanel.add(this.hornyPanel);
@@ -191,39 +139,22 @@ public class GUI extends JFrame implements ActionListener {
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
         this.gridPanel = new JPanel();
-        //this.gridPanel.setBackground(Color.RED);
         this.gridPanel.setLayout(new GridLayout(4, 1, 4, 4));
         this.gridPanel.add(this.hodKockou);
-        /*this.gridPanel.add(this.kupitPodnik);
-        this.gridPanel.add(this.zobrazInfo);
-        this.gridPanel.add(this.ziadnaAkcia);*/
+
         this.bocnyPanel.add(scroll);
         this.bocnyPanel.add(this.gridPanel);
-
-        /*JLayeredPane bocnyLayeredPane = new JLayeredPane();
-        bocnyLayeredPane.setLayout(new FlowLayout(4, 4, 4));
-        this.add(bocnyLayeredPane);
-        //bocnyLayeredPane.add(this.bocnyPanel, Integer.valueOf(0));
-        //bocnyLayeredPane.add(bocnyPanel2, Integer.valueOf(1));
-        bocnyLayeredPane.add(panel1, Integer.valueOf(0));
-        bocnyLayeredPane.add(panel2, Integer.valueOf(1));*/
 
         this.labelStred = new JLabel("", SwingConstants.CENTER);
         this.labelStred.setOpaque(true);
         ImageIcon image2 = new ImageIcon("obrazky/hraciaPlocha.jpg");
-        /*Image imageScaled = image2.getImage();
-        Image scaledImage = imageScaled.getScaledInstance(this.labelStred.getWidth(), this.labelStred.getHeight(), Image.SCALE_SMOOTH);
-        this.labelStred.setIcon(new ImageIcon(scaledImage));*/
         this.labelStred.setIcon(image2);
 
         this.bocnyPanel.add(this.gridPanel);
         hlavnyKontajner.add(this.labelStred);
         hlavnyKontajner.add(this.bocnyPanel, BorderLayout.EAST);
 
-        //layeredPane.add(hraPanel, Integer.valueOf(0));
-
         this.validate();
-
     }
 
     public static GUI getInstancia() {
@@ -237,6 +168,7 @@ public class GUI extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.novaHraMenu) {
             this.vytvorNovuHru();
+            //this.experiment();
         } else if (e.getSource() == this.nacitajHruMenu) {
             this.nacitajHru();
         } else if (e.getSource() == this.ulozHruMenu) {
@@ -246,10 +178,6 @@ public class GUI extends JFrame implements ActionListener {
         } else if (e.getSource() == this.hodKockou) {
             this.vykonajHodKockou();
         }
-    }
-
-    public void klikniHodKockou() {
-        this.hodKockou.doClick();
     }
 
     private void vytvorNovuHru() {
@@ -292,12 +220,39 @@ public class GUI extends JFrame implements ActionListener {
 
         System.out.println("Nova hra");
 
+        this.vypisovanieDoTextovehoPola();
+
         this.hra = new Hra(pocetHracov, pocetPocitacov);
         this.hodKockou.setEnabled(true);
         this.ulozHruMenu.setVisible(true);
 
         this.textHrac.setText(this.hra.getAktHrac().getMeno());
         this.textPeniaze.setText("" + this.hra.getAktHrac().getPeniaze());
+    }
+
+    private void experiment() {
+        int pocetHracov = 2;
+        int pocetHier = 20;
+        int[] pocty = new int[pocetHier];
+
+        for (int i = 0; i < pocetHier; i++) {
+            this.hra = new Hra(pocetHracov, pocetHracov);
+            this.hra.odohrajHru();
+            pocty[i] = this.hra.getPocetTahov();
+        }
+
+        int sucet = 0;
+        for (int i = 0; i < pocetHier; i++) {
+            System.out.println(pocty[i] / pocetHracov + " ");
+            sucet += pocty[i];
+        }
+        System.out.println("Priemerny pocet kol je: " + sucet / pocetHier / pocetHracov);
+    }
+
+    private void vypisovanieDoTextovehoPola() {
+        PrintStream printStream = new PrintStream(new VlastnyOutputStream(this.textovePole));
+        System.setOut(printStream);
+        System.setErr(printStream);
     }
 
     private void vykonajHodKockou() {
@@ -335,12 +290,13 @@ public class GUI extends JFrame implements ActionListener {
             this.nacitajHru();
         } finally {
             if (!nacitanySuborString.equals("")) {
+                this.vypisovanieDoTextovehoPola();
                 YaGson mapper = new YaGson();
                 this.hra = mapper.fromJson(nacitanySuborString, Hra.class);
             }
         }
         this.hodKockou.setEnabled(true);
-        System.out.println("Hra bola uspesne nacitana!");
+        System.out.println("\nHra bola uspesne nacitana!");
     }
 
     private void ulozHru() {
@@ -385,22 +341,3 @@ public class GUI extends JFrame implements ActionListener {
     }
 
 }
-
-    /*ImageIcon image2 = new ImageIcon("obrazky/hraciaPlocha.jpg");
-    //Border border = BorderFactory.createLineBorder(Color.black, 2);
-    label.setIcon(image2);
-    //label.setHorizontalTextPosition(JLabel.CENTER);
-    //label.setVerticalTextPosition(JLabel.TOP);
-    //label.setForeground(new Color(0, 0, 0)); // farba textu
-    //label.setFont(new Font("Arial", Font.PLAIN, 20));
-    //label.setBorder(border);
-    label.setVerticalAlignment(JLabel.CENTER);
-    label.setHorizontalAlignment(JLabel.LEFT);
-
-    this.novaHra.setFont(new Font("Arial", Font.BOLD, 15));
-    this.novaHra.setBackground(Color.lightGray);
-    this.novaHra.setBorder(BorderFactory.createEtchedBorder());
-    this.button.addActionListener(e -> System.out.println("klik"));
-
-    this.hodKockou.setFont(new Font("Arial", Font.BOLD, 15));
-    this.hodKockou.setBackground(Color.lightGray);*/

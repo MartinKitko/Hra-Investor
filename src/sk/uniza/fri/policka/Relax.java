@@ -15,22 +15,15 @@ public class Relax extends Policko {
     }
 
     public void vykonaj(Hrac hrac) {
-        // docasne pre pocitac
         if (hrac.getTypHraca() == TypHraca.POCITAC) {
-            //System.out.println("Zaplatil si 20 000");
-            //hrac.odoberPeniaze(20000);
             System.out.println("Stojis jedno kolo");
             hrac.doVazenia(1);
             return;
         }
 
         if (hrac.getPeniaze() > 20000) {
-            /*System.out.println("Zaplat 20 000 alebo pockaj jedno kolo:");
-            System.out.println("1 - zaplatim");
-            System.out.println("2 - pockam");
-            System.out.print("Zadaj svoju volbu: ");
-            int volba = sc.nextInt();*/
             int volba = hrac.zobrazMoznosti("Chces zaplatit 20 000 aby si nemusel stat jedno kolo?", "Relax", false);
+
             if (volba == 0) {
                 System.out.println("Zaplatil si 20 000");
                 hrac.odoberPeniaze(20000);

@@ -12,7 +12,6 @@ public class Preprava extends Policko {
     private static final int POPLATOK = 5000;
     private Hrac majitel;
 
-
     public Preprava(String nazov) {
         super(nazov);
     }
@@ -21,7 +20,6 @@ public class Preprava extends Policko {
         int volba;
         if (this.majitel == null) {
             do {
-                //volba = hrac.zobrazMoznosti();
                 volba = hrac.zobrazMoznosti("Chces zakupit tuto prepravu za " + CENA + "?", "Kupa prepravy", true);
                 switch (volba) {
                     case 0 -> this.kupa(hrac);

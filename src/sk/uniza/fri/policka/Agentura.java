@@ -12,7 +12,6 @@ public class Agentura extends Policko {
     private static final int POPLATOK = 15000;
     private Hrac majitel;
 
-
     public Agentura(String nazov) {
         super(nazov);
     }
@@ -21,7 +20,6 @@ public class Agentura extends Policko {
         int volba;
         if (this.majitel == null) {
             do {
-                //volba = hrac.zobrazMoznosti();
                 volba = hrac.zobrazMoznosti("Chces zakupit tuto agenturu za " + CENA + "?", "Kupa agentury", true);
                 switch (volba) {
                     case 0 -> this.kupa(hrac);

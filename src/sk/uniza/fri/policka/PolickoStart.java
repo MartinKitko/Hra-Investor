@@ -14,6 +14,6 @@ public class PolickoStart extends Policko {
     }
 
     public void vykonaj(Hrac hrac) {
-        //hrac
+        System.out.println("Vitaj spat na starte");
     }
 }

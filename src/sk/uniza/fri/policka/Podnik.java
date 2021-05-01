@@ -1,7 +1,6 @@
 package sk.uniza.fri.policka;
 
 import sk.uniza.fri.Hrac;
-import sk.uniza.fri.TypHraca;
 
 /**
  * 1. 4. 2021 - 17:09
@@ -35,7 +34,6 @@ public class Podnik extends Policko {
         int volba;
         if (this.majitel == null) {
             do {
-                //volba = hrac.zobrazMoznosti();
                 volba = hrac.zobrazMoznosti("Chces zakupit tento podnik za " + this.cena + "?", "Kupa podniku", true);
                 switch (volba) {
                     case 0:
@@ -58,7 +56,6 @@ public class Podnik extends Policko {
             hrac.odoberPeniaze(poplatok);
             this.majitel.pridajPeniaze(poplatok);
         }
-
     }
 
     private void zobrazInfo() {
@@ -84,23 +81,6 @@ public class Podnik extends Policko {
     private void kupaPobocky() {
         System.out.println("Toto je tvoj podnik");
 
-        // docasne pre pocitac
-        /*if (this.majitel.getTypHraca() == TypHraca.POCITAC) {
-            if (this.pocetPobociek < 3) {
-                this.majitel.odoberPeniaze(this.cena);
-                this.pocetPobociek++;
-                System.out.println("Zakupena 1 pobocka");
-            } else {
-                if (!this.maKoncern) {
-                    this.majitel.odoberPeniaze(this.cena * 2);
-                    this.maKoncern = true;
-                    System.out.println("Koncern zakupeny");
-                }
-            }
-            return;
-        }*/
-
-
         int maxPocetPobociek;
         if (this.odvetvie == Odvetvie.ALKOHOL || this.odvetvie == Odvetvie.BANE) {
             maxPocetPobociek = 2;
@@ -110,17 +90,11 @@ public class Podnik extends Policko {
 
         if (this.majitel.getPocetVlastnenychVOdvetvi(this.odvetvie) == maxPocetPobociek) {
             if (this.pocetPobociek < 3) {
-                /*System.out.print("Chces si zakupit dalsiu pobocku za " + this.cena + "? Ano - 1, nie - 0: ");
-                int volba = sc.nextInt();
-                if (volba == 1) {
-                    this.majitel.odoberPeniaze(this.cena);
-                    this.pocetPobociek++;
-                    System.out.println("Zakupena 1 pobocka");
-                }*/
                 if (this.majitel.getPeniaze() < this.cena) {
                     System.out.println("Nemas dostatok penazi na zakupenie pobocky");
                 } else {
                     int volba = this.majitel.zobrazMoznosti("Chces zakupit dalsiu pobocku za " + this.cena + "?", "Kupa pobocky", true);
+
                     if (volba == 0) {
                         this.majitel.odoberPeniaze(this.cena);
                         this.pocetPobociek++;
@@ -133,17 +107,11 @@ public class Podnik extends Policko {
                 if (this.maKoncern) {
                     System.out.println("Vlastnis jeho koncern a vsetky pobocky");
                 } else {
-                    /*System.out.print("Zakupit koncern za " + this.cena * 2 + " ? Ano - 1, nie - 0: ");
-                    int volba = sc.nextInt();
-                    if (volba == 1) {
-                        this.majitel.odoberPeniaze(this.cena * 2);
-                        this.maKoncern = true;
-                        System.out.println("Koncern uspesne zakupeny");
-                    }*/
                     if (this.majitel.getPeniaze() < this.cena * 2) {
                         System.out.println("Nemas dostatok penazi na zakupenie koncernu");
                     } else {
                         int volba = this.majitel.zobrazMoznosti("Chces zakupit koncern za " + this.cena * 2 + "?", "Kupa koncernu", true);
+
                         if (volba == 0) {
                             this.majitel.odoberPeniaze(this.cena * 2);
                             this.maKoncern = true;

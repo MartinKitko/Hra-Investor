@@ -8,7 +8,6 @@ import sk.uniza.fri.policka.Podnik;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 
 /**
  * 1. 4. 2021 - 17:09
@@ -44,7 +43,7 @@ public class Hrac {
         int hodKockou = generator.nextInt(6) + 1;
         if (this.aktPozicia + hodKockou >= 40) {
             this.aktPozicia = (this.aktPozicia + hodKockou) - 40;
-            System.out.println("Za prejdenie polickom Start si ziskal 20 000");
+            System.out.println("\nZa prejdenie polickom Start si ziskal 20 000");
             this.peniaze += 20000;
         } else {
             this.aktPozicia += hodKockou;
@@ -57,29 +56,11 @@ public class Hrac {
             return GUI.getInstancia().zobrazMoznosti(sprava, nazov, zobrazInfo);
         } else {
             if (this.peniaze > 100000) {
-                return 0;
+                return (Math.random() < 0.9 ? 0 : 1);
             } else {
-                return 1;
+                return (Math.random() < 0.2 ? 0 : 1);
             }
         }
-        /*Scanner sc = new Scanner(System.in);
-        int volba = 0;
-        do {
-            if (volba != 0) {
-                System.out.println("Zle zadana volba");
-            }
-            System.out.println("1 - Kupit podnik");
-            System.out.println("2 - Dalsie informacie o podniku");
-            System.out.println("0 - Ziadna akcia");
-            System.out.print("Zadaj svoju volbu: ");
-            while (!sc.hasNextInt()) {
-                System.out.print("Je potrebne zadat cele cislo: ");
-                sc.next();
-            }
-            volba = sc.nextInt();
-        } while (volba < 0 || volba > 2);
-
-        return volba;*/
     }
 
     public TypHraca getTypHraca() {
@@ -102,7 +83,6 @@ public class Hrac {
                     pocet++;
                 }
             }
-
         }
         return pocet;
     }
@@ -110,8 +90,7 @@ public class Hrac {
     public int getPocetVlastnenychVOdvetvi(Odvetvie odvetvie) {
         int pocet = 0;
         for (Policko p : this.vlastnenePolicka) {
-            if (p instanceof Podnik &&
-                    ((Podnik)p).getOdvetvie() == odvetvie) {
+            if (p instanceof Podnik && ((Podnik)p).getOdvetvie() == odvetvie) {
                 pocet++;
             }
         }
