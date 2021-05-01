@@ -22,7 +22,7 @@ public class Agentura extends Policko {
         if (this.majitel == null) {
             do {
                 //volba = hrac.zobrazMoznosti();
-                volba = this.zobrazMoznosti("Chces zakupit tuto agenturu za " + CENA + "?", "Kupa agentury");
+                volba = this.zobrazMoznosti("Chces zakupit tuto agenturu za " + CENA + "?", "Kupa agentury", true);
                 switch (volba) {
                     case 0:
                         this.kupa(hrac);
@@ -32,7 +32,6 @@ public class Agentura extends Policko {
                         System.out.println("1 agenturu: " + POPLATOK);
                         System.out.println("2 agentury: " + POPLATOK * 2 + "\n");
                         break;
-                    default:
                 }
             } while (volba == 2);
         } else if (this.majitel.equals(hrac)) {

@@ -22,9 +22,9 @@ public class Preprava extends Policko {
         if (this.majitel == null) {
             do {
                 //volba = hrac.zobrazMoznosti();
-                volba = this.zobrazMoznosti("Chces zakupit tuto prepravu za " + CENA + "?", "Kupa prepravy");
+                volba = this.zobrazMoznosti("Chces zakupit tuto prepravu za " + CENA + "?", "Kupa prepravy", true);
                 switch (volba) {
-                    case 1:
+                    case 0:
                         this.kupa(hrac);
                         break;
                     case 2:

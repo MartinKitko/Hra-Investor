@@ -21,10 +21,13 @@ public class Hra {
         this.hraciaPlocha = new HraciaPlocha();
         this.zoznamHracov = new IHrac[pocetHracov];
 
-        for (int i = 0; i < pocetHracov; i++) {
+        /*for (int i = 0; i < pocetHracov; i++) {
             this.zoznamHracov[i] = new HracClovek("Hrac " + (i + 1));
             //this.zoznamHracov[i] = new HracPocitac("Pocitac " + (i + 1));
-        }
+        }*/
+        this.zoznamHracov[0] = new HracClovek("Hrac " + (0 + 1));
+        this.zoznamHracov[1] = new HracPocitac("Pocitac " + (1 + 1));
+        // TODO spravit aby fungovalo jeden hrac jeden pocitac
 
         this.pocetHracov = pocetHracov;
         this.pocetTahov = 0;
@@ -38,7 +41,7 @@ public class Hra {
             hrac.posun();
             Policko aktPolicko = this.hraciaPlocha.getPolicko(hrac.getAktPozicia());
             System.out.println(hrac.getMeno() + " skocil na policko " + aktPolicko);
-            System.out.println("Peniaze: " + hrac.getPeniaze());
+            //System.out.println("Peniaze: " + hrac.getPeniaze());
 
             this.hraciaPlocha.vykonaj(hrac);
             this.dalsiHrac();

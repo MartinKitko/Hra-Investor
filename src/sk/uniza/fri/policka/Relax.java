@@ -30,7 +30,7 @@ public class Relax extends Policko {
             System.out.println("2 - pockam");
             System.out.print("Zadaj svoju volbu: ");
             int volba = sc.nextInt();*/
-            int volba = this.zobrazMoznosti("Chces zaplatit 20 000 aby si nemusel stat jedno kolo?", "Relax");
+            int volba = this.zobrazMoznosti("Chces zaplatit 20 000 aby si nemusel stat jedno kolo?", "Relax", false);
             if (volba == 0) {
                 System.out.println("Zaplatil si 20 000");
                 hrac.odoberPeniaze(20000);

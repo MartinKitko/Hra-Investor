@@ -25,8 +25,8 @@ public abstract class Policko {
         return this.nazov;
     }
 
-    public int zobrazMoznosti(String sprava, String nazovOkna) {
-        return GUI.getInstancia().zobrazMoznosti(sprava, nazovOkna);
+    public int zobrazMoznosti(String sprava, String nazovOkna, boolean zobrazInfo) {
+        return GUI.getInstancia().zobrazMoznosti(sprava, nazovOkna, zobrazInfo);
     }
 
     public abstract void vykonaj(IHrac hrac);

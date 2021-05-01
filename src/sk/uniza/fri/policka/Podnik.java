@@ -36,14 +36,14 @@ public class Podnik extends Policko {
         if (this.majitel == null) {
             do {
                 //volba = hrac.zobrazMoznosti();
-                volba = this.zobrazMoznosti("Chces zakupit tento podnik za " + this.cena + "?", "Kupa podniku");
+                volba = this.zobrazMoznosti("Chces zakupit tento podnik za " + this.cena + "?", "Kupa podniku", true);
                 switch (volba) {
                     case 0:
                         this.kupa(hrac);
                         break;
                     case 2:
-                        System.out.println("\t\t\tCENA:  POPLATOK:");
-                        System.out.println("Bez pobocky " + this.cena + "\t" + this.zakladnyPoplatok);
+                        System.out.println("\tCENA:   POPLATOK:");
+                        System.out.println("Bez pobocky\t" + this.cena + "\t" + this.zakladnyPoplatok);
                         System.out.println("1 pobocka  \t" + this.cena + "\t" + this.poplatokSPobockou);
                         System.out.println("2 pobocky  \t" + this.cena * 2 + "\t" + this.poplatokSPobockou * 2);
                         System.out.println("3 pobocky  \t" + this.cena * 3 + "\t" + this.poplatokSPobockou * 3);
@@ -113,7 +113,7 @@ public class Podnik extends Policko {
                     this.pocetPobociek++;
                     System.out.println("Zakupena 1 pobocka");
                 }*/
-                int volba = this.zobrazMoznosti("Chces zakupit dalsiu pobocku za " + this.cena + "?", "Kupa pobocky");
+                int volba = this.zobrazMoznosti("Chces zakupit dalsiu pobocku za " + this.cena + "?", "Kupa pobocky", false);
                 if (volba == 0) {
                     this.majitel.odoberPeniaze(this.cena);
                     this.pocetPobociek++;
@@ -130,7 +130,7 @@ public class Podnik extends Policko {
                         this.maKoncern = true;
                         System.out.println("Koncern uspesne zakupeny");
                     }*/
-                    int volba = this.zobrazMoznosti("Chces zakupit koncern za " + this.cena * 2 + "?", "Kupa koncernu");
+                    int volba = this.zobrazMoznosti("Chces zakupit koncern za " + this.cena * 2 + "?", "Kupa koncernu", false);
                     if (volba == 0) {
                         this.majitel.odoberPeniaze(this.cena * 2);
                         this.maKoncern = true;
