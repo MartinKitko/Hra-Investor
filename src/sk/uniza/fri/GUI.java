@@ -248,6 +248,10 @@ public class GUI extends JFrame implements ActionListener {
         }
     }
 
+    public void klikniHodKockou() {
+        this.hodKockou.doClick();
+    }
+
     private void vytvorNovuHru() {
         int pocetHracov = 0;
 
@@ -268,9 +272,27 @@ public class GUI extends JFrame implements ActionListener {
             }
         } while (pocetHracov < 2 || pocetHracov > 6);
 
+        int pocetPocitacov = 0;
+        do {
+            String pocetPocitacovString = JOptionPane.showInputDialog("Z toho pocitacov: ");
+            if (pocetPocitacovString == null) {
+                return;
+            }
+            try {
+                pocetPocitacov = Integer.parseInt(pocetPocitacovString);
+                if (pocetPocitacov < 0) {
+                    System.out.println("Pocet pocitacov nesmie byt zaporny");
+                } else if (pocetPocitacov > pocetHracov) {
+                    System.out.println("Pocet pocitacov nesmie presiahnut pocet hracov");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Je potrebne zadat cislo");
+            }
+        } while (pocetPocitacov < 0 || pocetPocitacov > pocetHracov);
+
         System.out.println("Nova hra");
 
-        this.hra = new Hra(pocetHracov);
+        this.hra = new Hra(pocetHracov, pocetPocitacov);
         this.hodKockou.setEnabled(true);
         this.ulozHruMenu.setVisible(true);
 

@@ -14,21 +14,27 @@ public class Hra {
     private int pocetTahov;
     private int aktHrac;
 
-    public Hra(int pocetHracov) {
+    public Hra(int pocetHracov, int pocetPocitacov) {
         this.hraciaPlocha = new HraciaPlocha();
         this.zoznamHracov = new Hrac[pocetHracov];
 
-        /*for (int i = 0; i < pocetHracov; i++) {
-            this.zoznamHracov[i] = new HracClovek("Hrac " + (i + 1));
-            //this.zoznamHracov[i] = new HracPocitac("Pocitac " + (i + 1));
-        }*/
-        this.zoznamHracov[0] = new Hrac("Hrac " + (0 + 1), TypHraca.CLOVEK);
-        this.zoznamHracov[1] = new Hrac("Pocitac " + (1 + 1), TypHraca.POCITAC);
-        // TODO spravit aby fungovalo jeden hrac jeden pocitac
+        for (int i = 0; i < pocetHracov; i++) {
+            if (i < pocetPocitacov) {
+                this.zoznamHracov[i] = new Hrac("Pocitac " + (i + 1), TypHraca.POCITAC);
+            } else {
+                this.zoznamHracov[i] = new Hrac("Hrac " + (i + 1 - pocetPocitacov), TypHraca.CLOVEK);
+            }
+        }
 
         this.pocetHracov = pocetHracov;
         this.pocetTahov = 0;
         this.aktHrac = 0;
+
+        if (pocetHracov == pocetPocitacov) {
+            while (!this.koniecHry()) {
+                this.tah();
+            }
+        }
     }
 
     public void tah() {
@@ -38,7 +44,7 @@ public class Hra {
             hrac.posun();
             Policko aktPolicko = this.hraciaPlocha.getPolicko(hrac.getAktPozicia());
             System.out.println(hrac.getMeno() + " skocil na policko " + aktPolicko);
-            //System.out.println("Peniaze: " + hrac.getPeniaze());
+            System.out.println("Peniaze: " + hrac.getPeniaze());
 
             this.hraciaPlocha.vykonaj(hrac);
             this.dalsiHrac();
@@ -62,6 +68,11 @@ public class Hra {
         if (nasledujuciHrac.prehral()) {
             this.dalsiHrac();
         }
+
+        /*if (this.zoznamHracov[this.aktHrac].getTypHraca() == TypHraca.POCITAC) {
+            //GUI.getInstancia().klikniHodKockou();
+            this.tah();
+        }*/
 
     }
 

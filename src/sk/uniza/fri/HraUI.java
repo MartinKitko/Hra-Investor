@@ -115,7 +115,7 @@ public abstract class HraUI {
             }
         } while (pocet < 2 || pocet > 6);
 
-        HraUI.hra = new Hra(pocet);
+        HraUI.hra = new Hra(pocet, 0);
         HraUI.druheMenu();
     }
 
@@ -124,7 +124,7 @@ public abstract class HraUI {
         int pocetHier = 1000;
         int[] pocty = new int[pocetHier];
         for (int i = 0; i < pocetHier; i++) {
-            HraUI.hra = new Hra(pocetHracov);
+            HraUI.hra = new Hra(pocetHracov, 0);
             HraUI.druheMenu();
 
             while (!hra.koniecHry()) {

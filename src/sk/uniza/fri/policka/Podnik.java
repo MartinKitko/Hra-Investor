@@ -85,7 +85,7 @@ public class Podnik extends Policko {
         System.out.println("Toto je tvoj podnik");
 
         // docasne pre pocitac
-        if (this.majitel.getTypHraca() == TypHraca.POCITAC) {
+        /*if (this.majitel.getTypHraca() == TypHraca.POCITAC) {
             if (this.pocetPobociek < 3) {
                 this.majitel.odoberPeniaze(this.cena);
                 this.pocetPobociek++;
@@ -98,7 +98,7 @@ public class Podnik extends Policko {
                 }
             }
             return;
-        }
+        }*/
 
 
         int maxPocetPobociek;
@@ -117,13 +117,17 @@ public class Podnik extends Policko {
                     this.pocetPobociek++;
                     System.out.println("Zakupena 1 pobocka");
                 }*/
-                int volba = this.majitel.zobrazMoznosti("Chces zakupit dalsiu pobocku za " + this.cena + "?", "Kupa pobocky", true);
-                if (volba == 0) {
-                    this.majitel.odoberPeniaze(this.cena);
-                    this.pocetPobociek++;
-                    System.out.println("Zakupena 1 pobocka");
-                } else if (volba == 2) {
-                    this.zobrazInfo();
+                if (this.majitel.getPeniaze() < this.cena) {
+                    System.out.println("Nemas dostatok penazi na zakupenie pobocky");
+                } else {
+                    int volba = this.majitel.zobrazMoznosti("Chces zakupit dalsiu pobocku za " + this.cena + "?", "Kupa pobocky", true);
+                    if (volba == 0) {
+                        this.majitel.odoberPeniaze(this.cena);
+                        this.pocetPobociek++;
+                        System.out.println("Zakupena 1 pobocka");
+                    } else if (volba == 2) {
+                        this.zobrazInfo();
+                    }
                 }
             } else {
                 if (this.maKoncern) {
@@ -136,13 +140,17 @@ public class Podnik extends Policko {
                         this.maKoncern = true;
                         System.out.println("Koncern uspesne zakupeny");
                     }*/
-                    int volba = this.majitel.zobrazMoznosti("Chces zakupit koncern za " + this.cena * 2 + "?", "Kupa koncernu", true);
-                    if (volba == 0) {
-                        this.majitel.odoberPeniaze(this.cena * 2);
-                        this.maKoncern = true;
-                        System.out.println("Koncern uspesne zakupeny");
-                    } else if (volba == 2) {
-                        this.zobrazInfo();
+                    if (this.majitel.getPeniaze() < this.cena * 2) {
+                        System.out.println("Nemas dostatok penazi na zakupenie koncernu");
+                    } else {
+                        int volba = this.majitel.zobrazMoznosti("Chces zakupit koncern za " + this.cena * 2 + "?", "Kupa koncernu", true);
+                        if (volba == 0) {
+                            this.majitel.odoberPeniaze(this.cena * 2);
+                            this.maKoncern = true;
+                            System.out.println("Koncern uspesne zakupeny");
+                        } else if (volba == 2) {
+                            this.zobrazInfo();
+                        }
                     }
                 }
             }
