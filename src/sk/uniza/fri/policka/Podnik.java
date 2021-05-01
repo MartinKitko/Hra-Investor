@@ -42,12 +42,7 @@ public class Podnik extends Policko {
                         this.kupa(hrac);
                         break;
                     case 2:
-                        System.out.println("\tCENA:   POPLATOK:");
-                        System.out.println("Bez pobocky\t" + this.cena + "\t" + this.zakladnyPoplatok);
-                        System.out.println("1 pobocka  \t" + this.cena + "\t" + this.poplatokSPobockou);
-                        System.out.println("2 pobocky  \t" + this.cena * 2 + "\t" + this.poplatokSPobockou * 2);
-                        System.out.println("3 pobocky  \t" + this.cena * 3 + "\t" + this.poplatokSPobockou * 3);
-                        System.out.println("Koncern    \t" + this.cena * 5 + "\t" + this.getPoplatokSKoncernom() + "\n");
+                        this.zobrazInfo();
                         break;
                     default:
                 }
@@ -64,6 +59,15 @@ public class Podnik extends Policko {
             this.majitel.pridajPeniaze(poplatok);
         }
 
+    }
+
+    private void zobrazInfo() {
+        System.out.println("\tCENA:   POPLATOK:");
+        System.out.println("Bez pobocky\t" + this.cena + "\t" + this.zakladnyPoplatok);
+        System.out.println("1 pobocka  \t" + this.cena + "\t" + this.poplatokSPobockou);
+        System.out.println("2 pobocky  \t" + this.cena * 2 + "\t" + this.poplatokSPobockou * 2);
+        System.out.println("3 pobocky  \t" + this.cena * 3 + "\t" + this.poplatokSPobockou * 3);
+        System.out.println("Koncern    \t" + this.cena * 5 + "\t" + this.getPoplatokSKoncernom() + "\n");
     }
 
     private void kupa(IHrac hrac) {
@@ -113,11 +117,13 @@ public class Podnik extends Policko {
                     this.pocetPobociek++;
                     System.out.println("Zakupena 1 pobocka");
                 }*/
-                int volba = this.zobrazMoznosti("Chces zakupit dalsiu pobocku za " + this.cena + "?", "Kupa pobocky", false);
+                int volba = this.zobrazMoznosti("Chces zakupit dalsiu pobocku za " + this.cena + "?", "Kupa pobocky", true);
                 if (volba == 0) {
                     this.majitel.odoberPeniaze(this.cena);
                     this.pocetPobociek++;
                     System.out.println("Zakupena 1 pobocka");
+                } else if (volba == 2) {
+                    this.zobrazInfo();
                 }
             } else {
                 if (this.maKoncern) {
@@ -130,11 +136,13 @@ public class Podnik extends Policko {
                         this.maKoncern = true;
                         System.out.println("Koncern uspesne zakupeny");
                     }*/
-                    int volba = this.zobrazMoznosti("Chces zakupit koncern za " + this.cena * 2 + "?", "Kupa koncernu", false);
+                    int volba = this.zobrazMoznosti("Chces zakupit koncern za " + this.cena * 2 + "?", "Kupa koncernu", true);
                     if (volba == 0) {
                         this.majitel.odoberPeniaze(this.cena * 2);
                         this.maKoncern = true;
                         System.out.println("Koncern uspesne zakupeny");
+                    } else if (volba == 2) {
+                        this.zobrazInfo();
                     }
                 }
             }

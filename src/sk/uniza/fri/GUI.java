@@ -279,9 +279,13 @@ public class GUI extends JFrame implements ActionListener {
     }
 
     private void vykonajHodKockou() {
-        this.hra.tah();
-        this.textHrac.setText(this.hra.getAktHrac().getMeno());
-        this.textPeniaze.setText("" + this.hra.getAktHrac().getPeniaze());
+        if (!this.hra.koniecHry()) {
+            this.hra.tah();
+            this.textHrac.setText(this.hra.getAktHrac().getMeno());
+            this.textPeniaze.setText("" + this.hra.getAktHrac().getPeniaze());
+        } else {
+            this.hodKockou.setEnabled(false);
+        }
     }
 
     public int zobrazMoznosti(String sprava, String nazov, boolean zobrazInfo) {
