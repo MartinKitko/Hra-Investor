@@ -1,6 +1,6 @@
 package sk.uniza.fri.policka;
 
-import sk.uniza.fri.hraci.IHrac;
+import sk.uniza.fri.Hrac;
 
 /**
  * 1. 4. 2021 - 17:09
@@ -13,7 +13,7 @@ public class Pokuta extends Policko {
         super(nazov);
     }
 
-    public void vykonaj(IHrac hrac) {
+    public void vykonaj(Hrac hrac) {
         if (hrac == null) {
             return;
         }

@@ -1,7 +1,7 @@
 package sk.uniza.fri.policka;
 
 import sk.uniza.fri.GUI;
-import sk.uniza.fri.hraci.IHrac;
+import sk.uniza.fri.Hrac;
 
 /**
  * 1. 4. 2021 - 17:09
@@ -29,7 +29,7 @@ public abstract class Policko {
         return GUI.getInstancia().zobrazMoznosti(sprava, nazovOkna, zobrazInfo);
     }
 
-    public abstract void vykonaj(IHrac hrac);
+    public abstract void vykonaj(Hrac hrac);
 
     @Override
     public String toString() {

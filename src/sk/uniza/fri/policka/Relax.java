@@ -1,7 +1,7 @@
 package sk.uniza.fri.policka;
 
-import sk.uniza.fri.hraci.HracPocitac;
-import sk.uniza.fri.hraci.IHrac;
+import sk.uniza.fri.Hrac;
+import sk.uniza.fri.TypHraca;
 
 /**
  * 1. 4. 2021 - 17:09
@@ -14,9 +14,9 @@ public class Relax extends Policko {
         super(nazov);
     }
 
-    public void vykonaj(IHrac hrac) {
+    public void vykonaj(Hrac hrac) {
         // docasne pre pocitac
-        if (hrac instanceof HracPocitac) {
+        if (hrac.getTypHraca() == TypHraca.POCITAC) {
             //System.out.println("Zaplatil si 20 000");
             //hrac.odoberPeniaze(20000);
             System.out.println("Stojis jedno kolo");
@@ -30,7 +30,7 @@ public class Relax extends Policko {
             System.out.println("2 - pockam");
             System.out.print("Zadaj svoju volbu: ");
             int volba = sc.nextInt();*/
-            int volba = this.zobrazMoznosti("Chces zaplatit 20 000 aby si nemusel stat jedno kolo?", "Relax", false);
+            int volba = hrac.zobrazMoznosti("Chces zaplatit 20 000 aby si nemusel stat jedno kolo?", "Relax", false);
             if (volba == 0) {
                 System.out.println("Zaplatil si 20 000");
                 hrac.odoberPeniaze(20000);

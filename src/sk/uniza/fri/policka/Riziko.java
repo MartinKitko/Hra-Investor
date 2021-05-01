@@ -1,6 +1,6 @@
 package sk.uniza.fri.policka;
 
-import sk.uniza.fri.hraci.IHrac;
+import sk.uniza.fri.Hrac;
 
 /**
  * 1. 4. 2021 - 17:09
@@ -23,7 +23,7 @@ public class Riziko extends Policko {
         }
     }
 
-    public void vykonaj(IHrac hrac) {
+    public void vykonaj(Hrac hrac) {
         switch (this.aktKarta) {
             case 1:
                 System.out.println("Daroval si peniaze na dobrocinne ucely. Banke si zaplatil 10 000");

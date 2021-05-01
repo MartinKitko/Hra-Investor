@@ -1,4 +1,4 @@
-package sk.uniza.fri.hraci;
+package sk.uniza.fri;
 
 import sk.uniza.fri.policka.Policko;
 import sk.uniza.fri.policka.Preprava;
@@ -15,15 +15,16 @@ import java.util.Scanner;
  *
  * @author Martin Kitko
  */
-public class HracClovek implements IHrac {
+public class Hrac {
     private String meno;
     private int aktPozicia;
     private int peniaze;
     private int zostavajuciPocetKolVoVazeni;
     private boolean prehral;
     private ArrayList<Policko> vlastnenePolicka;
+    private TypHraca typHraca;
 
-    public HracClovek(String meno) {
+    public Hrac(String meno, TypHraca typHraca) {
         if (meno == null) {
             meno = "";
         }
@@ -34,6 +35,7 @@ public class HracClovek implements IHrac {
         this.zostavajuciPocetKolVoVazeni = 0;
         this.prehral = false;
         this.vlastnenePolicka = new ArrayList<>();
+        this.typHraca = typHraca;
     }
 
     public void posun() {
@@ -50,8 +52,17 @@ public class HracClovek implements IHrac {
         System.out.println("\nPosun z " + staraPozicia + " o " + hodKockou + " na " + this.aktPozicia);
     }
 
-    public int zobrazMoznosti() {
-        Scanner sc = new Scanner(System.in);
+    public int zobrazMoznosti(String sprava, String nazov, boolean zobrazInfo) {
+        if (this.typHraca == TypHraca.CLOVEK) {
+            return GUI.getInstancia().zobrazMoznosti(sprava, nazov, zobrazInfo);
+        } else {
+            if (this.peniaze > 100000) {
+                return 0;
+            } else {
+                return 1;
+            }
+        }
+        /*Scanner sc = new Scanner(System.in);
         int volba = 0;
         do {
             if (volba != 0) {
@@ -68,7 +79,11 @@ public class HracClovek implements IHrac {
             volba = sc.nextInt();
         } while (volba < 0 || volba > 2);
 
-        return volba;
+        return volba;*/
+    }
+
+    public TypHraca getTypHraca() {
+        return this.typHraca;
     }
 
     public void pridajPolicko(Policko policko) {

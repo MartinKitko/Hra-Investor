@@ -1,8 +1,5 @@
 package sk.uniza.fri;
 
-import sk.uniza.fri.hraci.HracClovek;
-import sk.uniza.fri.hraci.HracPocitac;
-import sk.uniza.fri.hraci.IHrac;
 import sk.uniza.fri.policka.Policko;
 
 /**
@@ -12,21 +9,21 @@ import sk.uniza.fri.policka.Policko;
  */
 public class Hra {
     private HraciaPlocha hraciaPlocha;
-    private IHrac[] zoznamHracov;
+    private Hrac[] zoznamHracov;
     private int pocetHracov;
     private int pocetTahov;
     private int aktHrac;
 
     public Hra(int pocetHracov) {
         this.hraciaPlocha = new HraciaPlocha();
-        this.zoznamHracov = new IHrac[pocetHracov];
+        this.zoznamHracov = new Hrac[pocetHracov];
 
         /*for (int i = 0; i < pocetHracov; i++) {
             this.zoznamHracov[i] = new HracClovek("Hrac " + (i + 1));
             //this.zoznamHracov[i] = new HracPocitac("Pocitac " + (i + 1));
         }*/
-        this.zoznamHracov[0] = new HracClovek("Hrac " + (0 + 1));
-        this.zoznamHracov[1] = new HracPocitac("Pocitac " + (1 + 1));
+        this.zoznamHracov[0] = new Hrac("Hrac " + (0 + 1), TypHraca.CLOVEK);
+        this.zoznamHracov[1] = new Hrac("Pocitac " + (1 + 1), TypHraca.POCITAC);
         // TODO spravit aby fungovalo jeden hrac jeden pocitac
 
         this.pocetHracov = pocetHracov;
@@ -36,7 +33,7 @@ public class Hra {
 
     public void tah() {
         if (!this.koniecHry()) {
-            IHrac hrac = this.zoznamHracov[this.aktHrac];
+            Hrac hrac = this.zoznamHracov[this.aktHrac];
 
             hrac.posun();
             Policko aktPolicko = this.hraciaPlocha.getPolicko(hrac.getAktPozicia());
@@ -56,7 +53,7 @@ public class Hra {
             this.aktHrac = 0;
         }
 
-        IHrac nasledujuciHrac = this.zoznamHracov[this.aktHrac];
+        Hrac nasledujuciHrac = this.zoznamHracov[this.aktHrac];
         if (nasledujuciHrac.jeVoVazeni()) {
             nasledujuciHrac.odsedelSiKolo();
             this.dalsiHrac();
@@ -68,7 +65,7 @@ public class Hra {
 
     }
 
-    public IHrac getAktHrac() {
+    public Hrac getAktHrac() {
         return this.zoznamHracov[this.aktHrac];
     }
 

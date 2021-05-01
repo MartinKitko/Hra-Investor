@@ -1,6 +1,6 @@
 package sk.uniza.fri.policka;
 
-import sk.uniza.fri.hraci.IHrac;
+import sk.uniza.fri.Hrac;
 
 /**
  * 1. 4. 2021 - 17:09
@@ -10,31 +10,22 @@ import sk.uniza.fri.hraci.IHrac;
 public class Preprava extends Policko {
     private static final int CENA = 40000;
     private static final int POPLATOK = 5000;
-    private IHrac majitel;
+    private Hrac majitel;
 
 
     public Preprava(String nazov) {
         super(nazov);
     }
 
-    public void vykonaj(IHrac hrac) {
+    public void vykonaj(Hrac hrac) {
         int volba;
         if (this.majitel == null) {
             do {
                 //volba = hrac.zobrazMoznosti();
-                volba = this.zobrazMoznosti("Chces zakupit tuto prepravu za " + CENA + "?", "Kupa prepravy", true);
+                volba = hrac.zobrazMoznosti("Chces zakupit tuto prepravu za " + CENA + "?", "Kupa prepravy", true);
                 switch (volba) {
-                    case 0:
-                        this.kupa(hrac);
-                        break;
-                    case 2:
-                        System.out.println("Poplatok, pokial hrac vlastni:");
-                        System.out.println("1 prepravu: " + POPLATOK);
-                        System.out.println("2 prepravy: " + this.getPoplatok(2));
-                        System.out.println("3 prepravy: " + this.getPoplatok(3));
-                        System.out.println("4 prepravy: " + this.getPoplatok(4) + "\n");
-                        break;
-                    default:
+                    case 0 -> this.kupa(hrac);
+                    case 2 -> this.zobrazInfo();
                 }
             } while (volba == 2);
         } else if (this.majitel.equals(hrac)) {
@@ -48,6 +39,14 @@ public class Preprava extends Policko {
         }
     }
 
+    private void zobrazInfo() {
+        System.out.println("Poplatok, pokial hrac vlastni:");
+        System.out.println("1 prepravu: " + POPLATOK);
+        System.out.println("2 prepravy: " + this.getPoplatok(2));
+        System.out.println("3 prepravy: " + this.getPoplatok(3));
+        System.out.println("4 prepravy: " + this.getPoplatok(4) + "\n");
+    }
+
     private int getPoplatok(int pocetVlastnenych) {
         return switch (pocetVlastnenych) {
             case 2 -> POPLATOK * 2;
@@ -57,7 +56,7 @@ public class Preprava extends Policko {
         };
     }
 
-    private void kupa(IHrac hrac) {
+    private void kupa(Hrac hrac) {
         if (hrac.getPeniaze() >= CENA) {
             hrac.pridajPolicko(this);
             hrac.odoberPeniaze(CENA);

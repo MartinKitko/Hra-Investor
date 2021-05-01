@@ -2,7 +2,6 @@ package sk.uniza.fri;
 
 import com.gilecode.yagson.YaGson;
 import com.gilecode.yagson.YaGsonBuilder;
-import sk.uniza.fri.hraci.HracPocitac;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -62,7 +61,7 @@ public abstract class HraUI {
     }
 
     private static int druheMenu() {
-        if (HraUI.hra.getAktHrac() instanceof HracPocitac) {
+        if (HraUI.hra.getAktHrac().getTypHraca() == TypHraca.POCITAC) {
             if (!hra.koniecHry()) {
                 hra.tah();
                 return 1;

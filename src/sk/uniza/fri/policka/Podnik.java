@@ -1,7 +1,7 @@
 package sk.uniza.fri.policka;
 
-import sk.uniza.fri.hraci.HracPocitac;
-import sk.uniza.fri.hraci.IHrac;
+import sk.uniza.fri.Hrac;
+import sk.uniza.fri.TypHraca;
 
 /**
  * 1. 4. 2021 - 17:09
@@ -15,7 +15,7 @@ public class Podnik extends Policko {
     private int pocetPobociek;
     private boolean maKoncern;
     private Odvetvie odvetvie;
-    private IHrac majitel;
+    private Hrac majitel;
 
     public Podnik(String nazov, int cena, int zakladnyPoplatok, int poplatokSPobockou, Odvetvie odvetvie) {
         super(nazov);
@@ -31,12 +31,12 @@ public class Podnik extends Policko {
         return this.odvetvie;
     }
 
-    public void vykonaj(IHrac hrac) {
+    public void vykonaj(Hrac hrac) {
         int volba;
         if (this.majitel == null) {
             do {
                 //volba = hrac.zobrazMoznosti();
-                volba = this.zobrazMoznosti("Chces zakupit tento podnik za " + this.cena + "?", "Kupa podniku", true);
+                volba = hrac.zobrazMoznosti("Chces zakupit tento podnik za " + this.cena + "?", "Kupa podniku", true);
                 switch (volba) {
                     case 0:
                         this.kupa(hrac);
@@ -70,7 +70,7 @@ public class Podnik extends Policko {
         System.out.println("Koncern    \t" + this.cena * 5 + "\t" + this.getPoplatokSKoncernom() + "\n");
     }
 
-    private void kupa(IHrac hrac) {
+    private void kupa(Hrac hrac) {
         if (hrac.getPeniaze() >= this.cena) {
             hrac.odoberPeniaze(this.cena);
             hrac.pridajPolicko(this);
@@ -85,7 +85,7 @@ public class Podnik extends Policko {
         System.out.println("Toto je tvoj podnik");
 
         // docasne pre pocitac
-        if (this.majitel instanceof HracPocitac) {
+        if (this.majitel.getTypHraca() == TypHraca.POCITAC) {
             if (this.pocetPobociek < 3) {
                 this.majitel.odoberPeniaze(this.cena);
                 this.pocetPobociek++;
@@ -117,7 +117,7 @@ public class Podnik extends Policko {
                     this.pocetPobociek++;
                     System.out.println("Zakupena 1 pobocka");
                 }*/
-                int volba = this.zobrazMoznosti("Chces zakupit dalsiu pobocku za " + this.cena + "?", "Kupa pobocky", true);
+                int volba = this.majitel.zobrazMoznosti("Chces zakupit dalsiu pobocku za " + this.cena + "?", "Kupa pobocky", true);
                 if (volba == 0) {
                     this.majitel.odoberPeniaze(this.cena);
                     this.pocetPobociek++;
@@ -136,7 +136,7 @@ public class Podnik extends Policko {
                         this.maKoncern = true;
                         System.out.println("Koncern uspesne zakupeny");
                     }*/
-                    int volba = this.zobrazMoznosti("Chces zakupit koncern za " + this.cena * 2 + "?", "Kupa koncernu", true);
+                    int volba = this.majitel.zobrazMoznosti("Chces zakupit koncern za " + this.cena * 2 + "?", "Kupa koncernu", true);
                     if (volba == 0) {
                         this.majitel.odoberPeniaze(this.cena * 2);
                         this.maKoncern = true;
@@ -171,7 +171,7 @@ public class Podnik extends Policko {
         return poplatok;
     }
 
-    private void predaj(IHrac hrac) {
+    private void predaj(Hrac hrac) {
         hrac.pridajPeniaze(this.cena);
         this.majitel = null;
     }

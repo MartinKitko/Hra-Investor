@@ -1,7 +1,5 @@
 package sk.uniza.fri;
 
-import sk.uniza.fri.hraci.HracClovek;
-import sk.uniza.fri.hraci.IHrac;
 import sk.uniza.fri.policka.Policko;
 import sk.uniza.fri.policka.PolickoStart;
 import sk.uniza.fri.policka.Podnik;
@@ -72,7 +70,7 @@ public class HraciaPlocha {
         return this.zoznamPolicok[index];
     }
 
-    public void vykonaj(IHrac hrac) {
+    public void vykonaj(Hrac hrac) {
         this.zoznamPolicok[hrac.getAktPozicia()].vykonaj(hrac); //polymorfizmus
     }
 
