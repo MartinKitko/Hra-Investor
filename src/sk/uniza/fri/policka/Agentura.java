@@ -24,7 +24,7 @@ public class Agentura extends Policko {
                 volba = hrac.zobrazMoznosti("Chces zakupit tuto agenturu za " + CENA + "?", "Kupa agentury", true);
                 switch (volba) {
                     case 0 -> sprava = this.kupa(hrac);
-                    case 2 -> sprava = this.dajInfo();
+                    case 2 -> this.zobrazInfo();
                 }
             } while (volba == 2);
         } else if (this.majitel.equals(hrac)) {
@@ -39,10 +39,11 @@ public class Agentura extends Policko {
         return sprava;
     }
 
-    private String dajInfo() {
-        return "Poplatok, pokial hrac vlastni:" + "\n" +
-            "1 agenturu: " + POPLATOK + "\n" +
-            "2 agentury: " + POPLATOK * 2 + "\n";
+    private void zobrazInfo() {
+        System.out.println("Poplatok, pokial hrac vlastni:");
+        System.out.println("1 agenturu: " + POPLATOK);
+        System.out.println("2 agentury: " + POPLATOK * 2 + "\n");
+
     }
 
     private int getPoplatok(int pocetVlastnenych) {

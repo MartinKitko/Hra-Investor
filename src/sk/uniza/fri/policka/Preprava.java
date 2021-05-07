@@ -24,7 +24,7 @@ public class Preprava extends Policko {
                 volba = hrac.zobrazMoznosti("Chces zakupit tuto prepravu za " + CENA + "?", "Kupa prepravy", true);
                 switch (volba) {
                     case 0 -> sprava = this.kupa(hrac);
-                    case 2 -> sprava = this.dajInfo();
+                    case 2 -> this.zobrazInfo();
                 }
             } while (volba == 2);
         } else if (this.majitel.equals(hrac)) {
@@ -39,12 +39,13 @@ public class Preprava extends Policko {
         return sprava;
     }
 
-    private String dajInfo() {
-        return "Poplatok, pokial hrac vlastni:" + "\n" +
-            "1 prepravu: " + POPLATOK + "\n" +
-            "2 prepravy: " + this.getPoplatok(2) + "\n" +
-            "3 prepravy: " + this.getPoplatok(3) + "\n" +
-            "4 prepravy: " + this.getPoplatok(4) + "\n";
+    private void zobrazInfo() {
+        System.out.println("Poplatok, pokial hrac vlastni:");
+        System.out.println("1 prepravu: " + POPLATOK);
+        System.out.println("2 prepravy: " + this.getPoplatok(2));
+        System.out.println("3 prepravy: " + this.getPoplatok(3));
+        System.out.println("4 prepravy: " + this.getPoplatok(4) + "\n");
+
     }
 
     private int getPoplatok(int pocetVlastnenych) {

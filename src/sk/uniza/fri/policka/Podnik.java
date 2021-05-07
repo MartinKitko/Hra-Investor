@@ -41,7 +41,7 @@ public class Podnik extends Policko {
                         sprava = this.kupa(hrac);
                         break;
                     case 2:
-                        sprava = this.dajInfo();
+                        this.zobrazInfo();
                         break;
                     default:
                 }
@@ -60,13 +60,14 @@ public class Podnik extends Policko {
         return sprava;
     }
 
-    private String dajInfo() {
-        return "\tCENA:   POPLATOK:" + "\n" +
-            "Bez pobocky\t" + this.cena + "\t" + this.zakladnyPoplatok + "\n" +
-            "1 pobocka  \t" + this.cena + "\t" + this.poplatokSPobockou + "\n" +
-            "2 pobocky  \t" + this.cena * 2 + "\t" + this.poplatokSPobockou * 2 + "\n" +
-            "3 pobocky  \t" + this.cena * 3 + "\t" + this.poplatokSPobockou * 3 + "\n" +
-            "Koncern    \t" + this.cena * 5 + "\t" + this.getPoplatokSKoncernom() + "\n";
+    private void zobrazInfo() {
+        System.out.println("\tCENA:   POPLATOK:");
+        System.out.println("Bez pobocky\t" + this.cena + "\t" + this.zakladnyPoplatok);
+        System.out.println("1 pobocka  \t" + this.cena + "\t" + this.poplatokSPobockou);
+        System.out.println("2 pobocky  \t" + this.cena * 2 + "\t" + this.poplatokSPobockou * 2);
+        System.out.println("3 pobocky  \t" + this.cena * 3 + "\t" + this.poplatokSPobockou * 3);
+        System.out.println("Koncern    \t" + this.cena * 5 + "\t" + this.getPoplatokSKoncernom() + "\n");
+
     }
 
     private String kupa(Hrac hrac) {
@@ -105,7 +106,7 @@ public class Podnik extends Policko {
                         this.pocetPobociek++;
                         sprava += "\nZakupena 1 pobocka";
                     } else if (volba == 2) {
-                        sprava += "\n" + this.dajInfo();
+                        this.zobrazInfo();
                     }
                 }
             } else {
@@ -122,7 +123,7 @@ public class Podnik extends Policko {
                             this.maKoncern = true;
                             sprava += "\nKoncern uspesne zakupeny";
                         } else if (volba == 2) {
-                            sprava += "\n" + this.dajInfo();
+                            this.zobrazInfo();
                         }
                     }
                 }
