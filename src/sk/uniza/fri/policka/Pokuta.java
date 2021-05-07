@@ -13,12 +13,8 @@ public class Pokuta extends Policko {
         super(nazov);
     }
 
-    public void vykonaj(Hrac hrac) {
-        if (hrac == null) {
-            return;
-        }
-
-        System.out.println("Zaplatil si banke pokutu 20 000");
+    public String vykonaj(Hrac hrac) {
         hrac.odoberPeniaze(20000);
+        return "Banke si zaplatil pokutu 20 000";
     }
 }

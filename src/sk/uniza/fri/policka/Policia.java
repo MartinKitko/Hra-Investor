@@ -13,9 +13,9 @@ public class Policia extends Policko {
         super(nazov);
     }
 
-    public void vykonaj(Hrac hrac) {
-        System.out.println("Bol si presunuty do vazenia, stojis 3 kola");
+    public String vykonaj(Hrac hrac) {
         hrac.nastavPoziciu(12);
         hrac.doVazenia(3);
+        return "Bol si presunuty do vazenia, stojis 3 kola";
     }
 }

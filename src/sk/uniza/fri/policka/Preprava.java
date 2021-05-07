@@ -16,33 +16,35 @@ public class Preprava extends Policko {
         super(nazov);
     }
 
-    public void vykonaj(Hrac hrac) {
+    public String vykonaj(Hrac hrac) {
+        String sprava = "";
         int volba;
         if (this.majitel == null) {
             do {
                 volba = hrac.zobrazMoznosti("Chces zakupit tuto prepravu za " + CENA + "?", "Kupa prepravy", true);
                 switch (volba) {
-                    case 0 -> this.kupa(hrac);
-                    case 2 -> this.zobrazInfo();
+                    case 0 -> sprava = this.kupa(hrac);
+                    case 2 -> sprava = this.dajInfo();
                 }
             } while (volba == 2);
         } else if (this.majitel.equals(hrac)) {
-            System.out.println("Vlastnis tuto prepravu");
+            sprava = "Vlastnis tuto prepravu";
         } else {
-            System.out.println("Tuto prepravu vlastni " + this.majitel.getMeno());
+            sprava = "Tuto prepravu vlastni " + this.majitel.getMeno();
             int poplatok = this.getPoplatok(this.majitel.getPocetVlastnenych(this));
-            System.out.println("Zaplatil si mu " + poplatok);
+            sprava += "\nZaplatil si mu " + poplatok;
             hrac.odoberPeniaze(poplatok);
             this.majitel.pridajPeniaze(poplatok);
         }
+        return sprava;
     }
 
-    private void zobrazInfo() {
-        System.out.println("Poplatok, pokial hrac vlastni:");
-        System.out.println("1 prepravu: " + POPLATOK);
-        System.out.println("2 prepravy: " + this.getPoplatok(2));
-        System.out.println("3 prepravy: " + this.getPoplatok(3));
-        System.out.println("4 prepravy: " + this.getPoplatok(4) + "\n");
+    private String dajInfo() {
+        return "Poplatok, pokial hrac vlastni:" + "\n" +
+            "1 prepravu: " + POPLATOK + "\n" +
+            "2 prepravy: " + this.getPoplatok(2) + "\n" +
+            "3 prepravy: " + this.getPoplatok(3) + "\n" +
+            "4 prepravy: " + this.getPoplatok(4) + "\n";
     }
 
     private int getPoplatok(int pocetVlastnenych) {
@@ -54,15 +56,17 @@ public class Preprava extends Policko {
         };
     }
 
-    private void kupa(Hrac hrac) {
+    private String kupa(Hrac hrac) {
+        String sprava;
         if (hrac.getPeniaze() >= CENA) {
             hrac.pridajPolicko(this);
             hrac.odoberPeniaze(CENA);
             this.majitel = hrac;
-            System.out.println("Preprava uspesne zakupena");
+            sprava = "Preprava uspesne zakupena";
         } else {
-            System.out.println("Na zakupenie tejto prepravy nemas dostatok penazi");
+            sprava = "Na zakupenie tejto prepravy nemas dostatok penazi";
         }
+        return sprava;
     }
 
     @Override

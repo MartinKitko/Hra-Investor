@@ -23,44 +23,46 @@ public class Zisk extends Policko {
         }
     }
 
-    public void vykonaj(Hrac hrac) {
+    public String vykonaj(Hrac hrac) {
+        String sprava = "";
         switch (this.aktKarta) {
             case 1 -> {
-                System.out.println("Stryko ti daroval peniaze. Z banky dostanes 20 000");
+                sprava = "Stryko ti daroval peniaze. Z banky dostanes 20 000";
                 hrac.pridajPeniaze(20000);
             }
             case 2 -> {
-                System.out.println("Vyhral si v sutazi o najlepsieho investora. Z banky dostanes 50 000");
+                sprava = "Vyhral si v sutazi o najlepsieho investora. Z banky dostanes 50 000";
                 hrac.pridajPeniaze(50000);
             }
             case 3 -> {
-                System.out.println("Banky investovali do tvojich podnikov. Z banky dostanec 100 000");
+                sprava = "Banky investovali do tvojich podnikov. Z banky dostanec 100 000";
                 hrac.pridajPeniaze(100000);
             }
             case 4 -> {
-                System.out.println("Na vystavbu tvojich podnikov z banky dostanes 50 000");
+                sprava = "Na vystavbu tvojich podnikov z banky dostanes 50 000";
                 hrac.pridajPeniaze(50000);
             }
-            case 5 -> System.out.println("Vela stastia v dalsej hre");
+            case 5 -> sprava = "Vela stastia v dalsej hre";
             case 6 -> {
-                System.out.println("Tvojim podnikom sa darí. Z banky dostanes 40 000");
+                sprava = "Tvojim podnikom sa darí. Z banky dostanes 40 000";
                 hrac.pridajPeniaze(40000);
             }
             case 7 -> {
-                System.out.println("Priatel ti poslal peniaze. Z banky dostanes 10 000");
+                sprava = "Priatel ti poslal peniaze. Z banky dostanes 10 000";
                 hrac.pridajPeniaze(10000);
             }
             case 8 -> {
-                System.out.println("Rodicia ti poslali peniaze. Z banky dostanes 30 000");
+                sprava = "Rodicia ti poslali peniaze. Z banky dostanes 30 000";
                 hrac.pridajPeniaze(30000);
             }
             case 9 -> {
-                System.out.println("Ceny akcii tvojich podnikov prudko vzrastli. Z banky dostanes 40 000");
+                sprava = "Ceny akcii tvojich podnikov prudko vzrastli. Z banky dostanes 40 000";
                 hrac.pridajPeniaze(40000);
             }
         }
 
         this.dalsiaKrata();
+        return sprava;
     }
 
 }

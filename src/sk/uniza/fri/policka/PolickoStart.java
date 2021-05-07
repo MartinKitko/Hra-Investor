@@ -13,7 +13,7 @@ public class PolickoStart extends Policko {
         super(nazov);
     }
 
-    public void vykonaj(Hrac hrac) {
-        System.out.println("Vitaj spat na starte");
+    public String vykonaj(Hrac hrac) {
+        return "Vitaj spat na starte";
     }
 }

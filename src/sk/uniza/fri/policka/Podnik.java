@@ -30,17 +30,18 @@ public class Podnik extends Policko {
         return this.odvetvie;
     }
 
-    public void vykonaj(Hrac hrac) {
+    public String vykonaj(Hrac hrac) {
+        String sprava = "";
         int volba;
         if (this.majitel == null) {
             do {
                 volba = hrac.zobrazMoznosti("Chces zakupit tento podnik za " + this.cena + "?", "Kupa podniku", true);
                 switch (volba) {
                     case 0:
-                        this.kupa(hrac);
+                        sprava = this.kupa(hrac);
                         break;
                     case 2:
-                        this.zobrazInfo();
+                        sprava = this.dajInfo();
                         break;
                     default:
                 }
@@ -48,38 +49,42 @@ public class Podnik extends Policko {
 
         } else if (this.majitel.equals(hrac)) {
             // TODO moznost predaja podniku
-            this.kupaPobocky();
+            sprava = this.kupaPobocky();
         } else {
-            System.out.println("Tento podnik vlastni " + this.majitel.getMeno());
+            sprava = "Tento podnik vlastni " + this.majitel.getMeno();
             int poplatok = this.getPoplatok();
-            System.out.println("Zaplatil si mu " + poplatok);
+            sprava += "\nZaplatil si mu " + poplatok;
             hrac.odoberPeniaze(poplatok);
             this.majitel.pridajPeniaze(poplatok);
         }
+        return sprava;
     }
 
-    private void zobrazInfo() {
-        System.out.println("\tCENA:   POPLATOK:");
-        System.out.println("Bez pobocky\t" + this.cena + "\t" + this.zakladnyPoplatok);
-        System.out.println("1 pobocka  \t" + this.cena + "\t" + this.poplatokSPobockou);
-        System.out.println("2 pobocky  \t" + this.cena * 2 + "\t" + this.poplatokSPobockou * 2);
-        System.out.println("3 pobocky  \t" + this.cena * 3 + "\t" + this.poplatokSPobockou * 3);
-        System.out.println("Koncern    \t" + this.cena * 5 + "\t" + this.getPoplatokSKoncernom() + "\n");
+    private String dajInfo() {
+        return "\tCENA:   POPLATOK:" + "\n" +
+            "Bez pobocky\t" + this.cena + "\t" + this.zakladnyPoplatok + "\n" +
+            "1 pobocka  \t" + this.cena + "\t" + this.poplatokSPobockou + "\n" +
+            "2 pobocky  \t" + this.cena * 2 + "\t" + this.poplatokSPobockou * 2 + "\n" +
+            "3 pobocky  \t" + this.cena * 3 + "\t" + this.poplatokSPobockou * 3 + "\n" +
+            "Koncern    \t" + this.cena * 5 + "\t" + this.getPoplatokSKoncernom() + "\n";
     }
 
-    private void kupa(Hrac hrac) {
+    private String kupa(Hrac hrac) {
+        String sprava;
         if (hrac.getPeniaze() >= this.cena) {
             hrac.odoberPeniaze(this.cena);
             hrac.pridajPolicko(this);
             this.majitel = hrac;
-            System.out.println("Podnik uspesne zakupeny");
+            sprava = "Podnik uspesne zakupeny";
         } else {
-            System.out.println("Na zakupenie tohto podniku nemas dostatok penazi");
+            sprava = "Na zakupenie tohto podniku nemas dostatok penazi";
         }
+        return sprava;
     }
 
-    private void kupaPobocky() {
-        System.out.println("Toto je tvoj podnik");
+    private String kupaPobocky() {
+        String sprava;
+        sprava = "Toto je tvoj podnik";
 
         int maxPocetPobociek;
         if (this.odvetvie == Odvetvie.ALKOHOL || this.odvetvie == Odvetvie.BANE) {
@@ -91,40 +96,41 @@ public class Podnik extends Policko {
         if (this.majitel.getPocetVlastnenychVOdvetvi(this.odvetvie) == maxPocetPobociek) {
             if (this.pocetPobociek < 3) {
                 if (this.majitel.getPeniaze() < this.cena) {
-                    System.out.println("Nemas dostatok penazi na zakupenie pobocky");
+                    sprava += "\nNemas dostatok penazi na zakupenie pobocky";
                 } else {
                     int volba = this.majitel.zobrazMoznosti("Chces zakupit dalsiu pobocku za " + this.cena + "?", "Kupa pobocky", true);
 
                     if (volba == 0) {
                         this.majitel.odoberPeniaze(this.cena);
                         this.pocetPobociek++;
-                        System.out.println("Zakupena 1 pobocka");
+                        sprava += "\nZakupena 1 pobocka";
                     } else if (volba == 2) {
-                        this.zobrazInfo();
+                        sprava += "\n" + this.dajInfo();
                     }
                 }
             } else {
                 if (this.maKoncern) {
-                    System.out.println("Vlastnis jeho koncern a vsetky pobocky");
+                    sprava += "\nVlastnis jeho koncern a vsetky pobocky";
                 } else {
                     if (this.majitel.getPeniaze() < this.cena * 2) {
-                        System.out.println("Nemas dostatok penazi na zakupenie koncernu");
+                        sprava += "\nNemas dostatok penazi na zakupenie koncernu";
                     } else {
                         int volba = this.majitel.zobrazMoznosti("Chces zakupit koncern za " + this.cena * 2 + "?", "Kupa koncernu", true);
 
                         if (volba == 0) {
                             this.majitel.odoberPeniaze(this.cena * 2);
                             this.maKoncern = true;
-                            System.out.println("Koncern uspesne zakupeny");
+                            sprava += "\nKoncern uspesne zakupeny";
                         } else if (volba == 2) {
-                            this.zobrazInfo();
+                            sprava += "\n" + this.dajInfo();
                         }
                     }
                 }
             }
         } else {
-            System.out.println("Pre zakupenie pobocky musis vlastnit vsetky podniky v danom odvetvi");
+            sprava += "\nPre zakupenie pobocky musis vlastnit vsetky podniky v danom odvetvi";
         }
+        return sprava;
     }
 
     private int getPoplatok() {

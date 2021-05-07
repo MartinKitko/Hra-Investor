@@ -13,8 +13,8 @@ public class Vazenie extends Policko {
         super(nazov);
     }
 
-    public void vykonaj(Hrac hrac) {
-        System.out.println("Stojis jedno kolo");
+    public String vykonaj(Hrac hrac) {
         hrac.doVazenia(1);
+        return "Stojis jedno kolo";
     }
 }

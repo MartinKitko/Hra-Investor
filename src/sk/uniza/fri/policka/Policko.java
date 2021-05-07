@@ -22,7 +22,7 @@ public abstract class Policko {
         return this.nazov;
     }
 
-    public abstract void vykonaj(Hrac hrac);
+    public abstract String vykonaj(Hrac hrac);
 
     @Override
     public String toString() {

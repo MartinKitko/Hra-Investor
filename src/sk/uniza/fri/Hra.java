@@ -49,7 +49,7 @@ public class Hra {
         System.out.println(hrac.getMeno() + " skocil na policko " + aktPolicko);
         System.out.println("Peniaze: " + hrac.getPeniaze());
 
-        this.hraciaPlocha.vykonaj(hrac);
+        System.out.println(this.hraciaPlocha.vykonaj(hrac));
         this.dalsiHrac();
         this.pocetTahov++;
     }
