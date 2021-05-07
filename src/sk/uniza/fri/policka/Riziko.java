@@ -46,7 +46,7 @@ public class Riziko extends Policko {
                 hrac.odoberPeniaze(10000);
                 break;
             case 6:
-                System.out.println("Na buduce to bude lepsie");
+                System.out.println("Nabuduce to bude lepsie");
                 break;
             case 7:
                 System.out.println("Za bankove sluzby si banke zaplatil 30 000");

@@ -38,9 +38,10 @@ import java.util.Scanner;
  *
  * @author Martin Kitko
  */
-public class GUI extends JFrame implements ActionListener {
+public class GUI implements ActionListener {
     private static GUI instancia;
     private Hra hra;
+    private JFrame okno;
     private JButton hodKockou;
     private JPanel hornyPanel;
     private JPanel bocnyPanel;
@@ -59,14 +60,21 @@ public class GUI extends JFrame implements ActionListener {
     private JMenuItem koniecMenu;
 
     private GUI() {
-        this.setTitle("Investor");
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(true);
-        this.setMinimumSize(new Dimension(1050, 650));
-        this.setVisible(true);
+        this.okno = new JFrame("Investor");
+        this.okno.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.okno.setResizable(true);
+        //this.setMinimumSize(new Dimension(1200, 720));
+        this.okno.setVisible(true);
+
+        /*try {
+            UIManager.setLookAndFeel(
+                    UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception ex) {
+
+        }*/
 
         ImageIcon image = new ImageIcon("obrazky/logo.png");
-        this.setIconImage(image.getImage());
+        this.okno.setIconImage(image.getImage());
 
         this.menuBar = new JMenuBar();
         this.hraMenu = new JMenu("Hra");
@@ -85,7 +93,7 @@ public class GUI extends JFrame implements ActionListener {
         this.hraMenu.add(this.koniecMenu);
 
         JMenu helpMenu = new JMenu("Help");
-        this.setJMenuBar(this.menuBar);
+        this.okno.setJMenuBar(this.menuBar);
         this.menuBar.add(this.hraMenu);
         this.menuBar.add(helpMenu);
 
@@ -96,7 +104,7 @@ public class GUI extends JFrame implements ActionListener {
 
         // TODO tlacitko na zobrazenie vlastnenych policok
 
-        Container hlavnyKontajner = this.getContentPane();
+        Container hlavnyKontajner = this.okno.getContentPane();
         hlavnyKontajner.setLayout(new BorderLayout());
 
         this.labelHrac = new JLabel("Hrac: ", SwingConstants.LEFT);
@@ -153,8 +161,8 @@ public class GUI extends JFrame implements ActionListener {
         this.bocnyPanel.add(this.gridPanel);
         hlavnyKontajner.add(this.labelStred);
         hlavnyKontajner.add(this.bocnyPanel, BorderLayout.EAST);
-
-        this.validate();
+        this.okno.pack();
+        this.okno.validate();
     }
 
     public static GUI getInstancia() {
@@ -218,9 +226,9 @@ public class GUI extends JFrame implements ActionListener {
             }
         } while (pocetPocitacov < 0 || pocetPocitacov > pocetHracov);
 
-        System.out.println("Nova hra");
-
         this.vypisovanieDoTextovehoPola();
+
+        System.out.println("Nova hra");
 
         this.hra = new Hra(pocetHracov, pocetPocitacov);
         this.hodKockou.setEnabled(true);
@@ -301,7 +309,11 @@ public class GUI extends JFrame implements ActionListener {
 
     private void ulozHru() {
         PrintWriter zapisovac = null;
-        YaGson mapper = new YaGsonBuilder().excludeFieldsWithModifiers(Modifier.TRANSIENT).create();
+        YaGson mapper = new YaGsonBuilder()
+                .excludeFieldsWithModifiers(Modifier.TRANSIENT)
+                .serializeNulls()
+                .setVersion(1.0)
+                .create();
         String json = mapper.toJson(this.hra, Hra.class);
         File nacitanySubor = this.nacitajSubor();
         if (nacitanySubor == null) {
