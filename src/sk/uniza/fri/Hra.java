@@ -2,6 +2,8 @@ package sk.uniza.fri;
 
 import sk.uniza.fri.policka.Policko;
 
+import java.util.Random;
+
 /**
  * 1. 4. 2021 - 17:09
  *
@@ -43,8 +45,8 @@ public class Hra {
 
     public void tah() {
         Hrac hrac = this.zoznamHracov[this.aktHrac];
+        this.posunHraca(hrac);
 
-        hrac.posun();
         Policko aktPolicko = this.hraciaPlocha.getPolicko(hrac.getAktPozicia());
         System.out.println(hrac.getMeno() + " skocil na policko " + aktPolicko);
         System.out.println("Peniaze: " + hrac.getPeniaze());
@@ -52,6 +54,22 @@ public class Hra {
         System.out.println(this.hraciaPlocha.vykonaj(hrac));
         this.dalsiHrac();
         this.pocetTahov++;
+    }
+
+    public void posunHraca(Hrac hrac) {
+        int staraPozicia = hrac.getAktPozicia();
+        Random generator = new Random();
+        int hodKockou = generator.nextInt(6) + 1;
+        int novaPozicia;
+        if (staraPozicia + hodKockou >= 40) {
+            novaPozicia = (staraPozicia + hodKockou) - 40;
+            System.out.println("\nZa prejdenie polickom Start si ziskal 20 000");
+            hrac.pridajPeniaze(20000);
+        } else {
+            novaPozicia = staraPozicia + hodKockou;
+        }
+        hrac.nastavPoziciu(novaPozicia);
+        System.out.println("\nPosun z " + staraPozicia + " o " + hodKockou + " na " + novaPozicia);
     }
 
     public void dalsiHrac() {

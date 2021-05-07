@@ -32,7 +32,7 @@ public class Agentura extends Policko {
         } else {
             sprava = "Tuto agenturu vlastni " + this.majitel.getMeno();
             int poplatok = this.getPoplatok(this.majitel.getPocetVlastnenych(this));
-            sprava += "Zaplatil si mu " + poplatok;
+            sprava += "\nZaplatil si mu " + poplatok;
             hrac.odoberPeniaze(poplatok);
             this.majitel.pridajPeniaze(poplatok);
         }

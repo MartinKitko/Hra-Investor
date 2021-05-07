@@ -37,20 +37,6 @@ public class Hrac {
         this.typHraca = typHraca;
     }
 
-    public void posun() {
-        int staraPozicia = this.aktPozicia;
-        Random generator = new Random();
-        int hodKockou = generator.nextInt(6) + 1;
-        if (this.aktPozicia + hodKockou >= 40) {
-            this.aktPozicia = (this.aktPozicia + hodKockou) - 40;
-            System.out.println("\nZa prejdenie polickom Start si ziskal 20 000");
-            this.peniaze += 20000;
-        } else {
-            this.aktPozicia += hodKockou;
-        }
-        System.out.println("\nPosun z " + staraPozicia + " o " + hodKockou + " na " + this.aktPozicia);
-    }
-
     public int zobrazMoznosti(String sprava, String nazov, boolean zobrazInfo) {
         if (this.typHraca == TypHraca.CLOVEK) {
             return GUI.getInstancia().zobrazMoznosti(sprava, nazov, zobrazInfo);

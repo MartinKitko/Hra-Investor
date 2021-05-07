@@ -189,6 +189,7 @@ public class GUI implements ActionListener {
     }
 
     private void vytvorNovuHru() {
+        this.vypisovanieDoTextovehoPola();
         int pocetHracov = 0;
 
         do {
@@ -208,7 +209,7 @@ public class GUI implements ActionListener {
             }
         } while (pocetHracov < 2 || pocetHracov > 6);
 
-        int pocetPocitacov = 0;
+        int pocetPocitacov = -1;
         do {
             String pocetPocitacovString = JOptionPane.showInputDialog("Z toho pocitacov: ");
             if (pocetPocitacovString == null) {
@@ -225,8 +226,6 @@ public class GUI implements ActionListener {
                 System.out.println("Je potrebne zadat cislo");
             }
         } while (pocetPocitacov < 0 || pocetPocitacov > pocetHracov);
-
-        this.vypisovanieDoTextovehoPola();
 
         System.out.println("Nova hra");
 
