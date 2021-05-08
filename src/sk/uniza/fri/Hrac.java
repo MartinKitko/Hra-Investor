@@ -44,8 +44,9 @@ public class Hrac {
 
     public String dajVlastnenePolicka() {
         StringBuilder vlastnene = new StringBuilder();
+        vlastnene.append(this.meno).append(" vlastni tieto policka:");
         for (int i = 0; i < this.vlastnenePolicka.size(); i++) {
-            vlastnene.append(i + 1).append(". ").append(this.vlastnenePolicka.get(i)).append("\n");
+            vlastnene.append("\n").append(i + 1).append(". ").append(this.vlastnenePolicka.get(i));
         }
         return vlastnene.toString();
     }
@@ -56,6 +57,14 @@ public class Hrac {
 
     public void pridajPolicko(Policko policko) {
         this.vlastnenePolicka.add(policko);
+    }
+
+    public int getPocetVlastnenych() {
+        int pocet = 0;
+        for (Policko p : this.vlastnenePolicka) {
+            pocet++;
+        }
+        return pocet;
     }
 
     public int getPocetVlastnenych(Policko policko) {
@@ -82,6 +91,12 @@ public class Hrac {
             }
         }
         return pocet;
+    }
+
+    public String predajPolicko(int cisloPolicka) {
+        IPredatelny p = (IPredatelny)this.vlastnenePolicka.remove(cisloPolicka - 1);
+        p.predaj(this);
+        return "Policko bolo uspesne predane";
     }
 
     public String getMeno() {

@@ -1,13 +1,14 @@
 package sk.uniza.fri.policka;
 
 import sk.uniza.fri.Hrac;
+import sk.uniza.fri.IPredatelny;
 
 /**
  * 1. 4. 2021 - 17:09
  *
  * @author Martin Kitko
  */
-public class Podnik extends Policko {
+public class Podnik extends Policko implements IPredatelny {
     private int cena;
     private int zakladnyPoplatok;
     private int poplatokSPobockou;
@@ -154,7 +155,7 @@ public class Podnik extends Policko {
         return poplatok;
     }
 
-    private void predaj(Hrac hrac) {
+    public void predaj(Hrac hrac) {
         hrac.pridajPeniaze(this.cena);
         this.majitel = null;
     }

@@ -1,13 +1,14 @@
 package sk.uniza.fri.policka;
 
 import sk.uniza.fri.Hrac;
+import sk.uniza.fri.IPredatelny;
 
 /**
  * 1. 4. 2021 - 17:09
  *
  * @author Martin Kitko
  */
-public class Agentura extends Policko {
+public class Agentura extends Policko implements IPredatelny {
     private static final int CENA = 30000;
     private static final int POPLATOK = 15000;
     private Hrac majitel;
@@ -65,6 +66,11 @@ public class Agentura extends Policko {
             sprava = "Na zakupenie tejto agentury nemas dostatok penazi";
         }
         return sprava;
+    }
+
+    public void predaj(Hrac hrac) {
+        hrac.pridajPeniaze(CENA);
+        this.majitel = null;
     }
 
     @Override

@@ -44,6 +44,7 @@ public class GUI implements ActionListener {
     private JFrame okno;
     private JButton hodKockou;
     private JButton vlastnenePolicka;
+    private JButton predajPolicko;
     private JPanel hornyPanel;
     private JPanel bocnyPanel;
     private JPanel gridPanel;
@@ -103,10 +104,15 @@ public class GUI implements ActionListener {
         this.hodKockou.setFocusable(false);
         this.hodKockou.setEnabled(false);
 
-        this.vlastnenePolicka = new JButton("Vlastnene policka");
+        this.vlastnenePolicka = new JButton("Zobrazit vlastnene policka");
         this.vlastnenePolicka.addActionListener(this);
         this.vlastnenePolicka.setFocusable(false);
         this.vlastnenePolicka.setEnabled(false);
+
+        this.predajPolicko = new JButton("Predaj policko");
+        this.predajPolicko.addActionListener(this);
+        this.predajPolicko.setFocusable(false);
+        this.predajPolicko.setEnabled(false);
 
         Container hlavnyKontajner = this.okno.getContentPane();
         hlavnyKontajner.setLayout(new BorderLayout());
@@ -154,6 +160,7 @@ public class GUI implements ActionListener {
         this.gridPanel.setLayout(new GridLayout(4, 1, 4, 4));
         this.gridPanel.add(this.hodKockou);
         this.gridPanel.add(this.vlastnenePolicka);
+        this.gridPanel.add(this.predajPolicko);
 
         this.bocnyPanel.add(scroll);
         this.bocnyPanel.add(this.gridPanel);
@@ -193,6 +200,8 @@ public class GUI implements ActionListener {
             this.vykonajHodKockou();
         } else if (e.getSource() == this.vlastnenePolicka) {
             this.vypisVlastnenePolicka();
+        } else if (e.getSource() == this.predajPolicko) {
+            this.predajPolicka();
         }
     }
 
@@ -238,8 +247,13 @@ public class GUI implements ActionListener {
         System.out.println("Nova hra");
 
         this.hra = new Hra(pocetHracov, pocetPocitacov);
+        this.pripravNaHru();
+    }
+
+    private void pripravNaHru() {
         this.hodKockou.setEnabled(true);
         this.vlastnenePolicka.setEnabled(true);
+        this.predajPolicko.setEnabled(true);
         this.ulozHruMenu.setVisible(true);
 
         this.textHrac.setText(this.hra.getAktHrac().getMeno());
@@ -285,6 +299,26 @@ public class GUI implements ActionListener {
         System.out.println("\n" + this.hra.getAktHrac().dajVlastnenePolicka());
     }
 
+    private void predajPolicka() {
+        Hrac hrac = this.hra.getAktHrac();
+        int cisloPolicka = 0;
+        String cisloPolickaString = JOptionPane.showInputDialog("Zadaj cislo policka: ");
+        if (cisloPolickaString == null) {
+            return;
+        }
+        try {
+            cisloPolicka = Integer.parseInt(cisloPolickaString);
+            if (cisloPolicka > 0 && cisloPolicka <= hrac.getPocetVlastnenych()) {
+                System.out.println(hrac.predajPolicko(cisloPolicka));
+                this.textPeniaze.setText("" + this.hra.getAktHrac().getPeniaze());
+            } else {
+                System.out.println("Policko so zadanym cislom neexistuje");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Je potrebne zadat cislo");
+        }
+    }
+
     public int zobrazMoznosti(String sprava, String nazov, boolean zobrazInfo) {
         String[] moznosti;
         if (zobrazInfo) {
@@ -315,8 +349,7 @@ public class GUI implements ActionListener {
                 this.hra = mapper.fromJson(nacitanySuborString, Hra.class);
             }
         }
-        this.hodKockou.setEnabled(true);
-        this.vlastnenePolicka.setEnabled(true);
+        this.pripravNaHru();
         System.out.println("\nHra bola uspesne nacitana!");
     }
 
