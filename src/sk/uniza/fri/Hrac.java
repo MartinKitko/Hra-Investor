@@ -94,9 +94,11 @@ public class Hrac {
     }
 
     public String predajPolicko(int cisloPolicka) {
-        IPredatelny p = (IPredatelny)this.vlastnenePolicka.remove(cisloPolicka - 1);
-        p.predaj(this);
-        return "Policko bolo uspesne predane";
+        IPredatelny p = (IPredatelny)this.vlastnenePolicka.get(cisloPolicka - 1);
+        if (p.predaj(this)) {
+            this.vlastnenePolicka.remove(cisloPolicka - 1);
+        }
+        return "Uspesne predane";
     }
 
     public String getMeno() {

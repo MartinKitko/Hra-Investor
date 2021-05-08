@@ -49,7 +49,6 @@ public class Podnik extends Policko implements IPredatelny {
             } while (volba == 2);
 
         } else if (this.majitel.equals(hrac)) {
-            // TODO moznost predaja podniku
             sprava = this.kupaPobocky();
         } else {
             sprava = "Tento podnik vlastni " + this.majitel.getMeno();
@@ -155,9 +154,27 @@ public class Podnik extends Policko implements IPredatelny {
         return poplatok;
     }
 
-    public void predaj(Hrac hrac) {
-        hrac.pridajPeniaze(this.cena);
-        this.majitel = null;
+    public boolean predaj(Hrac hrac) {
+        // TODO aby sa v hracovi odstranilo iba ked sa preda podnik, nie pobocka/koncern
+        if (this.pocetPobociek == 0) {
+            hrac.pridajPeniaze(this.cena);
+            this.majitel = null;
+            return true;
+        } else if (this.maKoncern) {
+            int volba = hrac.zobrazMoznosti("Tento podnik ma koncern, chces ho predat za " + this.cena * 2 + "?", "Predaj koncernu", false);
+            if (volba == 1) {
+                this.maKoncern = false;
+                hrac.pridajPeniaze(this.cena * 2);
+            }
+        } else {
+            int volba = hrac.zobrazMoznosti("Tento podnik ma " + this.pocetPobociek + " pobocku/pobocky, chces jednu predat za " + this.cena + "?",
+                    "Predaj pobocky", false);
+            if (volba == 1) {
+                this.pocetPobociek--;
+                hrac.pridajPeniaze(this.cena);
+            }
+        }
+        return false;
     }
 
     @Override

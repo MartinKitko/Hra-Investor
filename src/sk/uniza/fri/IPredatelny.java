@@ -6,5 +6,5 @@ package sk.uniza.fri;
  * @author Martin Kitko
  */
 public interface IPredatelny {
-    void predaj(Hrac hrac);
+    boolean predaj(Hrac hrac);
 }

@@ -71,9 +71,10 @@ public class Preprava extends Policko implements IPredatelny {
         return sprava;
     }
 
-    public void predaj(Hrac hrac) {
+    public boolean predaj(Hrac hrac) {
         hrac.pridajPeniaze(CENA);
         this.majitel = null;
+        return true;
     }
 
     @Override

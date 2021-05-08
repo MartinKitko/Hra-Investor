@@ -64,6 +64,7 @@ public class GUI implements ActionListener {
     private GUI() {
         this.okno = new JFrame("Investor");
         this.okno.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // TODO potvrdenie zavretia po kliknuti na X
         this.okno.setResizable(true);
         this.okno.setMinimumSize(new Dimension(1280, 720));
         this.okno.setVisible(true);
