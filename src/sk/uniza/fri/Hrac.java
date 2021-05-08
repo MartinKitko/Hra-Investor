@@ -7,7 +7,6 @@ import sk.uniza.fri.policka.Odvetvie;
 import sk.uniza.fri.policka.Podnik;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * 1. 4. 2021 - 17:09
@@ -19,20 +18,14 @@ public class Hrac {
     private int aktPozicia;
     private int peniaze;
     private int zostavajuciPocetKolVoVazeni;
-    private boolean prehral;
     private ArrayList<Policko> vlastnenePolicka;
     private TypHraca typHraca;
 
     public Hrac(String meno, TypHraca typHraca) {
-        if (meno == null) {
-            meno = "";
-        }
-
         this.meno = meno;
         this.aktPozicia = 0;
         this.peniaze = 500000;
         this.zostavajuciPocetKolVoVazeni = 0;
-        this.prehral = false;
         this.vlastnenePolicka = new ArrayList<>();
         this.typHraca = typHraca;
     }

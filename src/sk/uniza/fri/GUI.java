@@ -63,7 +63,7 @@ public class GUI implements ActionListener {
         this.okno = new JFrame("Investor");
         this.okno.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.okno.setResizable(true);
-        //this.setMinimumSize(new Dimension(1200, 720));
+        this.okno.setMinimumSize(new Dimension(1280, 720));
         this.okno.setVisible(true);
 
         /*try {
@@ -155,7 +155,8 @@ public class GUI implements ActionListener {
 
         this.labelStred = new JLabel("", SwingConstants.CENTER);
         this.labelStred.setOpaque(true);
-        ImageIcon image2 = new ImageIcon("obrazky/hraciaPlocha.jpg");
+        //ImageIcon image2 = new ImageIcon("obrazky/hraciaPlocha.jpg");
+        StretchIcon image2 = new StretchIcon("obrazky/hraciaPlocha.jpg");
         this.labelStred.setIcon(image2);
 
         this.bocnyPanel.add(this.gridPanel);
