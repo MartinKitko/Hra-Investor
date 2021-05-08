@@ -42,6 +42,14 @@ public class Hrac {
         }
     }
 
+    public String dajVlastnenePolicka() {
+        StringBuilder vlastnene = new StringBuilder();
+        for (int i = 0; i < this.vlastnenePolicka.size(); i++) {
+            vlastnene.append(i + 1).append(". ").append(this.vlastnenePolicka.get(i)).append("\n");
+        }
+        return vlastnene.toString();
+    }
+
     public TypHraca getTypHraca() {
         return this.typHraca;
     }

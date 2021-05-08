@@ -43,6 +43,7 @@ public class GUI implements ActionListener {
     private Hra hra;
     private JFrame okno;
     private JButton hodKockou;
+    private JButton vlastnenePolicka;
     private JPanel hornyPanel;
     private JPanel bocnyPanel;
     private JPanel gridPanel;
@@ -102,7 +103,10 @@ public class GUI implements ActionListener {
         this.hodKockou.setFocusable(false);
         this.hodKockou.setEnabled(false);
 
-        // TODO tlacitko na zobrazenie vlastnenych policok
+        this.vlastnenePolicka = new JButton("Vlastnene policka");
+        this.vlastnenePolicka.addActionListener(this);
+        this.vlastnenePolicka.setFocusable(false);
+        this.vlastnenePolicka.setEnabled(false);
 
         Container hlavnyKontajner = this.okno.getContentPane();
         hlavnyKontajner.setLayout(new BorderLayout());
@@ -149,6 +153,7 @@ public class GUI implements ActionListener {
         this.gridPanel = new JPanel();
         this.gridPanel.setLayout(new GridLayout(4, 1, 4, 4));
         this.gridPanel.add(this.hodKockou);
+        this.gridPanel.add(this.vlastnenePolicka);
 
         this.bocnyPanel.add(scroll);
         this.bocnyPanel.add(this.gridPanel);
@@ -186,6 +191,8 @@ public class GUI implements ActionListener {
             this.koniecHry();
         } else if (e.getSource() == this.hodKockou) {
             this.vykonajHodKockou();
+        } else if (e.getSource() == this.vlastnenePolicka) {
+            this.vypisVlastnenePolicka();
         }
     }
 
@@ -232,6 +239,7 @@ public class GUI implements ActionListener {
 
         this.hra = new Hra(pocetHracov, pocetPocitacov);
         this.hodKockou.setEnabled(true);
+        this.vlastnenePolicka.setEnabled(true);
         this.ulozHruMenu.setVisible(true);
 
         this.textHrac.setText(this.hra.getAktHrac().getMeno());
@@ -273,6 +281,10 @@ public class GUI implements ActionListener {
         }
     }
 
+    private void vypisVlastnenePolicka() {
+        System.out.println("\n" + this.hra.getAktHrac().dajVlastnenePolicka());
+    }
+
     public int zobrazMoznosti(String sprava, String nazov, boolean zobrazInfo) {
         String[] moznosti;
         if (zobrazInfo) {
@@ -304,6 +316,7 @@ public class GUI implements ActionListener {
             }
         }
         this.hodKockou.setEnabled(true);
+        this.vlastnenePolicka.setEnabled(true);
         System.out.println("\nHra bola uspesne nacitana!");
     }
 
