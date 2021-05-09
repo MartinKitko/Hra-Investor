@@ -1,10 +1,11 @@
 package sk.uniza.fri;
 
-import sk.uniza.fri.policka.Policko;
-import sk.uniza.fri.policka.Preprava;
 import sk.uniza.fri.policka.Agentura;
+import sk.uniza.fri.policka.IPredatelny;
 import sk.uniza.fri.policka.Odvetvie;
 import sk.uniza.fri.policka.Podnik;
+import sk.uniza.fri.policka.Policko;
+import sk.uniza.fri.policka.Preprava;
 
 import java.util.ArrayList;
 
@@ -122,7 +123,25 @@ public class Hrac {
     }
 
     public void odoberPeniaze(int hodnota) {
-        this.peniaze -= hodnota;
+        if (this.peniaze - hodnota <= 0) {
+            if (this.vlastnenePolicka.size() > 0) {
+                if (this.typHraca == TypHraca.CLOVEK) {
+                    System.out.println("\nNemas dostatok penazi, musis predaj nejaky podnik alebo jeho pobocku");
+                    System.out.println("Potrebujes " + hodnota + " na zaplatenie");
+                    System.out.println(this.dajVlastnenePolicka());
+                    GUI.getInstancia().predajPolicka();
+                    this.odoberPeniaze(hodnota);
+                } else {
+                    int nahodneCisloPolicka = (int)(Math.random() * this.vlastnenePolicka.size()) + 1;
+                    this.predajPolicko(nahodneCisloPolicka);
+                }
+            } else {
+                System.out.println("Nemas dostatok penazi ani ziaden podnik na predanie, prehral si!");
+                this.peniaze -= hodnota;
+            }
+        } else {
+            this.peniaze -= hodnota;
+        }
     }
 
     public boolean prehral() {

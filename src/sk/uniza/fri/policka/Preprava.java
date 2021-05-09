@@ -1,7 +1,6 @@
 package sk.uniza.fri.policka;
 
 import sk.uniza.fri.Hrac;
-import sk.uniza.fri.IPredatelny;
 
 /**
  * 1. 4. 2021 - 17:09
@@ -31,7 +30,7 @@ public class Preprava extends Policko implements IPredatelny {
         } else if (this.majitel.equals(hrac)) {
             sprava = "Vlastnis tuto prepravu";
         } else {
-            sprava = "Tuto prepravu vlastni " + this.majitel.getMeno();
+            System.out.println("Tuto prepravu vlastni " + this.majitel.getMeno());
             int poplatok = this.getPoplatok(this.majitel.getPocetVlastnenych(this));
             sprava += "\nZaplatil si mu " + poplatok;
             hrac.odoberPeniaze(poplatok);

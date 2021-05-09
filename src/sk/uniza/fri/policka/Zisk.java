@@ -44,7 +44,7 @@ public class Zisk extends Policko {
             }
             case 5 -> sprava = "Vela stastia v dalsej hre";
             case 6 -> {
-                sprava = "Tvojim podnikom sa darí. Z banky dostanes 40 000";
+                sprava = "Tvojim podnikom sa dari. Z banky dostanes 40 000";
                 hrac.pridajPeniaze(40000);
             }
             case 7 -> {

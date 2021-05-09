@@ -168,7 +168,6 @@ public class GUI implements ActionListener {
 
         this.labelStred = new JLabel("", SwingConstants.CENTER);
         this.labelStred.setOpaque(true);
-        //ImageIcon image2 = new ImageIcon("obrazky/hraciaPlocha.jpg");
         StretchIcon image2 = new StretchIcon("obrazky/hraciaPlocha.jpg");
         this.labelStred.setIcon(image2);
 
@@ -189,8 +188,8 @@ public class GUI implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.novaHraMenu) {
-            this.vytvorNovuHru();
-            //this.experiment();
+            //this.vytvorNovuHru();
+            this.experiment();
         } else if (e.getSource() == this.nacitajHruMenu) {
             this.nacitajHru();
         } else if (e.getSource() == this.ulozHruMenu) {
@@ -263,12 +262,13 @@ public class GUI implements ActionListener {
 
     private void experiment() {
         int pocetHracov = 2;
-        int pocetHier = 20;
+        int pocetHier = 100;
         int[] pocty = new int[pocetHier];
 
         for (int i = 0; i < pocetHier; i++) {
-            this.hra = new Hra(pocetHracov, pocetHracov);
-            this.hra.odohrajHru();
+            do {
+                this.hra = new Hra(pocetHracov, pocetHracov);
+            } while (this.hra.getPocetTahov() > 9999);
             pocty[i] = this.hra.getPocetTahov();
         }
 
@@ -300,10 +300,10 @@ public class GUI implements ActionListener {
         System.out.println("\n" + this.hra.getAktHrac().dajVlastnenePolicka());
     }
 
-    private void predajPolicka() {
+    public void predajPolicka() {
         Hrac hrac = this.hra.getAktHrac();
         int cisloPolicka = 0;
-        String cisloPolickaString = JOptionPane.showInputDialog("Zadaj cislo policka: ");
+        String cisloPolickaString = JOptionPane.showInputDialog("Zadaj cislo policka na predaj: ");
         if (cisloPolickaString == null) {
             return;
         }

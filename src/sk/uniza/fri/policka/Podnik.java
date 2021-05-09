@@ -1,7 +1,6 @@
 package sk.uniza.fri.policka;
 
 import sk.uniza.fri.Hrac;
-import sk.uniza.fri.IPredatelny;
 
 /**
  * 1. 4. 2021 - 17:09
@@ -51,7 +50,7 @@ public class Podnik extends Policko implements IPredatelny {
         } else if (this.majitel.equals(hrac)) {
             sprava = this.kupaPobocky();
         } else {
-            sprava = "Tento podnik vlastni " + this.majitel.getMeno();
+            System.out.println("Tento podnik vlastni " + this.majitel.getMeno());
             int poplatok = this.getPoplatok();
             sprava += "\nZaplatil si mu " + poplatok;
             hrac.odoberPeniaze(poplatok);
@@ -155,7 +154,6 @@ public class Podnik extends Policko implements IPredatelny {
     }
 
     public boolean predaj(Hrac hrac) {
-        // TODO aby sa v hracovi odstranilo iba ked sa preda podnik, nie pobocka/koncern
         if (this.pocetPobociek == 0) {
             hrac.pridajPeniaze(this.cena);
             this.majitel = null;

@@ -33,6 +33,7 @@ public class Hra {
         this.aktHrac = 0;
 
         if (pocetHracov == pocetPocitacov) {
+            System.out.println("Odohravanie hry...");
             this.odohrajHru();
         }
     }
@@ -51,7 +52,10 @@ public class Hra {
         System.out.println(hrac.getMeno() + " skocil na policko " + aktPolicko);
         System.out.println("Peniaze: " + hrac.getPeniaze());
 
-        System.out.println(this.hraciaPlocha.vykonaj(hrac));
+        String sprava = this.hraciaPlocha.vykonaj(hrac);
+        if (!sprava.equals("")) {
+            System.out.println(sprava);
+        }
         this.dalsiHrac();
         this.pocetTahov++;
     }
@@ -100,6 +104,10 @@ public class Hra {
 
     public boolean koniecHry() {
         int pocetHrajucich = 0;
+        if (this.pocetTahov > 9999) {
+            return true;
+        }
+
         for (int i = 0; i < this.pocetHracov; i++) {
             if (!this.zoznamHracov[i].prehral()) {
                 pocetHrajucich++;
