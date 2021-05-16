@@ -26,6 +26,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
@@ -63,17 +65,21 @@ public class GUI implements ActionListener {
 
     private GUI() {
         this.okno = new JFrame("Investor");
-        this.okno.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        // TODO potvrdenie zavretia po kliknuti na X
         this.okno.setResizable(true);
         this.okno.setMinimumSize(new Dimension(1280, 720));
         this.okno.setVisible(true);
+        this.okno.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        this.okno.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                GUI.this.koniecHry();
+            }
+        });
 
         /*try {
             UIManager.setLookAndFeel(
                     UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ex) {
-
         }*/
 
         ImageIcon image = new ImageIcon("obrazky/logo.png");
@@ -148,6 +154,7 @@ public class GUI implements ActionListener {
         this.textovePole.setRows(20);
         this.textovePole.setLineWrap(true);
         this.textovePole.setWrapStyleWord(true);
+        this.textovePole.setEditable(false);
 
         this.bocnyPanel = new JPanel();
         this.bocnyPanel.setLayout(new BoxLayout(this.bocnyPanel, BoxLayout.PAGE_AXIS));
@@ -188,8 +195,8 @@ public class GUI implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.novaHraMenu) {
-            //this.vytvorNovuHru();
-            this.experiment();
+            this.vytvorNovuHru();
+            //this.experiment();
         } else if (e.getSource() == this.nacitajHruMenu) {
             this.nacitajHru();
         } else if (e.getSource() == this.ulozHruMenu) {
