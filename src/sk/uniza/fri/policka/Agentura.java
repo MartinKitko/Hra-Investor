@@ -3,19 +3,28 @@ package sk.uniza.fri.policka;
 import sk.uniza.fri.Hrac;
 
 /**
- * 1. 4. 2021 - 17:09
- *
+ * Trieda Agentura predstavujuca policko typu agentura
  * @author Martin Kitko
+ * @version 18.5.2021
  */
 public class Agentura extends Policko implements IPredatelny {
     private static final int CENA = 30000;
     private static final int POPLATOK = 15000;
     private Hrac majitel;
 
+    /**
+     * Konstruktor triedy Agentura na vytvorenie policka agentury so zadanym nazvom
+     * @param nazov nazov policka
+     */
     public Agentura(String nazov) {
         super(nazov);
     }
 
+    /**
+     * Vykona dane akcie podla pravidiel hry po skoceni hracom na policko typu agentura
+     * @param hrac konkretny hrac pre ktoreho sa vykonava tato metoda
+     * @return vrati spravu typu String na zaklade toho co sa vykonalo
+     */
     public String vykonaj(Hrac hrac) {
         String sprava = "";
         int volba;
@@ -39,13 +48,20 @@ public class Agentura extends Policko implements IPredatelny {
         return sprava;
     }
 
+    /**
+     * Vypise na obrazovku poplatky pri vlastneni jednej alebo dvoch agentur
+     */
     private void zobrazInfo() {
         System.out.println("Poplatok, pokial hrac vlastni:");
         System.out.println("1 agenturu: " + POPLATOK);
         System.out.println("2 agentury: " + POPLATOK * 2 + "\n");
-
     }
 
+    /**
+     * Vrati konkretnu hodnotu poplatku podla poctu vlastnenych agentur
+     * @param pocetVlastnenych pocet vlastnenych angetur danym hracom
+     * @return vrati dany poplatok
+     */
     private int getPoplatok(int pocetVlastnenych) {
         if (pocetVlastnenych == 1) {
             return POPLATOK;
@@ -54,6 +70,11 @@ public class Agentura extends Policko implements IPredatelny {
         }
     }
 
+    /**
+     * Vykonava kupu agentury
+     * @param hrac konkretny hrac pre ktoreho sa vykonava tato metoda
+     * @return vrati spravu typu String na zaklade toho co sa vykonalo
+     */
     private String kupa(Hrac hrac) {
         String sprava;
         if (hrac.getPeniaze() >= CENA) {
@@ -67,12 +88,21 @@ public class Agentura extends Policko implements IPredatelny {
         return sprava;
     }
 
+    /**
+     * Metoda z interface IPredatelny ktora vykona predaj agentury
+     * @param hrac konkretny hrac pre ktoreho sa vykonava tato metoda
+     * @return vzdy vrati true
+     */
     public boolean predaj(Hrac hrac) {
         hrac.pridajPeniaze(CENA);
         this.majitel = null;
         return true;
     }
 
+    /**
+     * toString ktory vrati zakladne infromacie o agenture
+     * @return String v ktorom je nazov agentury a jej cena
+     */
     @Override
     public String toString() {
         return super.toString() + ", cena: " + CENA;
