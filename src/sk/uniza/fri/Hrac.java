@@ -10,9 +10,10 @@ import sk.uniza.fri.policka.Preprava;
 import java.util.ArrayList;
 
 /**
- * 1. 4. 2021 - 17:09
+ * Trieda Hrac ktora predstavuje hraca hry
  *
  * @author Martin Kitko
+ * @version 18.5.2021
  */
 public class Hrac {
     private String meno;
@@ -22,6 +23,12 @@ public class Hrac {
     private ArrayList<Policko> vlastnenePolicka;
     private TypHraca typHraca;
 
+    /**
+     * Konstruktor triedy Hrac na vytvorenie hraca podla hodnot zadanych ako parametre
+     * a inicializuje atributy na pociatocny stav pred zacatim hry
+     * @param meno meno hraca
+     * @param typHraca typ hraca
+     */
     public Hrac(String meno, TypHraca typHraca) {
         this.meno = meno;
         this.aktPozicia = 0;
@@ -31,6 +38,13 @@ public class Hrac {
         this.typHraca = typHraca;
     }
 
+    /**
+     * Vrati konkretnu volbu hraca na zaklade hodnot zadanych ako parametre
+     * @param sprava sprava ktora sa zobrazi hracovi
+     * @param nazov nazov okna ktore sa zobrazi
+     * @param zobrazInfo zobrazenie tretieho tlacitka na zobrazenie informacii o podniku
+     * @return konkretna celociselna hodnota volby hraca
+     */
     public int zobrazMoznosti(String sprava, String nazov, boolean zobrazInfo) {
         if (this.typHraca == TypHraca.CLOVEK) {
             return GUI.getInstancia().zobrazMoznosti(sprava, nazov, zobrazInfo);
@@ -43,6 +57,10 @@ public class Hrac {
         }
     }
 
+    /**
+     * Vrati nazvy vlastnenych polickok hraca
+     * @return String obsahujuci nazov policiek ktore hrac vlastni
+     */
     public String dajVlastnenePolicka() {
         StringBuilder vlastnene = new StringBuilder();
         vlastnene.append(this.meno).append(" vlastni tieto policka:");
@@ -52,14 +70,26 @@ public class Hrac {
         return vlastnene.toString();
     }
 
+    /**
+     * Vrati typ hraca
+     * @return typ hraca
+     */
     public TypHraca getTypHraca() {
         return this.typHraca;
     }
 
+    /**
+     * Prida hracovi vlastnene policko zadane ako parameter
+     * @param policko konkretne policko ktore chceme pridat
+     */
     public void pridajPolicko(Policko policko) {
         this.vlastnenePolicka.add(policko);
     }
 
+    /**
+     * Vrati pocet vlastnenych policok
+     * @return pocet vlastnenych policok
+     */
     public int getPocetVlastnenych() {
         int pocet = 0;
         for (Policko p : this.vlastnenePolicka) {
@@ -68,6 +98,11 @@ public class Hrac {
         return pocet;
     }
 
+    /**
+     * Pretazena metoda ktora vrati pocet vlastnenych policok podla typu policka zadaneho ako parameter
+     * @param policko policko ktoreho typu chceme zistit pocet
+     * @return pocet vlastnenych policok
+     */
     public int getPocetVlastnenych(Policko policko) {
         int pocet = 0;
         for (Policko p : this.vlastnenePolicka) {
@@ -84,6 +119,11 @@ public class Hrac {
         return pocet;
     }
 
+    /**
+     * Vrati pocet vlastnenych policok typu podnik v konkretnom odvetvi zadanom ako parameter
+     * @param odvetvie odvetvie v ktorom chceme zistit pocet vlastnenych policok
+     * @return pocet vlastnenych policok v danom odvetvi
+     */
     public int getPocetVlastnenychVOdvetvi(Odvetvie odvetvie) {
         int pocet = 0;
         for (Policko p : this.vlastnenePolicka) {
@@ -94,6 +134,11 @@ public class Hrac {
         return pocet;
     }
 
+    /**
+     * Metoda na predanie konkretneho vlastneneho policka
+     * @param cisloPolicka cislo policka ktore chce hrac predat
+     * @return String ktory informuje o uspesnom predani policka
+     */
     public String predajPolicko(int cisloPolicka) {
         IPredatelny p = (IPredatelny)this.vlastnenePolicka.get(cisloPolicka - 1);
         if (p.predaj(this)) {
@@ -102,26 +147,50 @@ public class Hrac {
         return "Uspesne predane";
     }
 
+    /**
+     * Vrati meno hraca
+     * @return meno hraca
+     */
     public String getMeno() {
         return this.meno;
     }
 
+    /**
+     * Vrati aktualnu poziciu hraca
+     * @return aktualna pozicia hraca
+     */
     public int getAktPozicia() {
         return this.aktPozicia;
     }
 
+    /**
+     * Vrati hodnotu penazi hraca
+     * @return hodnota penazi hraca
+     */
     public int getPeniaze() {
         return this.peniaze;
     }
 
+    /**
+     * Nastavi poziciu hraca podla hodnoty zadanej ako parameter
+     * @param pozicia pozicia na ktoru chceme nastavit hraca
+     */
     public void nastavPoziciu(int pozicia) {
         this.aktPozicia = pozicia;
     }
 
+    /**
+     * Prida hracovi peniaze
+     * @param hodnota hodnota penazi ktore chceme hracovi pridat
+     */
     public void pridajPeniaze(int hodnota) {
         this.peniaze += hodnota;
     }
 
+    /**
+     * Odoberie hracovi peniaze
+     * @param hodnota hodnota penazi ktore chceme hracovi odobrat
+     */
     public void odoberPeniaze(int hodnota) {
         if (this.peniaze - hodnota <= 0) {
             if (this.vlastnenePolicka.size() > 0) {
@@ -144,22 +213,41 @@ public class Hrac {
         }
     }
 
+    /**
+     * Vrati boolean hodnotu za zaklade toho ci hrac prehral
+     * @return prehral - true, neprehral - false
+     */
     public boolean prehral() {
         return this.peniaze <= 0;
     }
 
+    /**
+     * Vrati boolean hodnotu na zaklade toho ci je hrac vo vazeni
+     * @return je vo vazeni - true, nie je - false
+     */
     public boolean jeVoVazeni() {
         return this.zostavajuciPocetKolVoVazeni > 0;
     }
 
+    /**
+     * Presunie hraca do vazenie na pocet kol zadany ako parameter
+     * @param pocetKol pocet kol ktore hrac stravi vo vazeni
+     */
     public void doVazenia(int pocetKol) {
         this.zostavajuciPocetKolVoVazeni += pocetKol;
     }
 
+    /**
+     * Znizi zostavajuci pocet kol vo vazeni
+     */
     public void odsedelSiKolo() {
         this.zostavajuciPocetKolVoVazeni--;
     }
 
+    /**
+     * toString ktory vrati meno hraca
+     * @return meno hraca
+     */
     @Override
     public String toString() {
         return this.meno;

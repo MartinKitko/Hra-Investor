@@ -14,13 +14,18 @@ import sk.uniza.fri.policka.Relax;
 import sk.uniza.fri.policka.Policia;
 
 /**
- * 1. 4. 2021 - 17:09
+ * Trieda HraciaPlocha predstavujuca hraciu plochy hry s jednotlivymi polickami
  *
  * @author Martin Kitko
+ * @version 18.5.2021
  */
 public class HraciaPlocha {
     private Policko[] zoznamPolicok;
 
+    /**
+     * Konstruktor triedy HraciaPlocha ktory inicializuje hodnoty atributu zozanmPolicok
+     * jednotlivymi polickami podla realnej doskovej hry Investor
+     */
     public HraciaPlocha() {
         this.zoznamPolicok = new Policko[40];
         this.zoznamPolicok[0] = new PolickoStart("Start");
@@ -66,10 +71,20 @@ public class HraciaPlocha {
 
     }
 
+    /**
+     * Vrati policko s indexom zadanym ako parameter
+     * @param index index policka ktoreho instaciu chceme ziskat
+     * @return konkretne policko zo zoznamuPolicok na konkretnom indexe
+     */
     public Policko getPolicko(int index) {
         return this.zoznamPolicok[index];
     }
 
+    /**
+     * Posle spravu vykonaj policku na ktore aktualne skocil hrac zadany ako parameter
+     * @param hrac konkretny hrac pre ktoreho sa vykonava tato metoda
+     * @return vrati spravu typu String na zaklade ziskanej spravy z konkretneho policka
+     */
     public String vykonaj(Hrac hrac) {
         return this.zoznamPolicok[hrac.getAktPozicia()].vykonaj(hrac); //polymorfizmus
     }

@@ -5,9 +5,10 @@ import sk.uniza.fri.policka.Policko;
 import java.util.Random;
 
 /**
- * 1. 4. 2021 - 17:09
+ * Trieda Hra ktora riadi samotnu hru
  *
  * @author Martin Kitko
+ * @version 18.5.2021
  */
 public class Hra {
     private HraciaPlocha hraciaPlocha;
@@ -16,6 +17,11 @@ public class Hra {
     private int pocetTahov;
     private int aktHrac;
 
+    /**
+     * Konstruktor triedy Hra ktory pripravi hru na spustenie
+     * @param pocetHracov pocet hracov ktori budu hrat hru
+     * @param pocetPocitacov pocet pocitacov z celkoveho poctu hracov
+     */
     public Hra(int pocetHracov, int pocetPocitacov) {
         this.hraciaPlocha = new HraciaPlocha();
         this.zoznamHracov = new Hrac[pocetHracov];
@@ -38,12 +44,20 @@ public class Hra {
         }
     }
 
+    /**
+     * Odohra celu hru
+     * Vyuziva sa v pripade ze hru hraju iba pocitace
+     */
     public void odohrajHru() {
         while (!this.koniecHry()) {
             this.tah();
         }
     }
 
+    /**
+     * Vykona jeden tah, v ktorom sa posunie hrac, vykona sa vsetko potrebne
+     * po skoceni na policko a zmeni ktory hrac je prave na tahu
+     */
     public void tah() {
         Hrac hrac = this.zoznamHracov[this.aktHrac];
         this.posunHraca(hrac);
@@ -60,6 +74,10 @@ public class Hra {
         this.pocetTahov++;
     }
 
+    /**
+     * Vykona samotny posun hraca zadaneho ako parameter
+     * @param hrac hrac ktoreho chceme posunut
+     */
     public void posunHraca(Hrac hrac) {
         int staraPozicia = hrac.getAktPozicia();
         Random generator = new Random();
@@ -76,6 +94,9 @@ public class Hra {
         System.out.println("\nPosun z " + staraPozicia + " o " + hodKockou + " na " + novaPozicia);
     }
 
+    /**
+     * Zmeni hraca ktory je aktualne na tahu
+     */
     public void dalsiHrac() {
         if (this.aktHrac + 1 < this.pocetHracov) {
             this.aktHrac++;
@@ -94,14 +115,26 @@ public class Hra {
         }
     }
 
+    /**
+     * Vrati hraca ktory je aktualne na tahu
+     * @return hrac ktory je na tahu
+     */
     public Hrac getAktHrac() {
         return this.zoznamHracov[this.aktHrac];
     }
 
+    /**
+     * Vrati pocet vykonanych tahov pocas hry
+     * @return pocet tahov
+     */
     public int getPocetTahov() {
         return this.pocetTahov;
     }
 
+    /**
+     * Kontroluje ci nenastal koniec hry
+     * @return koniec nastal - true, nenastal - false
+     */
     public boolean koniecHry() {
         int pocetHrajucich = 0;
         if (this.pocetTahov > 9999) {

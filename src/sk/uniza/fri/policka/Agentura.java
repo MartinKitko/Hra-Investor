@@ -3,7 +3,7 @@ package sk.uniza.fri.policka;
 import sk.uniza.fri.Hrac;
 
 /**
- * Trieda Agentura predstavujuca policko typu agentura
+ * Trieda Agentura ktora je potomkom triedy Policko a implementuje interface IPredatelny
  * @author Martin Kitko
  * @version 18.5.2021
  */
@@ -14,14 +14,15 @@ public class Agentura extends Policko implements IPredatelny {
 
     /**
      * Konstruktor triedy Agentura na vytvorenie policka agentury so zadanym nazvom
-     * @param nazov nazov policka
+     * @param nazov nazov agentury (policka)
      */
     public Agentura(String nazov) {
         super(nazov);
     }
 
     /**
-     * Vykona dane akcie podla pravidiel hry po skoceni hracom na policko typu agentura
+     * Implementacia abstraktnej metody z predka Policko ktora vykona dane akcie
+     * podla pravidiel hry po skoceni hracom na policko typu agentura
      * @param hrac konkretny hrac pre ktoreho sa vykonava tato metoda
      * @return vrati spravu typu String na zaklade toho co sa vykonalo
      */
@@ -91,7 +92,7 @@ public class Agentura extends Policko implements IPredatelny {
     /**
      * Metoda z interface IPredatelny ktora vykona predaj agentury
      * @param hrac konkretny hrac pre ktoreho sa vykonava tato metoda
-     * @return vzdy vrati true
+     * @return v tejto triede vzdy vrati true
      */
     public boolean predaj(Hrac hrac) {
         hrac.pridajPeniaze(CENA);

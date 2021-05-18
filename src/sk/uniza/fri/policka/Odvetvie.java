@@ -1,9 +1,10 @@
 package sk.uniza.fri.policka;
 
 /**
- * 1. 4. 2021 - 17:09
+ * Enum ktory predstavuje odvetvia policok typu podnik
  *
  * @author Martin Kitko
+ * @version 18.5.2021
  */
 public enum Odvetvie {
     ALKOHOL("alkohol"),
@@ -18,10 +19,18 @@ public enum Odvetvie {
 
     private String odvetvie;
 
+    /**
+     * Konstruktor triedy Odvetvie
+     * @param odvetvie hodnota String daneho odvetvia
+     */
     Odvetvie(String odvetvie) {
         this.odvetvie = odvetvie;
     }
 
+    /**
+     * toString ktory vrati textovu reprezentaciu poloziek enumu
+     * @return String s nazvom polozky enumu
+     */
     @Override
     public String toString() {
         return this.odvetvie;

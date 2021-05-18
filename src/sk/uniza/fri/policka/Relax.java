@@ -4,16 +4,27 @@ import sk.uniza.fri.Hrac;
 import sk.uniza.fri.TypHraca;
 
 /**
- * 1. 4. 2021 - 17:09
+ * Trieda Relax ktora je potomkom triedy Policko
  *
  * @author Martin Kitko
+ * @version 18.5.2021
  */
 public class Relax extends Policko {
 
+    /**
+     * Konstruktor triedy Relax na vytvorenie policka relax so zadanym nazvom
+     * @param nazov nazov policka typu pokuta
+     */
     public Relax(String nazov) {
         super(nazov);
     }
 
+    /**
+     * Implementacia abstraktnej metody z predka Policko ktora vykona dane akcie
+     * podla pravidiel hry po skoceni hracom na policko typu relax
+     * @param hrac konkretny hrac pre ktoreho sa vykonava tato metoda
+     * @return vrati spravu typu String na zaklade toho co sa vykonalo
+     */
     public String vykonaj(Hrac hrac) {
         String sprava;
         if (hrac.getTypHraca() == TypHraca.POCITAC) {

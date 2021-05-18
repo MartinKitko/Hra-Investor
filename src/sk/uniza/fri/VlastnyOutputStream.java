@@ -4,9 +4,11 @@ import javax.swing.JTextArea;
 import java.io.OutputStream;
 
 /**
- * 1. 4. 2021 - 17:09
+ * Trieda VlastnyOutputStream ktora je potomkom triedy OutputStream
+ * Sluzi na presunutie textoveho vystupu z terminalu do textoveho pola
  *
- * @author
+ * @author Martin Kitko
+ * @version 18.5.2021
  */
 public class VlastnyOutputStream extends OutputStream {
     private JTextArea textovePole;

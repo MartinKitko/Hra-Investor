@@ -3,18 +3,26 @@ package sk.uniza.fri.policka;
 import sk.uniza.fri.Hrac;
 
 /**
- * 1. 4. 2021 - 17:09
+ * Trieda Riziko ktora je potomkom triedy Policko
  *
  * @author Martin Kitko
+ * @version 18.5.2021
  */
 public class Riziko extends Policko {
     private int aktKarta;
 
+    /**
+     * Konstruktor triedy Relax na vytvorenie policka relax so zadanym nazvom a nastavenie hodnoty atributu aktKarta
+     * @param nazov nazov policka typu pokuta
+     */
     public Riziko(String nazov) {
         super(nazov);
         this.aktKarta = 1;
     }
 
+    /**
+     * Zvisi cislo aktualnej karty
+     */
     private void dalsiaKarta() {
         if (this.aktKarta + 1 <= 9) {
             this.aktKarta++;
@@ -23,6 +31,12 @@ public class Riziko extends Policko {
         }
     }
 
+    /**
+     * Implementacia abstraktnej metody z predka Policko ktora vrati
+     * text aktualnej karty a posunie aktualnu kartu
+     * @param hrac konkretny hrac pre ktoreho sa vykonava tato metoda
+     * @return vrati spravu typu String z aktualnej karty
+     */
     public String vykonaj(Hrac hrac) {
         String sprava = "";
         switch (this.aktKarta) {

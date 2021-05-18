@@ -3,9 +3,10 @@ package sk.uniza.fri.policka;
 import sk.uniza.fri.Hrac;
 
 /**
- * 1. 4. 2021 - 17:09
+ * Trieda Podnik ktora je potomkom triedy Policko a implementuje interface IPredatelny
  *
  * @author Martin Kitko
+ * @version 18.5.2021
  */
 public class Podnik extends Policko implements IPredatelny {
     private int cena;
@@ -16,6 +17,14 @@ public class Podnik extends Policko implements IPredatelny {
     private Odvetvie odvetvie;
     private Hrac majitel;
 
+    /**
+     * Konstruktor triedy Podnik na vytvorenie policka podniku so zadanymi parametrami
+     * @param nazov nazov podniku (policka)
+     * @param cena zakladna kupna cena podniku
+     * @param zakladnyPoplatok zakladny poplatok ktory musi zaplatit hrac ktori skoci na toto policko
+     * @param poplatokSPobockou poplatok pokial je na tomto podniku zakupena pobocka
+     * @param odvetvie odvetvie podniku
+     */
     public Podnik(String nazov, int cena, int zakladnyPoplatok, int poplatokSPobockou, Odvetvie odvetvie) {
         super(nazov);
         this.cena = cena;
@@ -26,10 +35,20 @@ public class Podnik extends Policko implements IPredatelny {
         this.maKoncern = false;
     }
 
+    /**
+     * Vrati odvetvie podniku
+     * @return odvetvie tohto podniku
+     */
     public Odvetvie getOdvetvie() {
         return this.odvetvie;
     }
 
+    /**
+     * Implementacia abstraktnej metody z predka Policko ktora vykona dane akcie
+     * podla pravidiel hry po skoceni hracom na policko typu podnik
+     * @param hrac konkretny hrac pre ktoreho sa vykonava tato metoda
+     * @return vrati spravu typu String na zaklade toho co sa vykonalo
+     */
     public String vykonaj(Hrac hrac) {
         String sprava = "";
         int volba;
@@ -59,6 +78,9 @@ public class Podnik extends Policko implements IPredatelny {
         return sprava;
     }
 
+    /**
+     * Vypise na obrazovku poplatky pri vlastneni rozneho poctu pobociek
+     */
     private void zobrazInfo() {
         System.out.println("\tCENA:   POPLATOK:");
         System.out.println("Bez pobocky\t" + this.cena + "\t" + this.zakladnyPoplatok);
@@ -69,6 +91,11 @@ public class Podnik extends Policko implements IPredatelny {
 
     }
 
+    /**
+     * Vykonava kupu podniku
+     * @param hrac konkretny hrac pre ktoreho sa vykonava tato metoda
+     * @return vrati spravu typu String na zaklade toho co sa vykonalo
+     */
     private String kupa(Hrac hrac) {
         String sprava;
         if (hrac.getPeniaze() >= this.cena) {
@@ -82,6 +109,10 @@ public class Podnik extends Policko implements IPredatelny {
         return sprava;
     }
 
+    /**
+     * Vykonava kupu pobocky
+     * @return vrati spravu typu String na zaklade toho co sa vykonalo
+     */
     private String kupaPobocky() {
         String sprava;
         sprava = "Toto je tvoj podnik";
@@ -133,6 +164,10 @@ public class Podnik extends Policko implements IPredatelny {
         return sprava;
     }
 
+    /**
+     * Vrati konkretnu hodnotu poplatku podla poctu vlastnenych pobociek alebo koncernu
+     * @return konkretna hodnota poplatku
+     */
     private int getPoplatok() {
         if (this.maKoncern) {
             return this.getPoplatokSKoncernom();
@@ -145,6 +180,10 @@ public class Podnik extends Policko implements IPredatelny {
         return this.zakladnyPoplatok;
     }
 
+    /**
+     * Vypocita a vrati hodnotu poplatku pokial ma tento podnik zakupeny koncern
+     * @return konkretna hodnota poplatku
+     */
     private int getPoplatokSKoncernom() {
         int poplatok = (int)(this.cena * 2.5);
         if (poplatok % 1000 == 500) {
@@ -153,6 +192,11 @@ public class Podnik extends Policko implements IPredatelny {
         return poplatok;
     }
 
+    /**
+     * Metoda z interface IPredatelny ktora vykona predaj podniku
+     * @param hrac konkretny hrac pre ktoreho sa vykonava tato metoda
+     * @return hodnota boolean na zaklade toho ci sa predal podnik (true) alebo iba pobocka (false)
+     */
     public boolean predaj(Hrac hrac) {
         if (this.pocetPobociek == 0) {
             hrac.pridajPeniaze(this.cena);
@@ -175,6 +219,10 @@ public class Podnik extends Policko implements IPredatelny {
         return false;
     }
 
+    /**
+     * toString ktory vrati zakladne infromacie o podniku
+     * @return String v ktorom je nazov podniku a jeho cena
+     */
     @Override
     public String toString() {
         return super.toString() + ", cena: " + this.cena;
