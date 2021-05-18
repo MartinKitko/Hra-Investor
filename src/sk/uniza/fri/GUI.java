@@ -36,9 +36,10 @@ import java.lang.reflect.Modifier;
 import java.util.Scanner;
 
 /**
- * 1. 4. 2021 - 17:09
+ * Trieda GUI s navrhovym vzorom Singleton ktora predstavuje graficke pouzivatelske rozhranie hry
  *
  * @author Martin Kitko
+ * @version 18.5.2021
  */
 public class GUI implements ActionListener {
     private static GUI instancia;
@@ -63,6 +64,16 @@ public class GUI implements ActionListener {
     private JMenuItem ulozHruMenu;
     private JMenuItem koniecMenu;
 
+    /**
+     * Metoda main pre spustenie hry ktora vytvori instanciu tejto triedy
+     */
+    public static void main(String[] args) {
+        GUI.getInstancia();
+    }
+
+    /**
+     * Konstruktor triedy GUI ktory vytvori samotne okno GUI a vsetko v nom potrebne
+     */
     private GUI() {
         this.okno = new JFrame("Investor");
         this.okno.setResizable(true);
@@ -185,6 +196,10 @@ public class GUI implements ActionListener {
         this.okno.validate();
     }
 
+    /**
+     * Vrati instanciu tejto triedy
+     * @return instancia triedy GUI
+     */
     public static GUI getInstancia() {
         if (GUI.instancia == null) {
             GUI.instancia = new GUI();
@@ -192,6 +207,10 @@ public class GUI implements ActionListener {
         return GUI.instancia;
     }
 
+    /**
+     * Vola metoda na zaklade udalosti zadanej ako parameter
+     * @param e konkretna udalost
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == this.novaHraMenu) {
@@ -212,6 +231,9 @@ public class GUI implements ActionListener {
         }
     }
 
+    /**
+     * Vytvori novu hru
+     */
     private void vytvorNovuHru() {
         this.vypisovanieDoTextovehoPola();
         int pocetHracov = 0;
@@ -257,6 +279,9 @@ public class GUI implements ActionListener {
         this.pripravNaHru();
     }
 
+    /**
+     * Pripravi graficke rozhranie na spustenie novej hry
+     */
     private void pripravNaHru() {
         this.hodKockou.setEnabled(true);
         this.vlastnenePolicka.setEnabled(true);
@@ -267,6 +292,9 @@ public class GUI implements ActionListener {
         this.textPeniaze.setText("" + this.hra.getAktHrac().getPeniaze());
     }
 
+    /**
+     * Odohra 100 hier s dvomi hracmi, vypise pocty kol v jednotlivych hrach a priemerny pocet kol
+     */
     private void experiment() {
         int pocetHracov = 2;
         int pocetHier = 100;
@@ -287,12 +315,18 @@ public class GUI implements ActionListener {
         System.out.println("Priemerny pocet kol je: " + sucet / pocetHier / pocetHracov);
     }
 
+    /**
+     * Presunie vypisovanie z terminalu do textoveho pola
+     */
     private void vypisovanieDoTextovehoPola() {
         PrintStream printStream = new PrintStream(new VlastnyOutputStream(this.textovePole));
         System.setOut(printStream);
         System.setErr(printStream);
     }
 
+    /**
+     * Vykona hod kockou pokial sa hra este neskoncila
+     */
     private void vykonajHodKockou() {
         if (!this.hra.koniecHry()) {
             this.hra.tah();
@@ -303,10 +337,16 @@ public class GUI implements ActionListener {
         }
     }
 
+    /**
+     * Vypis na obrazovku vlastnene policka aktualneho hraca
+     */
     private void vypisVlastnenePolicka() {
         System.out.println("\n" + this.hra.getAktHrac().dajVlastnenePolicka());
     }
 
+    /**
+     * Umozni hracovi predat jedno z jeho vlastnenych policok
+     */
     public void predajPolicka() {
         Hrac hrac = this.hra.getAktHrac();
         int cisloPolicka = 0;
@@ -327,6 +367,13 @@ public class GUI implements ActionListener {
         }
     }
 
+    /**
+     * Zobrazi dialogove okno s textom zadanym ako parameter
+     * @param sprava text ktory sa zobrazi hracovi
+     * @param nazov nazov okna ktore sa zobrazi
+     * @param zobrazInfo zobrazenie tretieho tlacitka na zobrazenie informacii o podniku
+     * @return konkretna celociselna hodnota volby hraca
+     */
     public int zobrazMoznosti(String sprava, String nazov, boolean zobrazInfo) {
         String[] moznosti;
         if (zobrazInfo) {
@@ -339,6 +386,9 @@ public class GUI implements ActionListener {
                 JOptionPane.QUESTION_MESSAGE, null, moznosti, moznosti[1]);
     }
 
+    /**
+     * Nacita hru zo suboru
+     */
     private void nacitajHru() {
         String nacitanySuborString = "";
         File nacitanySubor = this.nacitajSubor();
@@ -361,6 +411,9 @@ public class GUI implements ActionListener {
         System.out.println("\nHra bola uspesne nacitana!");
     }
 
+    /**
+     * Ulozi hru do suboru
+     */
     private void ulozHru() {
         PrintWriter zapisovac = null;
         YaGson mapper = new YaGsonBuilder()
@@ -386,6 +439,10 @@ public class GUI implements ActionListener {
         System.out.println("Hra bola uspesne ulozena!");
     }
 
+    /**
+     * Vrati nacitany subor pre nacitanie alebo ulozenie hry
+     * @return nacitany subor
+     */
     private File nacitajSubor() {
         String nazovSuboru;
         do {
@@ -398,10 +455,12 @@ public class GUI implements ActionListener {
         return new File("ulozeneHry/" + nazovSuboru + ".txt");
     }
 
+    /**
+     * Zobrazi potvrdenie o ukonceni hry a v pripade suhlasu hru ukonci
+     */
     private void koniecHry() {
         int volba = this.zobrazMoznosti("Naozaj chces ukoncit hru?", "Koniec hry", false);
         if (volba == 0) {
-            System.out.println("Koniec hry");
             System.exit(0);
         }
     }
