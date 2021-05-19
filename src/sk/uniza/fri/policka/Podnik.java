@@ -70,10 +70,10 @@ public class Podnik extends Policko implements IPredatelny {
         } else {
             System.out.println("Tento podnik vlastni " + this.majitel.getMeno());
             if (this.majitel.jeVoVazeni()) {
-                System.out.println("Hrac je vo vazeni, neplatis mu ziaden poplatok");
+                sprava = "Hrac je vo vazeni, neplatis mu ziaden poplatok";
             } else {
                 int poplatok = this.getPoplatok();
-                sprava += "\nZaplatil si mu " + poplatok;
+                sprava = "Zaplatil si mu " + poplatok;
                 hrac.odoberPeniaze(poplatok);
                 this.majitel.pridajPeniaze(poplatok);
             }

@@ -41,10 +41,14 @@ public class Agentura extends Policko implements IPredatelny {
             sprava = "Vlastnis tuto agenturu";
         } else {
             System.out.println("Tuto agenturu vlastni " + this.majitel.getMeno());
-            int poplatok = this.getPoplatok(this.majitel.getPocetVlastnenych(this));
-            sprava += "\nZaplatil si mu " + poplatok;
-            hrac.odoberPeniaze(poplatok);
-            this.majitel.pridajPeniaze(poplatok);
+            if (this.majitel.jeVoVazeni()) {
+                sprava = "Hrac je vo vazeni, neplatis mu ziaden poplatok";
+            } else {
+                int poplatok = this.getPoplatok(this.majitel.getPocetVlastnenych(this));
+                sprava = "Zaplatil si mu " + poplatok;
+                hrac.odoberPeniaze(poplatok);
+                this.majitel.pridajPeniaze(poplatok);
+            }
         }
         return sprava;
     }
