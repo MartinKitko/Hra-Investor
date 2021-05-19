@@ -65,15 +65,18 @@ public class Podnik extends Policko implements IPredatelny {
                     default:
                 }
             } while (volba == 2);
-
         } else if (this.majitel.equals(hrac)) {
             sprava = this.kupaPobocky();
         } else {
             System.out.println("Tento podnik vlastni " + this.majitel.getMeno());
-            int poplatok = this.getPoplatok();
-            sprava += "\nZaplatil si mu " + poplatok;
-            hrac.odoberPeniaze(poplatok);
-            this.majitel.pridajPeniaze(poplatok);
+            if (this.majitel.jeVoVazeni()) {
+                System.out.println("Hrac je vo vazeni, neplatis mu ziaden poplatok");
+            } else {
+                int poplatok = this.getPoplatok();
+                sprava += "\nZaplatil si mu " + poplatok;
+                hrac.odoberPeniaze(poplatok);
+                this.majitel.pridajPeniaze(poplatok);
+            }
         }
         return sprava;
     }
@@ -117,14 +120,14 @@ public class Podnik extends Policko implements IPredatelny {
         String sprava;
         sprava = "Toto je tvoj podnik";
 
-        int maxPocetPobociek;
+        int maxPocet;
         if (this.odvetvie == Odvetvie.ALKOHOL || this.odvetvie == Odvetvie.BANE) {
-            maxPocetPobociek = 2;
+            maxPocet = 2;
         } else {
-            maxPocetPobociek = 3;
+            maxPocet = 3;
         }
 
-        if (this.majitel.getPocetVlastnenychVOdvetvi(this.odvetvie) == maxPocetPobociek) {
+        if (this.majitel.getPocetVlastnenychVOdvetvi(this.odvetvie) == maxPocet) {
             if (this.pocetPobociek < 3) {
                 if (this.majitel.getPeniaze() < this.cena) {
                     sprava += "\nNemas dostatok penazi na zakupenie pobocky";
@@ -220,7 +223,7 @@ public class Podnik extends Policko implements IPredatelny {
     }
 
     /**
-     * toString ktory vrati zakladne infromacie o podniku
+     * toString ktory vrati zakladne informacie o podniku
      * @return String v ktorom je nazov podniku a jeho cena
      */
     @Override

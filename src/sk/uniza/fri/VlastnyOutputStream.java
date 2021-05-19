@@ -13,10 +13,18 @@ import java.io.OutputStream;
 public class VlastnyOutputStream extends OutputStream {
     private JTextArea textovePole;
 
+    /**
+     * Konstruktor triedy VlastnyOutputStream
+     * @param textArea textove pole do ktoreho chceme presunut vystup
+     */
     public VlastnyOutputStream(JTextArea textArea) {
         this.textovePole = textArea;
     }
 
+    /**
+     * Pripise bajt zadany ako parameter do textoveho pola
+     * @param b bajt ktory sa bude zapisovat
+     */
     @Override
     public void write(int b) {
         this.textovePole.append(String.valueOf((char)b));

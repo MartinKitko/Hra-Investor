@@ -316,7 +316,7 @@ public class GUI implements ActionListener {
     }
 
     /**
-     * Presunie vypisovanie z terminalu do textoveho pola
+     * Presunie vypisovania z terminalu do textoveho pola
      */
     private void vypisovanieDoTextovehoPola() {
         PrintStream printStream = new PrintStream(new VlastnyOutputStream(this.textovePole));
