@@ -203,18 +203,23 @@ public class GUI implements ActionListener {
         this.okno.validate();
     }
 
-    private int getXFigurky(double aktPoziciaHraca) {
+    /**
+     * Vrati novu X-ovu suradnicu figurky podla zadanej pozicie na hracej ploche
+     * @param pozicia pozicia na hracej ploche na ktoru chceme figurku posunut
+     * @return nova X-ova suradnica figurky
+     */
+    private int getXFigurky(double pozicia) {
         int sirka = this.labelStred.getWidth();
         int vyska = this.labelStred.getHeight();
         int sirkaObrazka = (int)(vyska * 1.4079646);
         double nasobok;
 
-        if (aktPoziciaHraca <= 12) {
-            nasobok = aktPoziciaHraca / 12;
-        } else if (aktPoziciaHraca <= 20) {
+        if (pozicia <= 12) {
+            nasobok = pozicia / 12;
+        } else if (pozicia <= 20) {
             nasobok = 0.9;
-        } else if (aktPoziciaHraca <= 32) {
-            nasobok = 1 - (aktPoziciaHraca - 20) / 12;
+        } else if (pozicia <= 32) {
+            nasobok = 1 - (pozicia - 20) / 12;
         } else {
             nasobok = 0.02;
         }
@@ -226,20 +231,25 @@ public class GUI implements ActionListener {
         }
     }
 
-    private int getYFigurky(double aktPoziciaHraca) {
+    /**
+     * Vrati novu Y-ovu suradnicu figurky podla zadanej pozicie na hracej ploche
+     * @param pozicia pozicia na hracej ploche na ktoru chceme figurku posunut
+     * @return nova Y-ova suradnica figurky
+     */
+    private int getYFigurky(double pozicia) {
         int sirka = this.labelStred.getWidth();
         int vyska = this.labelStred.getHeight();
         int vyskaObrazka = (int)(sirka / 1.4079646);
         double nasobok;
 
-        if (aktPoziciaHraca <= 12) {
+        if (pozicia <= 12) {
             nasobok = 0.9;
-        } else if (aktPoziciaHraca <= 20) {
-            nasobok = (aktPoziciaHraca - 12) / 12;
-        } else if (aktPoziciaHraca <= 32) {
+        } else if (pozicia <= 20) {
+            nasobok = (pozicia - 12) / 12;
+        } else if (pozicia <= 32) {
             nasobok = 0.02;
         } else {
-            nasobok = 1 - (aktPoziciaHraca - 32) / 12;
+            nasobok = 1 - (pozicia - 32) / 12;
         }
 
         if (sirka / (double)vyska > 1.4079646) {
@@ -249,8 +259,12 @@ public class GUI implements ActionListener {
         }
     }
 
-    public void presunFigurku(int aktPoziciaHraca) {
-        this.labelFigurkaHraca.setBounds(GUI.this.getXFigurky(aktPoziciaHraca), GUI.this.getYFigurky(aktPoziciaHraca),
+    /**
+     * Presunie figurku na zadanu poziciu hracej plochy
+     * @param pozicia pozicia na ktoru chceme presunut figurku
+     */
+    public void presunFigurku(int pozicia) {
+        this.labelFigurkaHraca.setBounds(GUI.this.getXFigurky(pozicia), GUI.this.getYFigurky(pozicia),
                 GUI.this.labelStred.getWidth() / 12,
                 GUI.this.labelStred.getHeight() / 12);
     }
