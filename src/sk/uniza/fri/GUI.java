@@ -3,31 +3,9 @@ package sk.uniza.fri;
 import com.gilecode.yagson.YaGson;
 import com.gilecode.yagson.YaGsonBuilder;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingConstants;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
@@ -53,7 +31,8 @@ public class GUI implements ActionListener {
     private JPanel pnlGridPanel;
     private JLabel labelHrac;
     private JLabel labelPeniaze;
-    private JLabel labelStred;
+    private JLabel labelFigurkaHraca;
+    private JLayeredPane labelStred;
     private JTextField txfHrac;
     private JTextField txfPeniaze;
     private JTextArea txaTextovePole;
@@ -184,16 +163,96 @@ public class GUI implements ActionListener {
         this.plnBocnyPanel.add(scroll);
         this.plnBocnyPanel.add(this.pnlGridPanel);
 
-        this.labelStred = new JLabel("", SwingConstants.CENTER);
+        this.labelStred = new JLayeredPane();
+        this.labelStred.setMinimumSize(new Dimension(500, 500));
+        this.labelStred.setPreferredSize(new Dimension(500, 500));
         this.labelStred.setOpaque(true);
+        this.labelStred.setBounds(0, 0, 1000, 800);
+
         StretchIcon image2 = new StretchIcon("obrazky/hraciaPlocha.jpg");
-        this.labelStred.setIcon(image2);
+        StretchIcon figurka = new StretchIcon("obrazky/figurka.png");
+
+        JLabel hraciaP = new JLabel();
+        hraciaP.setBounds(0, 0, this.labelStred.getWidth(), this.labelStred.getHeight());
+        hraciaP.setIcon(image2);
+
+        this.labelFigurkaHraca = new JLabel();
+        this.labelFigurkaHraca.setBounds(this.getXFigurky(0), this.getYFigurky(0),
+                this.labelStred.getWidth() / 12, this.labelStred.getHeight() / 12);
+        this.labelFigurkaHraca.setIcon(figurka);
+
+
+        this.okno.addComponentListener(new ComponentAdapter() {
+            public void componentResized(ComponentEvent componentEvent) {
+                hraciaP.setBounds(0, 0, GUI.this.labelStred.getWidth(), GUI.this.labelStred.getHeight());
+                GUI.this.labelFigurkaHraca.setBounds(
+                        GUI.this.getXFigurky(0),
+                        GUI.this.getYFigurky(0),
+                        GUI.this.labelStred.getWidth() / 12,
+                        GUI.this.labelStred.getHeight() / 12);
+            }
+        });
+
+        this.labelStred.add(hraciaP, 0, 0);
+        this.labelStred.add(this.labelFigurkaHraca, 1, 0);
 
         this.plnBocnyPanel.add(this.pnlGridPanel);
-        hlavnyKontajner.add(this.labelStred);
+        hlavnyKontajner.add(this.labelStred, BorderLayout.CENTER);
         hlavnyKontajner.add(this.plnBocnyPanel, BorderLayout.EAST);
         this.okno.pack();
         this.okno.validate();
+    }
+
+    private int getXFigurky(double aktPoziciaHraca) {
+        int sirka = this.labelStred.getWidth();
+        int vyska = this.labelStred.getHeight();
+        int sirkaObrazka = (int)(vyska * 1.4079646);
+        double nasobok;
+
+        if (aktPoziciaHraca <= 12) {
+            nasobok = aktPoziciaHraca / 12;
+        } else if (aktPoziciaHraca <= 20) {
+            nasobok = 0.9;
+        } else if (aktPoziciaHraca <= 32) {
+            nasobok = 1 - (aktPoziciaHraca - 20) / 12;
+        } else {
+            nasobok = 0.02;
+        }
+
+        if (sirka / (double)vyska > 1.4079646) {
+            return (int)(((sirka - sirkaObrazka) / 2) + sirkaObrazka * nasobok);
+        } else {
+            return (int)(sirka * nasobok);
+        }
+    }
+
+    private int getYFigurky(double aktPoziciaHraca) {
+        int sirka = this.labelStred.getWidth();
+        int vyska = this.labelStred.getHeight();
+        int vyskaObrazka = (int)(sirka / 1.4079646);
+        double nasobok;
+
+        if (aktPoziciaHraca <= 12) {
+            nasobok = 0.9;
+        } else if (aktPoziciaHraca <= 20) {
+            nasobok = (aktPoziciaHraca - 12) / 12;
+        } else if (aktPoziciaHraca <= 32) {
+            nasobok = 0.02;
+        } else {
+            nasobok = 1 - (aktPoziciaHraca - 32) / 12;
+        }
+
+        if (sirka / (double)vyska > 1.4079646) {
+            return (int)(vyska * nasobok);
+        } else {
+            return (int)(((vyska - vyskaObrazka) / 2) + vyskaObrazka * nasobok);
+        }
+    }
+
+    public void presunFigurku(int aktPoziciaHraca) {
+        this.labelFigurkaHraca.setBounds(GUI.this.getXFigurky(aktPoziciaHraca), GUI.this.getYFigurky(aktPoziciaHraca),
+                GUI.this.labelStred.getWidth() / 12,
+                GUI.this.labelStred.getHeight() / 12);
     }
 
     /**

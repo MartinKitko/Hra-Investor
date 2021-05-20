@@ -91,6 +91,7 @@ public class Hra {
             novaPozicia = staraPozicia + hodKockou;
         }
         hrac.nastavPoziciu(novaPozicia);
+        GUI.getInstancia().presunFigurku(novaPozicia);
         System.out.println("\nPosun z " + staraPozicia + " o " + hodKockou + " na " + novaPozicia);
     }
 
