@@ -1,17 +1,18 @@
 package sk.uniza.fri;
 
-import sk.uniza.fri.policka.Policko;
-import sk.uniza.fri.policka.PolickoStart;
-import sk.uniza.fri.policka.Podnik;
-import sk.uniza.fri.policka.Riziko;
-import sk.uniza.fri.policka.Preprava;
-import sk.uniza.fri.policka.Zisk;
 import sk.uniza.fri.policka.Agentura;
 import sk.uniza.fri.policka.Odvetvie;
+import sk.uniza.fri.policka.Podnik;
 import sk.uniza.fri.policka.Pokuta;
-import sk.uniza.fri.policka.Vazenie;
-import sk.uniza.fri.policka.Relax;
 import sk.uniza.fri.policka.Policia;
+import sk.uniza.fri.policka.Policko;
+import sk.uniza.fri.policka.PolickoStart;
+import sk.uniza.fri.policka.Preprava;
+import sk.uniza.fri.policka.Relax;
+import sk.uniza.fri.policka.Riziko;
+import sk.uniza.fri.policka.Vazenie;
+import sk.uniza.fri.policka.Zisk;
+
 
 /**
  * Trieda HraciaPlocha predstavujuca hraciu plochy hry s jednotlivymi polickami

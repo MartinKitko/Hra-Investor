@@ -91,15 +91,11 @@ public class Hrac {
      * @return pocet vlastnenych policok
      */
     public int getPocetVlastnenych() {
-        int pocet = 0;
-        for (Policko p : this.vlastnenePolicka) {
-            pocet++;
-        }
-        return pocet;
+        return this.vlastnenePolicka.size();
     }
 
     /**
-     * Pretazena metoda ktora vrati pocet vlastnenych policok podla typu policka zadaneho ako parameter
+     * Vrati pocet vlastnenych policok podla typu policka zadaneho ako parameter
      * @param policko policko ktoreho typu chceme zistit pocet
      * @return pocet vlastnenych policok
      */
@@ -120,11 +116,11 @@ public class Hrac {
     }
 
     /**
-     * Vrati pocet vlastnenych policok typu podnik v konkretnom odvetvi zadanom ako parameter
+     * Pretazena metoda ktora vrati pocet vlastnenych policok typu podnik v konkretnom odvetvi zadanom ako parameter
      * @param odvetvie odvetvie v ktorom chceme zistit pocet vlastnenych policok
      * @return pocet vlastnenych policok v danom odvetvi
      */
-    public int getPocetVlastnenychVOdvetvi(Odvetvie odvetvie) {
+    public int getPocetVlastnenych(Odvetvie odvetvie) {
         int pocet = 0;
         for (Policko p : this.vlastnenePolicka) {
             if (p instanceof Podnik && ((Podnik)p).getOdvetvie() == odvetvie) {

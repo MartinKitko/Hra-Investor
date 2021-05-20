@@ -16,6 +16,10 @@ public abstract class Policko {
      * @param nazov nazov policka
      */
     public Policko(String nazov) {
+        if (nazov == null) {
+            throw new IllegalArgumentException("Zadany nazov v konstruktore nemoze byt null");
+        }
+
         this.nazov = nazov;
     }
 

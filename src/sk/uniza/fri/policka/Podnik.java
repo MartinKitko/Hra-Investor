@@ -27,6 +27,23 @@ public class Podnik extends Policko implements IPredatelny {
      */
     public Podnik(String nazov, int cena, int zakladnyPoplatok, int poplatokSPobockou, Odvetvie odvetvie) {
         super(nazov);
+
+        if (cena < 0) {
+            throw new IllegalArgumentException("Zadana cena v konstruktore nemoze byt mensia ako 0");
+        }
+
+        if (zakladnyPoplatok < 0) {
+            throw new IllegalArgumentException("Zadany zakladny poplatok v konstruktore nemoze byt mensi ako 0");
+        }
+
+        if (poplatokSPobockou < 0) {
+            throw new IllegalArgumentException("Zadany poplatok s pobockou v kontruktore nemoze byt mensi ako 0");
+        }
+
+        if (odvetvie == null) {
+            throw new IllegalArgumentException("Zadane odvetvie v konstruktore nemoze byt null");
+        }
+
         this.cena = cena;
         this.zakladnyPoplatok = zakladnyPoplatok;
         this.poplatokSPobockou = poplatokSPobockou;
@@ -91,7 +108,6 @@ public class Podnik extends Policko implements IPredatelny {
         System.out.println("2 pobocky  \t" + this.cena * 2 + "\t" + this.poplatokSPobockou * 2);
         System.out.println("3 pobocky  \t" + this.cena * 3 + "\t" + this.poplatokSPobockou * 3);
         System.out.println("Koncern    \t" + this.cena * 5 + "\t" + this.getPoplatokSKoncernom() + "\n");
-
     }
 
     /**
@@ -127,7 +143,7 @@ public class Podnik extends Policko implements IPredatelny {
             maxPocet = 3;
         }
 
-        if (this.majitel.getPocetVlastnenychVOdvetvi(this.odvetvie) == maxPocet) {
+        if (this.majitel.getPocetVlastnenych(this.odvetvie) == maxPocet) {
             if (this.pocetPobociek < 3) {
                 if (this.majitel.getPeniaze() < this.cena) {
                     sprava += "\nNemas dostatok penazi na zakupenie pobocky";

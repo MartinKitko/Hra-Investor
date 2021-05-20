@@ -27,6 +27,7 @@ import javax.swing.ImageIcon;
  *
  * @version 1.0 03/27/12
  * @author Darryl
+ * https://tips4java.wordpress.com/2012/03/31/stretch-icon/
  */
 public class StretchIcon extends ImageIcon {
 

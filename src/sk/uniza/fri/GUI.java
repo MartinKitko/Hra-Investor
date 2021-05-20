@@ -45,18 +45,18 @@ public class GUI implements ActionListener {
     private static GUI instancia;
     private Hra hra;
     private JFrame okno;
-    private JButton hodKockou;
-    private JButton vlastnenePolicka;
-    private JButton predajPolicko;
-    private JPanel hornyPanel;
-    private JPanel bocnyPanel;
-    private JPanel gridPanel;
+    private JButton btnHodKockou;
+    private JButton btnVlastnenePolicka;
+    private JButton btnPredajPolicko;
+    private JPanel pnlHornyPanel;
+    private JPanel plnBocnyPanel;
+    private JPanel pnlGridPanel;
     private JLabel labelHrac;
     private JLabel labelPeniaze;
     private JLabel labelStred;
-    private JTextField textHrac;
-    private JTextField textPeniaze;
-    private JTextArea textovePole;
+    private JTextField txfHrac;
+    private JTextField txfPeniaze;
+    private JTextArea txaTextovePole;
     private JMenuBar menuBar;
     private JMenu hraMenu;
     private JMenuItem novaHraMenu;
@@ -117,81 +117,81 @@ public class GUI implements ActionListener {
         this.menuBar.add(this.hraMenu);
         this.menuBar.add(helpMenu);
 
-        this.hodKockou = new JButton("Hod kockou");
-        this.hodKockou.addActionListener(this);
-        this.hodKockou.setFocusable(false);
-        this.hodKockou.setEnabled(false);
+        this.btnHodKockou = new JButton("Hod kockou");
+        this.btnHodKockou.addActionListener(this);
+        this.btnHodKockou.setFocusable(false);
+        this.btnHodKockou.setEnabled(false);
 
-        this.vlastnenePolicka = new JButton("Zobrazit vlastnene policka");
-        this.vlastnenePolicka.addActionListener(this);
-        this.vlastnenePolicka.setFocusable(false);
-        this.vlastnenePolicka.setEnabled(false);
+        this.btnVlastnenePolicka = new JButton("Zobrazit vlastnene policka");
+        this.btnVlastnenePolicka.addActionListener(this);
+        this.btnVlastnenePolicka.setFocusable(false);
+        this.btnVlastnenePolicka.setEnabled(false);
 
-        this.predajPolicko = new JButton("Predaj policko");
-        this.predajPolicko.addActionListener(this);
-        this.predajPolicko.setFocusable(false);
-        this.predajPolicko.setEnabled(false);
+        this.btnPredajPolicko = new JButton("Predaj policko");
+        this.btnPredajPolicko.addActionListener(this);
+        this.btnPredajPolicko.setFocusable(false);
+        this.btnPredajPolicko.setEnabled(false);
 
         Container hlavnyKontajner = this.okno.getContentPane();
         hlavnyKontajner.setLayout(new BorderLayout());
 
         this.labelHrac = new JLabel("Hrac: ", SwingConstants.LEFT);
         this.labelHrac.setOpaque(true);
-        this.textHrac = new JTextField();
-        this.textHrac.setPreferredSize(new Dimension(100, 20));
-        this.textHrac.setEditable(false);
+        this.txfHrac = new JTextField();
+        this.txfHrac.setPreferredSize(new Dimension(100, 20));
+        this.txfHrac.setEditable(false);
 
         this.labelPeniaze = new JLabel("Peniaze:", SwingConstants.LEFT);
         this.labelPeniaze.setOpaque(true);
-        this.textPeniaze = new JTextField();
-        this.textPeniaze.setPreferredSize(new Dimension(100, 20));
-        this.textPeniaze.setEditable(false);
+        this.txfPeniaze = new JTextField();
+        this.txfPeniaze.setPreferredSize(new Dimension(100, 20));
+        this.txfPeniaze.setEditable(false);
 
-        this.hornyPanel = new JPanel();
-        this.hornyPanel.setLayout(new BoxLayout(this.hornyPanel, BoxLayout.PAGE_AXIS));
+        this.pnlHornyPanel = new JPanel();
+        this.pnlHornyPanel.setLayout(new BoxLayout(this.pnlHornyPanel, BoxLayout.PAGE_AXIS));
         JPanel hracPanel = new JPanel();
         hracPanel.add(this.labelHrac);
-        hracPanel.add(this.textHrac);
+        hracPanel.add(this.txfHrac);
         hracPanel.setMaximumSize(new Dimension(200, 30));
-        this.hornyPanel.add(hracPanel);
+        this.pnlHornyPanel.add(hracPanel);
         JPanel peniazePanel = new JPanel();
         peniazePanel.add(this.labelPeniaze);
-        peniazePanel.add(this.textPeniaze);
+        peniazePanel.add(this.txfPeniaze);
         peniazePanel.setMaximumSize(new Dimension(200, 30));
-        this.hornyPanel.add(peniazePanel);
+        this.pnlHornyPanel.add(peniazePanel);
 
-        this.textovePole = new JTextArea();
-        this.textovePole.setColumns(22);
-        this.textovePole.setRows(20);
-        this.textovePole.setLineWrap(true);
-        this.textovePole.setWrapStyleWord(true);
-        this.textovePole.setEditable(false);
+        this.txaTextovePole = new JTextArea();
+        this.txaTextovePole.setColumns(22);
+        this.txaTextovePole.setRows(20);
+        this.txaTextovePole.setLineWrap(true);
+        this.txaTextovePole.setWrapStyleWord(true);
+        this.txaTextovePole.setEditable(false);
 
-        this.bocnyPanel = new JPanel();
-        this.bocnyPanel.setLayout(new BoxLayout(this.bocnyPanel, BoxLayout.PAGE_AXIS));
-        this.bocnyPanel.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
-        this.bocnyPanel.add(this.hornyPanel);
+        this.plnBocnyPanel = new JPanel();
+        this.plnBocnyPanel.setLayout(new BoxLayout(this.plnBocnyPanel, BoxLayout.PAGE_AXIS));
+        this.plnBocnyPanel.setBorder(BorderFactory.createLineBorder(Color.gray, 1));
+        this.plnBocnyPanel.add(this.pnlHornyPanel);
 
-        JScrollPane scroll = new JScrollPane(this.textovePole);
+        JScrollPane scroll = new JScrollPane(this.txaTextovePole);
         scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
-        this.gridPanel = new JPanel();
-        this.gridPanel.setLayout(new GridLayout(4, 1, 4, 4));
-        this.gridPanel.add(this.hodKockou);
-        this.gridPanel.add(this.vlastnenePolicka);
-        this.gridPanel.add(this.predajPolicko);
+        this.pnlGridPanel = new JPanel();
+        this.pnlGridPanel.setLayout(new GridLayout(4, 1, 4, 4));
+        this.pnlGridPanel.add(this.btnHodKockou);
+        this.pnlGridPanel.add(this.btnVlastnenePolicka);
+        this.pnlGridPanel.add(this.btnPredajPolicko);
 
-        this.bocnyPanel.add(scroll);
-        this.bocnyPanel.add(this.gridPanel);
+        this.plnBocnyPanel.add(scroll);
+        this.plnBocnyPanel.add(this.pnlGridPanel);
 
         this.labelStred = new JLabel("", SwingConstants.CENTER);
         this.labelStred.setOpaque(true);
         StretchIcon image2 = new StretchIcon("obrazky/hraciaPlocha.jpg");
         this.labelStred.setIcon(image2);
 
-        this.bocnyPanel.add(this.gridPanel);
+        this.plnBocnyPanel.add(this.pnlGridPanel);
         hlavnyKontajner.add(this.labelStred);
-        hlavnyKontajner.add(this.bocnyPanel, BorderLayout.EAST);
+        hlavnyKontajner.add(this.plnBocnyPanel, BorderLayout.EAST);
         this.okno.pack();
         this.okno.validate();
     }
@@ -222,11 +222,11 @@ public class GUI implements ActionListener {
             this.ulozHru();
         } else if (e.getSource() == this.koniecMenu) {
             this.koniecHry();
-        } else if (e.getSource() == this.hodKockou) {
+        } else if (e.getSource() == this.btnHodKockou) {
             this.vykonajHodKockou();
-        } else if (e.getSource() == this.vlastnenePolicka) {
+        } else if (e.getSource() == this.btnVlastnenePolicka) {
             this.vypisVlastnenePolicka();
-        } else if (e.getSource() == this.predajPolicko) {
+        } else if (e.getSource() == this.btnPredajPolicko) {
             this.predajPolicka();
         }
     }
@@ -283,13 +283,13 @@ public class GUI implements ActionListener {
      * Pripravi graficke rozhranie na spustenie novej hry
      */
     private void pripravNaHru() {
-        this.hodKockou.setEnabled(true);
-        this.vlastnenePolicka.setEnabled(true);
-        this.predajPolicko.setEnabled(true);
+        this.btnHodKockou.setEnabled(true);
+        this.btnVlastnenePolicka.setEnabled(true);
+        this.btnPredajPolicko.setEnabled(true);
         this.ulozHruMenu.setVisible(true);
 
-        this.textHrac.setText(this.hra.getAktHrac().getMeno());
-        this.textPeniaze.setText("" + this.hra.getAktHrac().getPeniaze());
+        this.txfHrac.setText(this.hra.getAktHrac().getMeno());
+        this.txfPeniaze.setText("" + this.hra.getAktHrac().getPeniaze());
     }
 
     /**
@@ -319,7 +319,7 @@ public class GUI implements ActionListener {
      * Presunie vypisovania z terminalu do textoveho pola
      */
     private void vypisovanieDoTextovehoPola() {
-        PrintStream printStream = new PrintStream(new VlastnyOutputStream(this.textovePole));
+        PrintStream printStream = new PrintStream(new VlastnyOutputStream(this.txaTextovePole));
         System.setOut(printStream);
         System.setErr(printStream);
     }
@@ -330,10 +330,10 @@ public class GUI implements ActionListener {
     private void vykonajHodKockou() {
         if (!this.hra.koniecHry()) {
             this.hra.tah();
-            this.textHrac.setText(this.hra.getAktHrac().getMeno());
-            this.textPeniaze.setText("" + this.hra.getAktHrac().getPeniaze());
+            this.txfHrac.setText(this.hra.getAktHrac().getMeno());
+            this.txfPeniaze.setText("" + this.hra.getAktHrac().getPeniaze());
         } else {
-            this.hodKockou.setEnabled(false);
+            this.btnHodKockou.setEnabled(false);
         }
     }
 
@@ -349,7 +349,7 @@ public class GUI implements ActionListener {
      */
     public void predajPolicka() {
         Hrac hrac = this.hra.getAktHrac();
-        int cisloPolicka = 0;
+        int cisloPolicka;
         String cisloPolickaString = JOptionPane.showInputDialog("Zadaj cislo policka na predaj: ");
         if (cisloPolickaString == null) {
             return;
@@ -358,7 +358,7 @@ public class GUI implements ActionListener {
             cisloPolicka = Integer.parseInt(cisloPolickaString);
             if (cisloPolicka > 0 && cisloPolicka <= hrac.getPocetVlastnenych()) {
                 System.out.println(hrac.predajPolicko(cisloPolicka));
-                this.textPeniaze.setText("" + this.hra.getAktHrac().getPeniaze());
+                this.txfPeniaze.setText("" + this.hra.getAktHrac().getPeniaze());
             } else {
                 System.out.println("Policko so zadanym cislom neexistuje");
             }
