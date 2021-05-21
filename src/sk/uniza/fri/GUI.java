@@ -3,9 +3,34 @@ package sk.uniza.fri;
 import com.gilecode.yagson.YaGson;
 import com.gilecode.yagson.YaGsonBuilder;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
@@ -31,7 +56,7 @@ public class GUI implements ActionListener {
     private JPanel pnlGridPanel;
     private JLabel labelHrac;
     private JLabel labelPeniaze;
-    private JLabel labelFigurkaHraca;
+    private JLabel[] poleFiguriek;
     private JLayeredPane labelStred;
     private JTextField txfHrac;
     private JTextField txfPeniaze;
@@ -57,8 +82,10 @@ public class GUI implements ActionListener {
         this.okno = new JFrame("Investor");
         this.okno.setResizable(true);
         this.okno.setMinimumSize(new Dimension(1280, 720));
-        this.okno.setVisible(true);
         this.okno.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
+        ImageIcon image = new ImageIcon("obrazky/logo.png");
+        this.okno.setIconImage(image.getImage());
 
         this.okno.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -72,24 +99,22 @@ public class GUI implements ActionListener {
         } catch (Exception ex) {
         }*/
 
-        ImageIcon image = new ImageIcon("obrazky/logo.png");
-        this.okno.setIconImage(image.getImage());
-
         this.menuBar = new JMenuBar();
         this.hraMenu = new JMenu("Hra");
         this.novaHraMenu = new JMenuItem("Nova hra");
-        this.novaHraMenu.addActionListener(this);
         this.nacitajHruMenu = new JMenuItem("Nacitaj hru");
-        this.nacitajHruMenu.addActionListener(this);
         this.ulozHruMenu = new JMenuItem("Uloz hru");
-        this.ulozHruMenu.addActionListener(this);
         this.koniecMenu = new JMenuItem("Koniec");
+        this.novaHraMenu.addActionListener(this);
+        this.nacitajHruMenu.addActionListener(this);
+        this.ulozHruMenu.addActionListener(this);
         this.koniecMenu.addActionListener(this);
+
         this.hraMenu.add(this.novaHraMenu);
         this.hraMenu.add(this.nacitajHruMenu);
         this.hraMenu.add(this.ulozHruMenu);
-        this.ulozHruMenu.setVisible(false);
         this.hraMenu.add(this.koniecMenu);
+        this.ulozHruMenu.setVisible(false);
 
         JMenu helpMenu = new JMenu("Help");
         this.okno.setJMenuBar(this.menuBar);
@@ -170,37 +195,51 @@ public class GUI implements ActionListener {
         this.labelStred.setBounds(0, 0, 1000, 800);
 
         StretchIcon image2 = new StretchIcon("obrazky/hraciaPlocha.jpg");
-        StretchIcon figurka = new StretchIcon("obrazky/figurka.png");
-
         JLabel hraciaP = new JLabel();
         hraciaP.setBounds(0, 0, this.labelStred.getWidth(), this.labelStred.getHeight());
         hraciaP.setIcon(image2);
-
-        this.labelFigurkaHraca = new JLabel();
-        this.labelFigurkaHraca.setBounds(this.getXFigurky(0), this.getYFigurky(0),
-                this.labelStred.getWidth() / 12, this.labelStred.getHeight() / 12);
-        this.labelFigurkaHraca.setIcon(figurka);
-
+        this.labelStred.add(hraciaP, 0, 0);
+        this.poleFiguriek = new JLabel[2];
 
         this.okno.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent componentEvent) {
                 hraciaP.setBounds(0, 0, GUI.this.labelStred.getWidth(), GUI.this.labelStred.getHeight());
-                GUI.this.labelFigurkaHraca.setBounds(
-                        GUI.this.getXFigurky(0),
-                        GUI.this.getYFigurky(0),
-                        GUI.this.labelStred.getWidth() / 12,
-                        GUI.this.labelStred.getHeight() / 12);
+                if (GUI.this.poleFiguriek[0] != null) {
+                    for (JLabel jLabel : GUI.this.poleFiguriek) {
+                        jLabel.setBounds(
+                                GUI.this.getXFigurky(0), //TODO aby ostala na mieste kde je
+                                GUI.this.getYFigurky(0),
+                                GUI.this.labelStred.getWidth() / 12,
+                                GUI.this.labelStred.getHeight() / 12);
+                    }
+                }
             }
         });
-
-        this.labelStred.add(hraciaP, 0, 0);
-        this.labelStred.add(this.labelFigurkaHraca, 1, 0);
 
         this.plnBocnyPanel.add(this.pnlGridPanel);
         hlavnyKontajner.add(this.labelStred, BorderLayout.CENTER);
         hlavnyKontajner.add(this.plnBocnyPanel, BorderLayout.EAST);
+
         this.okno.pack();
+        this.okno.setLocationRelativeTo(null);
+        this.okno.setVisible(true);
         this.okno.validate();
+    }
+
+    /**
+     * Vytvori a inicializuje pole figuriek - JLabel s ikonou
+     * @param pocet pocet figuriek ktore chceme vytvorit
+     */
+    public void vytvorFigurky(int pocet) {
+        this.poleFiguriek = new JLabel[pocet];
+        String[] farby = {"cervena", "zelena", "modra", "zlta", "oranzova", "cierna"};
+        for (int i = 0; i < pocet; i++) {
+            this.poleFiguriek[i] = new JLabel();
+            this.poleFiguriek[i].setBounds(this.getXFigurky(0), this.getYFigurky(0),
+                    this.labelStred.getWidth() / 12, this.labelStred.getHeight() / 12);
+            this.poleFiguriek[i].setIcon(new StretchIcon("obrazky/" + farby[i] + "Figurka.png"));
+            this.labelStred.add(this.poleFiguriek[i], i, 0);
+        }
     }
 
     /**
@@ -261,10 +300,11 @@ public class GUI implements ActionListener {
 
     /**
      * Presunie figurku na zadanu poziciu hracej plochy
+     * @param figurka index figurky ktoru chceme presunut
      * @param pozicia pozicia na ktoru chceme presunut figurku
      */
-    public void presunFigurku(int pozicia) {
-        this.labelFigurkaHraca.setBounds(GUI.this.getXFigurky(pozicia), GUI.this.getYFigurky(pozicia),
+    public void presunFigurku(int figurka, int pozicia) {
+        this.poleFiguriek[figurka].setBounds(GUI.this.getXFigurky(pozicia), GUI.this.getYFigurky(pozicia),
                 GUI.this.labelStred.getWidth() / 12,
                 GUI.this.labelStred.getHeight() / 12);
     }

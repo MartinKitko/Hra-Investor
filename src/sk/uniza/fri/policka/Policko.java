@@ -3,7 +3,7 @@ package sk.uniza.fri.policka;
 import sk.uniza.fri.Hrac;
 
 /**
- * Trieda Policko ktora je predkom jej potomkov
+ * Abstraktna rieda Policko ktora je predkom jej potomkov
  *
  * @author Martin Kitko
  * @version 18.5.2021

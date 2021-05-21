@@ -25,6 +25,7 @@ public class Hra {
     public Hra(int pocetHracov, int pocetPocitacov) {
         this.hraciaPlocha = new HraciaPlocha();
         this.zoznamHracov = new Hrac[pocetHracov];
+        GUI.getInstancia().vytvorFigurky(pocetHracov);
 
         for (int i = 0; i < pocetHracov; i++) {
             if (i < pocetPocitacov) {
@@ -91,7 +92,7 @@ public class Hra {
             novaPozicia = staraPozicia + hodKockou;
         }
         hrac.nastavPoziciu(novaPozicia);
-        GUI.getInstancia().presunFigurku(novaPozicia);
+        GUI.getInstancia().presunFigurku(this.aktHrac, novaPozicia);
         System.out.println("\nPosun z " + staraPozicia + " o " + hodKockou + " na " + novaPozicia);
     }
 
