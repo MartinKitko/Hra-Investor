@@ -231,6 +231,7 @@ public class GUI implements ActionListener {
      * @param pocet pocet figuriek ktore chceme vytvorit
      */
     public void vytvorFigurky(int pocet) {
+        this.vymazFigurky();
         this.poleFiguriek = new JLabel[pocet];
         String[] farby = {"cervena", "zelena", "modra", "zlta", "oranzova", "cierna"};
         for (int i = 0; i < pocet; i++) {
@@ -243,6 +244,17 @@ public class GUI implements ActionListener {
     }
 
     /**
+     * Vymaze (skryje) zobrazene figurky pokial uz nejake existuju
+     */
+    private void vymazFigurky() {
+        if (this.poleFiguriek[0] != null) {
+            for (JLabel jLabel : this.poleFiguriek) {
+                jLabel.setVisible(false);
+            }
+        }
+    }
+
+    /**
      * Vrati novu X-ovu suradnicu figurky podla zadanej pozicie na hracej ploche
      * @param pozicia pozicia na hracej ploche na ktoru chceme figurku posunut
      * @return nova X-ova suradnica figurky
@@ -250,17 +262,17 @@ public class GUI implements ActionListener {
     private int getXFigurky(double pozicia) {
         int sirka = this.labelStred.getWidth();
         int vyska = this.labelStred.getHeight();
-        int sirkaObrazka = (int)(vyska * 1.4079646);
+        int sirkaObrazka = (int)(vyska * 1.4079646 * 0.91);
         double nasobok;
 
-        if (pozicia <= 12) {
-            nasobok = pozicia / 12;
+        if (pozicia < 12) {
+            nasobok = pozicia / 13;
         } else if (pozicia <= 20) {
-            nasobok = 0.9;
-        } else if (pozicia <= 32) {
-            nasobok = 1 - (pozicia - 20) / 12;
+            nasobok = 0.95;
+        } else if (pozicia < 31) {
+            nasobok = 1 - (pozicia - 19) / 13;
         } else {
-            nasobok = 0.02;
+            nasobok = -0.05;
         }
 
         if (sirka / (double)vyska > 1.4079646) {
@@ -278,17 +290,17 @@ public class GUI implements ActionListener {
     private int getYFigurky(double pozicia) {
         int sirka = this.labelStred.getWidth();
         int vyska = this.labelStred.getHeight();
-        int vyskaObrazka = (int)(sirka / 1.4079646);
+        int vyskaObrazka = (int)(sirka / 1.4079646 * 0.91);
         double nasobok;
 
         if (pozicia <= 12) {
             nasobok = 0.9;
-        } else if (pozicia <= 20) {
-            nasobok = (pozicia - 12) / 12;
+        } else if (pozicia < 20) {
+            nasobok = (1 - (pozicia - 10) / 11);
         } else if (pozicia <= 32) {
             nasobok = 0.02;
         } else {
-            nasobok = 1 - (pozicia - 32) / 12;
+            nasobok = (pozicia - 31) / 11;
         }
 
         if (sirka / (double)vyska > 1.4079646) {
