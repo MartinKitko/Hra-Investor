@@ -54,6 +54,17 @@ public class Agentura extends Policko implements IPredatelny {
     }
 
     /**
+     * Metoda z interface IPredatelny ktora vykona predaj agentury
+     * @param hrac konkretny hrac pre ktoreho sa vykonava tato metoda
+     * @return v tejto triede vzdy vrati true
+     */
+    public boolean predaj(Hrac hrac) {
+        hrac.pridajPeniaze(CENA);
+        this.majitel = null;
+        return true;
+    }
+
+    /**
      * Vypise na obrazovku poplatky pri vlastneni jednej alebo dvoch agentur
      */
     private void zobrazInfo() {
@@ -91,17 +102,6 @@ public class Agentura extends Policko implements IPredatelny {
             sprava = "Na zakupenie tejto agentury nemas dostatok penazi";
         }
         return sprava;
-    }
-
-    /**
-     * Metoda z interface IPredatelny ktora vykona predaj agentury
-     * @param hrac konkretny hrac pre ktoreho sa vykonava tato metoda
-     * @return v tejto triede vzdy vrati true
-     */
-    public boolean predaj(Hrac hrac) {
-        hrac.pridajPeniaze(CENA);
-        this.majitel = null;
-        return true;
     }
 
     /**

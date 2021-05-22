@@ -55,6 +55,17 @@ public class Preprava extends Policko implements IPredatelny {
     }
 
     /**
+     * Metoda z interface IPredatelny ktora vykona predaj prepravy
+     * @param hrac konkretny hrac pre ktoreho sa vykonava tato metoda
+     * @return v tejto triede vzdy vrati true
+     */
+    public boolean predaj(Hrac hrac) {
+        hrac.pridajPeniaze(CENA);
+        this.majitel = null;
+        return true;
+    }
+
+    /**
      * Vypise na obrazovku poplatky pri vlastneni rozneho poctu preprav
      */
     private void zobrazInfo() {
@@ -95,17 +106,6 @@ public class Preprava extends Policko implements IPredatelny {
             sprava = "Na zakupenie tejto prepravy nemas dostatok penazi";
         }
         return sprava;
-    }
-
-    /**
-     * Metoda z interface IPredatelny ktora vykona predaj prepravy
-     * @param hrac konkretny hrac pre ktoreho sa vykonava tato metoda
-     * @return v tejto triede vzdy vrati true
-     */
-    public boolean predaj(Hrac hrac) {
-        hrac.pridajPeniaze(CENA);
-        this.majitel = null;
-        return true;
     }
 
     /**

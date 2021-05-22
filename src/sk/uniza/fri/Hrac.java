@@ -95,7 +95,7 @@ public class Hrac {
     }
 
     /**
-     * Vrati pocet vlastnenych policok podla typu policka zadaneho ako parameter
+     * Pretazena metoda ktora vrati pocet vlastnenych policok podla typu policka zadaneho ako parameter
      * @param policko policko ktoreho typu chceme zistit pocet
      * @return pocet vlastnenych policok
      */

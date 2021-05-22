@@ -1,8 +1,5 @@
 package sk.uniza.fri;
 
-import com.gilecode.yagson.YaGson;
-import com.gilecode.yagson.YaGsonBuilder;
-
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -31,12 +28,7 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.PrintStream;
-import java.io.PrintWriter;
-import java.lang.reflect.Modifier;
-import java.util.Scanner;
 
 /**
  * Trieda GUI s navrhovym vzorom Singleton ktora predstavuje graficke pouzivatelske rozhranie hry
@@ -150,6 +142,7 @@ public class GUI implements ActionListener {
         this.txfPeniaze = new JTextField();
         this.txfPeniaze.setPreferredSize(new Dimension(100, 20));
         this.txfPeniaze.setEditable(false);
+        // TODO pridat farbu
 
         this.pnlHornyPanel = new JPanel();
         this.pnlHornyPanel.setLayout(new BoxLayout(this.pnlHornyPanel, BoxLayout.PAGE_AXIS));
@@ -194,10 +187,10 @@ public class GUI implements ActionListener {
         this.labelStred.setOpaque(true);
         this.labelStred.setBounds(0, 0, 1000, 800);
 
-        StretchIcon image2 = new StretchIcon("obrazky/hraciaPlocha.jpg");
+        StretchIcon imgHraciaPlocha = new StretchIcon("obrazky/hraciaPlocha.jpg");
         JLabel hraciaP = new JLabel();
         hraciaP.setBounds(0, 0, this.labelStred.getWidth(), this.labelStred.getHeight());
-        hraciaP.setIcon(image2);
+        hraciaP.setIcon(imgHraciaPlocha);
         this.labelStred.add(hraciaP, 0, 0);
         this.poleFiguriek = new JLabel[2];
 
@@ -224,101 +217,6 @@ public class GUI implements ActionListener {
         this.okno.setLocationRelativeTo(null);
         this.okno.setVisible(true);
         this.okno.validate();
-    }
-
-    /**
-     * Vytvori a inicializuje pole figuriek - JLabel s ikonou
-     * @param pocet pocet figuriek ktore chceme vytvorit
-     */
-    public void vytvorFigurky(int pocet) {
-        this.vymazFigurky();
-        this.poleFiguriek = new JLabel[pocet];
-        String[] farby = {"cervena", "zelena", "modra", "zlta", "oranzova", "cierna"};
-        for (int i = 0; i < pocet; i++) {
-            this.poleFiguriek[i] = new JLabel();
-            this.poleFiguriek[i].setBounds(this.getXFigurky(0), this.getYFigurky(0),
-                    this.labelStred.getWidth() / 12, this.labelStred.getHeight() / 12);
-            this.poleFiguriek[i].setIcon(new StretchIcon("obrazky/" + farby[i] + "Figurka.png"));
-            this.labelStred.add(this.poleFiguriek[i], i, 0);
-        }
-    }
-
-    /**
-     * Vymaze (skryje) zobrazene figurky pokial uz nejake existuju
-     */
-    private void vymazFigurky() {
-        if (this.poleFiguriek[0] != null) {
-            for (JLabel jLabel : this.poleFiguriek) {
-                jLabel.setVisible(false);
-            }
-        }
-    }
-
-    /**
-     * Vrati novu X-ovu suradnicu figurky podla zadanej pozicie na hracej ploche
-     * @param pozicia pozicia na hracej ploche na ktoru chceme figurku posunut
-     * @return nova X-ova suradnica figurky
-     */
-    private int getXFigurky(double pozicia) {
-        int sirka = this.labelStred.getWidth();
-        int vyska = this.labelStred.getHeight();
-        int sirkaObrazka = (int)(vyska * 1.4079646 * 0.91);
-        double nasobok;
-
-        if (pozicia < 12) {
-            nasobok = pozicia / 13;
-        } else if (pozicia <= 20) {
-            nasobok = 0.95;
-        } else if (pozicia < 31) {
-            nasobok = 1 - (pozicia - 19) / 13;
-        } else {
-            nasobok = -0.05;
-        }
-
-        if (sirka / (double)vyska > 1.4079646) {
-            return (int)(((sirka - sirkaObrazka) / 2) + sirkaObrazka * nasobok);
-        } else {
-            return (int)(sirka * nasobok);
-        }
-    }
-
-    /**
-     * Vrati novu Y-ovu suradnicu figurky podla zadanej pozicie na hracej ploche
-     * @param pozicia pozicia na hracej ploche na ktoru chceme figurku posunut
-     * @return nova Y-ova suradnica figurky
-     */
-    private int getYFigurky(double pozicia) {
-        int sirka = this.labelStred.getWidth();
-        int vyska = this.labelStred.getHeight();
-        int vyskaObrazka = (int)(sirka / 1.4079646 * 0.91);
-        double nasobok;
-
-        if (pozicia <= 12) {
-            nasobok = 0.9;
-        } else if (pozicia < 20) {
-            nasobok = (1 - (pozicia - 10) / 11);
-        } else if (pozicia <= 32) {
-            nasobok = 0.02;
-        } else {
-            nasobok = (pozicia - 31) / 11;
-        }
-
-        if (sirka / (double)vyska > 1.4079646) {
-            return (int)(vyska * nasobok);
-        } else {
-            return (int)(((vyska - vyskaObrazka) / 2) + vyskaObrazka * nasobok);
-        }
-    }
-
-    /**
-     * Presunie figurku na zadanu poziciu hracej plochy
-     * @param figurka index figurky ktoru chceme presunut
-     * @param pozicia pozicia na ktoru chceme presunut figurku
-     */
-    public void presunFigurku(int figurka, int pozicia) {
-        this.poleFiguriek[figurka].setBounds(GUI.this.getXFigurky(pozicia), GUI.this.getYFigurky(pozicia),
-                GUI.this.labelStred.getWidth() / 12,
-                GUI.this.labelStred.getHeight() / 12);
     }
 
     /**
@@ -357,7 +255,60 @@ public class GUI implements ActionListener {
     }
 
     /**
-     * Vytvori novu hru
+     * Presunie figurku na zadanu poziciu hracej plochy
+     * @param figurka index figurky ktoru chceme presunut
+     * @param pozicia pozicia na ktoru chceme presunut figurku
+     */
+    public void presunFigurku(int figurka, int pozicia) {
+        this.poleFiguriek[figurka].setBounds(GUI.this.getXFigurky(pozicia), GUI.this.getYFigurky(pozicia),
+                GUI.this.labelStred.getWidth() / 12,
+                GUI.this.labelStred.getHeight() / 12);
+    }
+
+    /**
+     * Zobrazi dialogove okno s textom zadanym ako parameter
+     * @param sprava text ktory sa zobrazi hracovi
+     * @param nazov nazov okna ktore sa zobrazi
+     * @param zobrazInfo zobrazenie tretieho tlacitka na zobrazenie informacii o podniku
+     * @return konkretna celociselna hodnota volby hraca
+     */
+    public int zobrazMoznosti(String sprava, String nazov, boolean zobrazInfo) {
+        String[] moznosti;
+        if (zobrazInfo) {
+            moznosti = new String[]{"Ano", "Nie", "Zobraz info"};
+        } else {
+            moznosti = new String[]{"Ano", "Nie"};
+        }
+
+        return JOptionPane.showOptionDialog(null, sprava, nazov, JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null, moznosti, moznosti[1]);
+    }
+
+    /**
+     * Umozni hracovi predat jedno z jeho vlastnenych policok
+     */
+    public void predajPolicka() {
+        Hrac hrac = this.hra.getAktHrac();
+        int cisloPolicka;
+        String cisloPolickaString = JOptionPane.showInputDialog("Zadaj cislo policka na predaj: ");
+        if (cisloPolickaString == null) {
+            return;
+        }
+        try {
+            cisloPolicka = Integer.parseInt(cisloPolickaString);
+            if (cisloPolicka > 0 && cisloPolicka <= hrac.getPocetVlastnenych()) {
+                System.out.println(hrac.predajPolicko(cisloPolicka));
+                this.txfPeniaze.setText("" + this.hra.getAktHrac().getPeniaze());
+            } else {
+                System.out.println("Policko so zadanym cislom neexistuje");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Je potrebne zadat cislo");
+        }
+    }
+
+    /**
+     * Vytvori novu hru s poctom hracov ktore zada pouzivatel
      */
     private void vytvorNovuHru() {
         this.vypisovanieDoTextovehoPola();
@@ -400,6 +351,7 @@ public class GUI implements ActionListener {
 
         System.out.println("Nova hra");
 
+        this.vytvorFigurky(pocetHracov);
         this.hra = new Hra(pocetHracov, pocetPocitacov);
         this.pripravNaHru();
     }
@@ -415,6 +367,103 @@ public class GUI implements ActionListener {
 
         this.txfHrac.setText(this.hra.getAktHrac().getMeno());
         this.txfPeniaze.setText("" + this.hra.getAktHrac().getPeniaze());
+    }
+
+    /**
+     * Vytvori a inicializuje pole figuriek - JLabel s ikonou
+     * @param pocet pocet figuriek ktore chceme vytvorit
+     */
+    private void vytvorFigurky(int pocet) {
+        this.vymazFigurky();
+        this.poleFiguriek = new JLabel[pocet];
+        String[] farby = {"cervena", "zelena", "modra", "zlta", "oranzova", "cierna"};
+        for (int i = 0; i < pocet; i++) {
+            this.poleFiguriek[i] = new JLabel();
+            this.poleFiguriek[i].setBounds(this.getXFigurky(0), this.getYFigurky(0),
+                    this.labelStred.getWidth() / 12, this.labelStred.getHeight() / 12);
+            this.poleFiguriek[i].setIcon(new StretchIcon("obrazky/" + farby[i] + "Figurka.png"));
+            this.labelStred.add(this.poleFiguriek[i], i, 0);
+        }
+    }
+
+    /**
+     * Vykona hod kockou pokial sa hra este neskoncila
+     */
+    private void vykonajHodKockou() {
+        if (!this.hra.koniecHry()) {
+            this.hra.tah();
+            this.txfHrac.setText(this.hra.getAktHrac().getMeno());
+            this.txfPeniaze.setText("" + this.hra.getAktHrac().getPeniaze());
+        } else {
+            this.btnHodKockou.setEnabled(false);
+        }
+    }
+
+    /**
+     * Vymaze (skryje) zobrazene figurky pokial uz nejake existuju
+     */
+    private void vymazFigurky() {
+        if (this.poleFiguriek[0] != null) {
+            for (JLabel jLabel : this.poleFiguriek) {
+                jLabel.setVisible(false);
+            }
+        }
+    }
+
+    /**
+     * Vrati novu X-ovu suradnicu figurky podla zadanej pozicie na hracej ploche
+     * @param pozicia pozicia na hracej ploche na ktoru chceme figurku posunut
+     * @return nova X-ova suradnica figurky
+     */
+    private int getXFigurky(double pozicia) {
+        int sirka = this.labelStred.getWidth();
+        int vyska = this.labelStred.getHeight();
+        int sirkaObrazka = (int)(vyska * 1.4079646 * 0.91);
+        double nasobok;
+
+        if (pozicia < 12) {
+            nasobok = pozicia / 13;
+        } else if (pozicia <= 20) {
+            nasobok = 0.95;
+        } else if (pozicia < 32) {
+            nasobok = 1 - (pozicia - 19) / 13;
+        } else {
+            nasobok = -0.05;
+        }
+
+        if (sirka / (double)vyska > 1.4079646) {
+            return (int)(((sirka - sirkaObrazka) / 2) + sirkaObrazka * nasobok);
+        } else {
+            return (int)(sirka * nasobok);
+        }
+    }
+
+    /**
+     * Vrati novu Y-ovu suradnicu figurky podla zadanej pozicie na hracej ploche
+     * @param pozicia pozicia na hracej ploche na ktoru chceme figurku posunut
+     * @return nova Y-ova suradnica figurky
+     */
+    private int getYFigurky(double pozicia) {
+        int sirka = this.labelStred.getWidth();
+        int vyska = this.labelStred.getHeight();
+        int vyskaObrazka = (int)(sirka / 1.4079646 * 0.91);
+        double nasobok;
+
+        if (pozicia <= 12) {
+            nasobok = 0.9;
+        } else if (pozicia < 20) {
+            nasobok = (1 - (pozicia - 10) / 11);
+        } else if (pozicia <= 32) {
+            nasobok = 0.02;
+        } else {
+            nasobok = (pozicia - 31) / 11;
+        }
+
+        if (sirka / (double)vyska > 1.4079646) {
+            return (int)(vyska * nasobok);
+        } else {
+            return (int)(((vyska - vyskaObrazka) / 2) + vyskaObrazka * nasobok);
+        }
     }
 
     /**
@@ -450,19 +499,6 @@ public class GUI implements ActionListener {
     }
 
     /**
-     * Vykona hod kockou pokial sa hra este neskoncila
-     */
-    private void vykonajHodKockou() {
-        if (!this.hra.koniecHry()) {
-            this.hra.tah();
-            this.txfHrac.setText(this.hra.getAktHrac().getMeno());
-            this.txfPeniaze.setText("" + this.hra.getAktHrac().getPeniaze());
-        } else {
-            this.btnHodKockou.setEnabled(false);
-        }
-    }
-
-    /**
      * Vypis na obrazovku vlastnene policka aktualneho hraca
      */
     private void vypisVlastnenePolicka() {
@@ -470,114 +506,23 @@ public class GUI implements ActionListener {
     }
 
     /**
-     * Umozni hracovi predat jedno z jeho vlastnenych policok
-     */
-    public void predajPolicka() {
-        Hrac hrac = this.hra.getAktHrac();
-        int cisloPolicka;
-        String cisloPolickaString = JOptionPane.showInputDialog("Zadaj cislo policka na predaj: ");
-        if (cisloPolickaString == null) {
-            return;
-        }
-        try {
-            cisloPolicka = Integer.parseInt(cisloPolickaString);
-            if (cisloPolicka > 0 && cisloPolicka <= hrac.getPocetVlastnenych()) {
-                System.out.println(hrac.predajPolicko(cisloPolicka));
-                this.txfPeniaze.setText("" + this.hra.getAktHrac().getPeniaze());
-            } else {
-                System.out.println("Policko so zadanym cislom neexistuje");
-            }
-        } catch (NumberFormatException e) {
-            System.out.println("Je potrebne zadat cislo");
-        }
-    }
-
-    /**
-     * Zobrazi dialogove okno s textom zadanym ako parameter
-     * @param sprava text ktory sa zobrazi hracovi
-     * @param nazov nazov okna ktore sa zobrazi
-     * @param zobrazInfo zobrazenie tretieho tlacitka na zobrazenie informacii o podniku
-     * @return konkretna celociselna hodnota volby hraca
-     */
-    public int zobrazMoznosti(String sprava, String nazov, boolean zobrazInfo) {
-        String[] moznosti;
-        if (zobrazInfo) {
-            moznosti = new String[]{"Ano", "Nie", "Zobraz info"};
-        } else {
-            moznosti = new String[]{"Ano", "Nie"};
-        }
-
-        return JOptionPane.showOptionDialog(null, sprava, nazov, JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE, null, moznosti, moznosti[1]);
-    }
-
-    /**
      * Nacita hru zo suboru
      */
     private void nacitajHru() {
-        String nacitanySuborString = "";
-        File nacitanySubor = this.nacitajSubor();
-        if (nacitanySubor == null) {
-            return;
+        this.vypisovanieDoTextovehoPola();
+        this.hra = SpravcaSuborov.nacitajHru();
+        if (this.hra != null) {
+            this.vytvorFigurky(this.hra.getPocetHracov());
+            this.pripravNaHru();
+            System.out.println("\nHra bola uspesne nacitana!");
         }
-        try (Scanner citac = new Scanner(nacitanySubor)) {
-            nacitanySuborString = citac.nextLine();
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
-            this.nacitajHru();
-        } finally {
-            if (!nacitanySuborString.equals("")) {
-                this.vypisovanieDoTextovehoPola();
-                YaGson mapper = new YaGson();
-                this.hra = mapper.fromJson(nacitanySuborString, Hra.class);
-            }
-        }
-        this.pripravNaHru();
-        System.out.println("\nHra bola uspesne nacitana!");
     }
 
     /**
      * Ulozi hru do suboru
      */
     private void ulozHru() {
-        PrintWriter zapisovac = null;
-        YaGson mapper = new YaGsonBuilder()
-                .excludeFieldsWithModifiers(Modifier.TRANSIENT)
-                .serializeNulls()
-                .setVersion(1.0)
-                .create();
-        String json = mapper.toJson(this.hra, Hra.class);
-        File nacitanySubor = this.nacitajSubor();
-        if (nacitanySubor == null) {
-            return;
-        }
-        try {
-            zapisovac = new PrintWriter(nacitanySubor);
-            zapisovac.println(json);
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            if (zapisovac != null) {
-                zapisovac.close();
-            }
-        }
-        System.out.println("Hra bola uspesne ulozena!");
-    }
-
-    /**
-     * Vrati nacitany subor pre nacitanie alebo ulozenie hry
-     * @return nacitany subor
-     */
-    private File nacitajSubor() {
-        String nazovSuboru;
-        do {
-            nazovSuboru = JOptionPane.showInputDialog(null, "Zadaj nazov suboru bez pripony",
-                    "Nazov suboru", JOptionPane.QUESTION_MESSAGE);
-            if (nazovSuboru == null) {
-                return null;
-            }
-        } while (nazovSuboru.equals(""));
-        return new File("ulozeneHry/" + nazovSuboru + ".txt");
+        SpravcaSuborov.ulozHru(this.hra);
     }
 
     /**

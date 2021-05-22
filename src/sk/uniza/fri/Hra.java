@@ -25,7 +25,6 @@ public class Hra {
     public Hra(int pocetHracov, int pocetPocitacov) {
         this.hraciaPlocha = new HraciaPlocha();
         this.zoznamHracov = new Hrac[pocetHracov];
-        GUI.getInstancia().vytvorFigurky(pocetHracov);
 
         for (int i = 0; i < pocetHracov; i++) {
             if (i < pocetPocitacov) {
@@ -62,14 +61,19 @@ public class Hra {
     public void tah() {
         Hrac hrac = this.zoznamHracov[this.aktHrac];
         this.posunHraca(hrac);
+        int poziciaHraca = hrac.getAktPozicia();
 
-        Policko aktPolicko = this.hraciaPlocha.getPolicko(hrac.getAktPozicia());
+        Policko aktPolicko = this.hraciaPlocha.getPolicko(poziciaHraca);
         System.out.println(hrac.getMeno() + " skocil na policko " + aktPolicko);
         System.out.println("Peniaze: " + hrac.getPeniaze());
 
+        GUI.getInstancia().presunFigurku(this.aktHrac, poziciaHraca);
         String sprava = this.hraciaPlocha.vykonaj(hrac);
         if (!sprava.equals("")) {
             System.out.println(sprava);
+        }
+        if (poziciaHraca != hrac.getAktPozicia()) {
+            GUI.getInstancia().presunFigurku(this.aktHrac, hrac.getAktPozicia());
         }
         this.dalsiHrac();
         this.pocetTahov++;
@@ -92,7 +96,6 @@ public class Hra {
             novaPozicia = staraPozicia + hodKockou;
         }
         hrac.nastavPoziciu(novaPozicia);
-        GUI.getInstancia().presunFigurku(this.aktHrac, novaPozicia);
         System.out.println("\nPosun z " + staraPozicia + " o " + hodKockou + " na " + novaPozicia);
     }
 
@@ -123,6 +126,14 @@ public class Hra {
      */
     public Hrac getAktHrac() {
         return this.zoznamHracov[this.aktHrac];
+    }
+
+    /**
+     * Vrati pocet hracov
+     * @return pocet hracov
+     */
+    public int getPocetHracov() {
+        return this.zoznamHracov.length;
     }
 
     /**

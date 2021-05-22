@@ -99,6 +99,33 @@ public class Podnik extends Policko implements IPredatelny {
     }
 
     /**
+     * Metoda z interface IPredatelny ktora vykona predaj podniku
+     * @param hrac konkretny hrac pre ktoreho sa vykonava tato metoda
+     * @return hodnota boolean na zaklade toho ci sa predal podnik (true) alebo iba pobocka (false)
+     */
+    public boolean predaj(Hrac hrac) {
+        if (this.pocetPobociek == 0) {
+            hrac.pridajPeniaze(this.cena);
+            this.majitel = null;
+            return true;
+        } else if (this.maKoncern) {
+            int volba = hrac.zobrazMoznosti("Tento podnik ma koncern, chces ho predat za " + this.cena * 2 + "?", "Predaj koncernu", false);
+            if (volba == 1) {
+                this.maKoncern = false;
+                hrac.pridajPeniaze(this.cena * 2);
+            }
+        } else {
+            int volba = hrac.zobrazMoznosti("Tento podnik ma " + this.pocetPobociek + " pobocku/pobocky, chces jednu predat za " + this.cena + "?",
+                    "Predaj pobocky", false);
+            if (volba == 1) {
+                this.pocetPobociek--;
+                hrac.pridajPeniaze(this.cena);
+            }
+        }
+        return false;
+    }
+
+    /**
      * Vypise na obrazovku poplatky pri vlastneni rozneho poctu pobociek
      */
     private void zobrazInfo() {
@@ -209,33 +236,6 @@ public class Podnik extends Policko implements IPredatelny {
             return poplatok + 500;
         }
         return poplatok;
-    }
-
-    /**
-     * Metoda z interface IPredatelny ktora vykona predaj podniku
-     * @param hrac konkretny hrac pre ktoreho sa vykonava tato metoda
-     * @return hodnota boolean na zaklade toho ci sa predal podnik (true) alebo iba pobocka (false)
-     */
-    public boolean predaj(Hrac hrac) {
-        if (this.pocetPobociek == 0) {
-            hrac.pridajPeniaze(this.cena);
-            this.majitel = null;
-            return true;
-        } else if (this.maKoncern) {
-            int volba = hrac.zobrazMoznosti("Tento podnik ma koncern, chces ho predat za " + this.cena * 2 + "?", "Predaj koncernu", false);
-            if (volba == 1) {
-                this.maKoncern = false;
-                hrac.pridajPeniaze(this.cena * 2);
-            }
-        } else {
-            int volba = hrac.zobrazMoznosti("Tento podnik ma " + this.pocetPobociek + " pobocku/pobocky, chces jednu predat za " + this.cena + "?",
-                    "Predaj pobocky", false);
-            if (volba == 1) {
-                this.pocetPobociek--;
-                hrac.pridajPeniaze(this.cena);
-            }
-        }
-        return false;
     }
 
     /**
