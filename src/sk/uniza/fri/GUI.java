@@ -198,16 +198,7 @@ public class GUI implements ActionListener {
         this.okno.addComponentListener(new ComponentAdapter() {
             public void componentResized(ComponentEvent componentEvent) {
                 hraciaP.setBounds(0, 0, GUI.this.labelStred.getWidth(), GUI.this.labelStred.getHeight());
-                if (GUI.this.poleFigurok[0] != null) {
-                    int[] pozicie = GUI.this.hra.getPozicieHracov();
-                    for (int i = 0; i < GUI.this.poleFigurok.length; i++) {
-                        GUI.this.poleFigurok[i].setBounds(
-                                GUI.this.getXFigurky(pozicie[i]),
-                                GUI.this.getYFigurky(pozicie[i]),
-                                GUI.this.labelStred.getWidth() / 12,
-                                GUI.this.labelStred.getHeight() / 12);
-                    }
-                }
+                GUI.this.presunVsetkyFigurky();
             }
         });
 
@@ -390,6 +381,22 @@ public class GUI implements ActionListener {
     }
 
     /**
+     * Presunie vsetky figurky na ich aktualnu poziciu
+     */
+    private void presunVsetkyFigurky() {
+        if (this.poleFigurok[0] != null) {
+            int[] pozicie = this.hra.getPozicieHracov();
+            for (int i = 0; i < this.poleFigurok.length; i++) {
+                this.poleFigurok[i].setBounds(
+                        this.getXFigurky(pozicie[i]),
+                        this.getYFigurky(pozicie[i]),
+                        this.labelStred.getWidth() / 12,
+                        this.labelStred.getHeight() / 12);
+            }
+        }
+    }
+
+    /**
      * Vykona hod kockou pokial sa hra este neskoncila
      */
     private void vykonajHodKockou() {
@@ -518,6 +525,7 @@ public class GUI implements ActionListener {
         if (this.hra != null) {
             this.vytvorFigurky(this.hra.getPocetHracov());
             this.pripravNaHru();
+            this.presunVsetkyFigurky();
             System.out.println("\nHra bola uspesne nacitana!");
         }
     }
