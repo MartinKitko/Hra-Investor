@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.lang.reflect.Modifier;
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -23,6 +24,16 @@ public abstract class SpravcaSuborov {
      */
     public static Hra nacitajHru() {
         String nacitanySuborString = "";
+
+        File priecinok = new File("ulozeneHry");
+        File[] zoznamSuborov = priecinok.listFiles();
+        System.out.println("Ulozene hry:");
+        for (int i = 0; i < Objects.requireNonNull(zoznamSuborov).length; i++) {
+            if (zoznamSuborov[i].isFile()) {
+                System.out.println(zoznamSuborov[i].getName());
+            }
+        }
+
         File nacitanySubor = nacitajSubor();
         Hra hra = null;
 
