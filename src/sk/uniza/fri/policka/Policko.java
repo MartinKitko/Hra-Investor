@@ -3,10 +3,10 @@ package sk.uniza.fri.policka;
 import sk.uniza.fri.Hrac;
 
 /**
- * Abstraktna rieda Policko ktora je predkom jej potomkov
+ * Abstraktna trieda Policko ktora je predkom jej potomkov
  *
  * @author Martin Kitko
- * @version 18.5.2021
+ * @version 23.5.2021
  */
 public abstract class Policko {
     private String nazov;

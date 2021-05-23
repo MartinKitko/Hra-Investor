@@ -5,7 +5,7 @@ import sk.uniza.fri.Hrac;
 /**
  * Trieda Agentura ktora je potomkom triedy Policko a implementuje interface IPredatelny
  * @author Martin Kitko
- * @version 18.5.2021
+ * @version 22.5.2021
  */
 public class Agentura extends Policko implements IPredatelny {
     private static final int CENA = 30000;

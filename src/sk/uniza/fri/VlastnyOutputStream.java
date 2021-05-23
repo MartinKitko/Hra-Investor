@@ -8,7 +8,7 @@ import java.io.OutputStream;
  * Sluzi na presunutie textoveho vystupu z terminalu do textoveho pola
  *
  * @author Martin Kitko
- * @version 18.5.2021
+ * @version 22.5.2021
  */
 public class VlastnyOutputStream extends OutputStream {
     private JTextArea textovePole;

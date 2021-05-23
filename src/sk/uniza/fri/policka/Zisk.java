@@ -1,12 +1,13 @@
 package sk.uniza.fri.policka;
 
 import sk.uniza.fri.Hrac;
+import java.util.Random;
 
 /**
  * Trieda Zisk ktora je potomkom triedy Policko
  *
  * @author Martin Kitko
- * @version 18.5.2021
+ * @version 23.5.2021
  */
 public class Zisk extends Policko {
     private int aktKarta;
@@ -17,7 +18,8 @@ public class Zisk extends Policko {
      */
     public Zisk(String nazov) {
         super(nazov);
-        this.aktKarta = 1;
+        Random generator = new Random();
+        this.aktKarta = generator.nextInt(9) + 1;
     }
 
     /**

@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"sk.uniza.fri"},{"l":"sk.uniza.fri.policka"}];updateSearchResults();

@@ -11,9 +11,10 @@ import java.lang.reflect.Modifier;
 import java.util.Scanner;
 
 /**
- * 1. 4. 2021 - 17:09
+ * Trieda SpravcaSuborov ktora sluzi na ukladanie hry a nacitanie hry zo suboru
  *
  * @author Martin Kitko
+ * @version 23.5.2021
  */
 public abstract class SpravcaSuborov {
 

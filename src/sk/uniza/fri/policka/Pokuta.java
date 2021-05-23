@@ -3,10 +3,10 @@ package sk.uniza.fri.policka;
 import sk.uniza.fri.Hrac;
 
 /**
- * Treida pokuta ktora je potomkom triedy policko
+ * Trieda pokuta ktora je potomkom triedy Policko
  *
  * @author Martin Kitko
- * @version 18.5.2021
+ * @version 23.5.2021
  */
 public class Pokuta extends Policko {
 

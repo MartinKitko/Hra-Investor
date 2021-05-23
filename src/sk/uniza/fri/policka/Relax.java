@@ -7,7 +7,7 @@ import sk.uniza.fri.TypHraca;
  * Trieda Relax ktora je potomkom triedy Policko
  *
  * @author Martin Kitko
- * @version 18.5.2021
+ * @version 23.5.2021
  */
 public class Relax extends Policko {
 
@@ -32,18 +32,18 @@ public class Relax extends Policko {
             return "Stojis jedno kolo";
         }
 
-        if (hrac.getPeniaze() > 20000) {
-            int volba = hrac.zobrazMoznosti("Chces zaplatit 20 000 aby si nemusel stat jedno kolo?", "Relax", false);
+        if (hrac.getPeniaze() > 2000) {
+            int volba = hrac.zobrazMoznosti("Chces zaplatit 2 000 aby si nemusel stat jedno kolo?", "Relax", false);
 
             if (volba == 0) {
-                sprava = "Zaplatil si 20 000";
-                hrac.odoberPeniaze(20000);
+                sprava = "Zaplatil si 2 000";
+                hrac.odoberPeniaze(2000);
             } else {
                 sprava = "Stojis jedno kolo";
                 hrac.doVazenia(1);
             }
         } else {
-            sprava = "Nemas 20 000 na zaplatenie, stojis jedno kolo";
+            sprava = "Nemas 2 000 na zaplatenie, stojis jedno kolo";
             hrac.doVazenia(1);
         }
         return sprava;

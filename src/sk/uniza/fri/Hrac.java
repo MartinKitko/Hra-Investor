@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Trieda Hrac ktora predstavuje hraca hry
  *
  * @author Martin Kitko
- * @version 18.5.2021
+ * @version 22.5.2021
  */
 public class Hrac {
     private String meno;
@@ -62,12 +62,16 @@ public class Hrac {
      * @return String obsahujuci nazov policiek ktore hrac vlastni
      */
     public String dajVlastnenePolicka() {
-        StringBuilder vlastnene = new StringBuilder();
-        vlastnene.append(this.meno).append(" vlastni tieto policka:");
-        for (int i = 0; i < this.vlastnenePolicka.size(); i++) {
-            vlastnene.append("\n").append(i + 1).append(". ").append(this.vlastnenePolicka.get(i));
+        if (this.vlastnenePolicka.size() == 0) {
+            return this.meno + " nevlastni ziadne policka";
+        } else {
+            StringBuilder vlastnene = new StringBuilder();
+            vlastnene.append(this.meno).append(" vlastni tieto policka:");
+            for (int i = 0; i < this.vlastnenePolicka.size(); i++) {
+                vlastnene.append("\n").append(i + 1).append(". ").append(this.vlastnenePolicka.get(i));
+            }
+            return vlastnene.toString();
         }
-        return vlastnene.toString();
     }
 
     /**

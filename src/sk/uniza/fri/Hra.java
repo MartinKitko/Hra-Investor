@@ -8,7 +8,7 @@ import java.util.Random;
  * Trieda Hra ktora riadi samotnu hru
  *
  * @author Martin Kitko
- * @version 18.5.2021
+ * @version 22.5.2021
  */
 public class Hra {
     private HraciaPlocha hraciaPlocha;
@@ -126,6 +126,26 @@ public class Hra {
      */
     public Hrac getAktHrac() {
         return this.zoznamHracov[this.aktHrac];
+    }
+
+    /**
+     * Vrati cislo hraca ktory je aktualne na tahu
+     * @return cislo hraca ktory je na tahu
+     */
+    public int getCisloAktHraca() {
+        return this.aktHrac;
+    }
+
+    /**
+     * Vrati pozicie vsetkych hracov
+     * @return pole pozicii vsetkych hracov
+     */
+    public int[] getPozicieHracov() {
+        int[] pozicie = new int[this.pocetHracov];
+        for (int i = 0; i < this.pocetHracov; i++) {
+            pozicie[i] = this.zoznamHracov[i].getAktPozicia();
+        }
+        return pozicie;
     }
 
     /**

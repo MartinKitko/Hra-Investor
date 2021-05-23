@@ -1,12 +1,13 @@
 package sk.uniza.fri.policka;
 
 import sk.uniza.fri.Hrac;
+import java.util.Random;
 
 /**
  * Trieda Riziko ktora je potomkom triedy Policko
  *
  * @author Martin Kitko
- * @version 18.5.2021
+ * @version 23.5.2021
  */
 public class Riziko extends Policko {
     private int aktKarta;
@@ -17,7 +18,8 @@ public class Riziko extends Policko {
      */
     public Riziko(String nazov) {
         super(nazov);
-        this.aktKarta = 1;
+        Random generator = new Random();
+        this.aktKarta = generator.nextInt(9) + 1;
     }
 
     /**

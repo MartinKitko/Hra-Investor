@@ -6,7 +6,7 @@ import sk.uniza.fri.Hrac;
  * Trieda Podnik ktora je potomkom triedy Policko a implementuje interface IPredatelny
  *
  * @author Martin Kitko
- * @version 18.5.2021
+ * @version 22.5.2021
  */
 public class Podnik extends Policko implements IPredatelny {
     private int cena;
