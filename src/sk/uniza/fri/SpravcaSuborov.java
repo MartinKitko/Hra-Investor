@@ -25,15 +25,7 @@ public abstract class SpravcaSuborov {
     public static Hra nacitajHru() {
         String nacitanySuborString = "";
 
-        File priecinok = new File("ulozeneHry");
-        File[] zoznamSuborov = priecinok.listFiles();
-        System.out.println("Ulozene hry:");
-        for (int i = 0; i < Objects.requireNonNull(zoznamSuborov).length; i++) {
-            if (zoznamSuborov[i].isFile()) {
-                System.out.println(zoznamSuborov[i].getName());
-            }
-        }
-
+        vypisSubory();
         File nacitanySubor = nacitajSubor();
         Hra hra = null;
 
@@ -64,6 +56,8 @@ public abstract class SpravcaSuborov {
                 .setVersion(1.0)
                 .create();
         String json = mapper.toJson(hra, Hra.class);
+
+        vypisSubory();
         File nacitanySubor = nacitajSubor();
         if (nacitanySubor == null) {
             return;
@@ -95,5 +89,19 @@ public abstract class SpravcaSuborov {
             }
         } while (nazovSuboru.equals(""));
         return new File("ulozeneHry/" + nazovSuboru + ".txt");
+    }
+
+    /**
+     * Vypise vsetky uz ulozene hry v priecinku ulozeneHry
+     */
+    private static void vypisSubory() {
+        File priecinok = new File("ulozeneHry");
+        File[] zoznamSuborov = priecinok.listFiles();
+        System.out.println("\nUlozene hry:");
+        for (int i = 0; i < Objects.requireNonNull(zoznamSuborov).length; i++) {
+            if (zoznamSuborov[i].isFile()) {
+                System.out.println(zoznamSuborov[i].getName());
+            }
+        }
     }
 }
