@@ -1,9 +1,8 @@
 <component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="Investor:jar">
+  <artifact type="jar" name="Investor:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/Investor_jar</output-path>
     <root id="archive" name="Investor.jar">
       <element id="module-output" name="Investor" />
-      <element id="library" level="project" name="gson-2.8.6" />
       <element id="extracted-dir" path="$PROJECT_DIR$/yagson-0.5.1.jar" path-in-jar="/" />
     </root>
   </artifact>

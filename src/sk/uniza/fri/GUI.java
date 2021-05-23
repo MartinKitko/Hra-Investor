@@ -387,11 +387,7 @@ public class GUI implements ActionListener {
         if (this.poleFigurok[0] != null) {
             int[] pozicie = this.hra.getPozicieHracov();
             for (int i = 0; i < this.poleFigurok.length; i++) {
-                this.poleFigurok[i].setBounds(
-                        this.getXFigurky(pozicie[i]),
-                        this.getYFigurky(pozicie[i]),
-                        this.labelStred.getWidth() / 12,
-                        this.labelStred.getHeight() / 12);
+                this.presunFigurku(i, pozicie[i]);
             }
         }
     }
@@ -445,7 +441,7 @@ public class GUI implements ActionListener {
         if (sirka / (double)vyska > 1.4079646) {
             return (int)(((sirka - sirkaObrazka) / 2) + sirkaObrazka * nasobok);
         } else {
-            return (int)(sirka * nasobok);
+            return (int)(sirka * nasobok * 0.91 + 40);
         }
     }
 
