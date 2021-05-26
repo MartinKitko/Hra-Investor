@@ -51,7 +51,7 @@ public class Zisk extends Policko {
                 hrac.pridajPeniaze(50000);
             }
             case 3 -> {
-                sprava = "Banky investovali do tvojich podnikov. Z banky dostanec 100 000";
+                sprava = "Banky investovali do tvojich podnikov. Z banky dostanes 100 000";
                 hrac.pridajPeniaze(100000);
             }
             case 4 -> {
